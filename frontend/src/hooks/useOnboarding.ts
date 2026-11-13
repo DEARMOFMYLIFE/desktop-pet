@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { errorMessage } from '../lib/errorMessage';
 import { api } from '../lib/ipc';
-import { preloadAllSkins, preloadSkinStates } from '../lib/character/preload';
+import { preloadSkinStates } from '../lib/character/preload';
 import { resolveLocale, setLocale, t } from '../lib/i18n';
 import type { Language, Settings } from '../types';
 
@@ -14,10 +14,6 @@ export function useOnboarding() {
   const [permission, setPermission] = useState('unknown');
   const [loadError, setLoadError] = useState('');
   const [saveError, setSaveError] = useState('');
-
-  useEffect(() => {
-    preloadAllSkins();
-  }, []);
 
   useEffect(() => {
     if (!settings) return;

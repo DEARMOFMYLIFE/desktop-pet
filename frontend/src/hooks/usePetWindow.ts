@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { errorMessage } from '../lib/errorMessage';
 import { api } from '../lib/ipc';
-import { preloadAllSkins, preloadSkinStates } from '../lib/character/preload';
+import { preloadSkinStates } from '../lib/character/preload';
 import { resolveLocale, setLocale, t } from '../lib/i18n';
 import type { PetSnapshot, Settings } from '../types';
 
@@ -16,8 +16,15 @@ export function usePetWindow() {
   const reactTimerRef = useRef<number | null>(null);
   const hintTimerRef = useRef<number | null>(null);
 
-  useEffect(() => {
-    preloadAllSkins();
+  const refreshSettings = useCallback(() => {
+    void api
+      .getSettings()
+      .then((next) => {
+        setSettings(next);
+        setLocale(resolveLocale(next.language));
+        setHint(t('pet.hint'));
+      })
+      .catch((error: unknown) => console.error('settings refresh failed', error));
   }, []);
 
   useEffect(() => {
@@ -65,6 +72,13 @@ export function usePetWindow() {
     api
       .on<{ enabled: boolean }>('pet:click_through', ({ enabled }) => {
         setSettings((previous) => (previous ? { ...previous, clickThrough: enabled } : previous));
+        setHint(t(enabled ? 'pet.ghostOn' : 'pet.ghostOff'));
+        setShowHint(true);
+        if (hintTimerRef.current !== null) window.clearTimeout(hintTimerRef.current);
+        hintTimerRef.current = window.setTimeout(() => setShowHint(false), 1800);
+        // The native toggle already persisted the value; read it back so a
+        // late duplicate event cannot leave the pet in the old visual state.
+        refreshSettings();
       })
       .then(keep);
     api
@@ -76,19 +90,13 @@ export function usePetWindow() {
       disposed = true;
       unlisteners.forEach((unlisten) => unlisten());
     };
-  }, []);
+  }, [refreshSettings]);
 
   useEffect(() => {
     hintTimerRef.current = window.setTimeout(() => setShowHint(false), 3600);
     return () => {
       if (hintTimerRef.current !== null) window.clearTimeout(hintTimerRef.current);
-    };
-  }, []);
-
-  useEffect(() => {
-    return () => {
       if (reactTimerRef.current !== null) window.clearTimeout(reactTimerRef.current);
-      if (hintTimerRef.current !== null) window.clearTimeout(hintTimerRef.current);
     };
   }, []);
 
@@ -98,6 +106,7 @@ export function usePetWindow() {
         .petSnapshot()
         .then((snapshot) => setPetState(snapshot.state))
         .catch((error: unknown) => console.error('pet refresh failed', error));
+      refreshSettings();
     };
     const onVisibility = () => {
       if (!document.hidden) refresh();
@@ -108,7 +117,7 @@ export function usePetWindow() {
       window.removeEventListener('focus', refresh);
       document.removeEventListener('visibilitychange', onVisibility);
     };
-  }, []);
+  }, [refreshSettings]);
 
   const reduceMotion =
     settings?.reduceMotion === 'on' ||

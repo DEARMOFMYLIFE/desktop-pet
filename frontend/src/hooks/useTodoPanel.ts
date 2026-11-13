@@ -38,7 +38,18 @@ export function useTodoPanel(notify?: (message: string) => void) {
   };
 
   useEffect(() => {
-    load();
+    let cancelled = false;
+    void api
+      .todoList()
+      .then((next) => {
+        if (!cancelled) setTodos(next);
+      })
+      .catch((reason: unknown) => {
+        if (!cancelled) setError(errorMessage(reason, t('error.generic')));
+      });
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const deferredQuery = useDeferredValue(query.trim().toLowerCase());

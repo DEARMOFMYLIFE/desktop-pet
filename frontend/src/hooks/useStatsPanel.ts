@@ -10,13 +10,22 @@ export function useStatsPanel() {
   const [error, setError] = useState('');
 
   useEffect(() => {
+    let cancelled = false;
+    setError('');
     void api
       .statsQuery(range)
-      .then(setStats)
+      .then((next) => {
+        if (!cancelled) setStats(next);
+      })
       .catch((reason: unknown) => {
-        console.error('stats failed', reason);
-        setError(errorMessage(reason, t('error.generic')));
+        if (!cancelled) {
+          console.error('stats failed', reason);
+          setError(errorMessage(reason, t('error.generic')));
+        }
       });
+    return () => {
+      cancelled = true;
+    };
   }, [range]);
 
   const max = useMemo(

@@ -31,6 +31,10 @@
     @apply text-xs font-semibold text-muted;
   }
 
+  .bubble-close {
+    @apply h-6 w-6 leading-none;
+  }
+
   .bubble-time {
     @apply mt-0.5 text-[30px] font-bold tracking-[-0.03em] tabular-nums;
   }
@@ -56,7 +60,8 @@
   }
 
   .bubble-chip {
-    @apply min-w-7 tabular-nums;
+    @apply min-w-7 px-2 text-[11px] tabular-nums;
+    line-height: 22px;
   }
 
   .bubble-chip:hover {

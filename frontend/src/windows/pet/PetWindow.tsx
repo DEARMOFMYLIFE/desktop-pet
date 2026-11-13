@@ -1,8 +1,6 @@
-import { Lock } from 'lucide-react';
 import { ErrorPane } from '../../components/ui/ErrorPane';
 import { LoadingPane } from '../../components/ui/LoadingPane';
 import { usePetWindow } from '../../hooks/usePetWindow';
-import { t } from '../../lib/i18n';
 import { PetStage } from './PetStage';
 import './pet.css';
 
@@ -56,11 +54,6 @@ export function PetWindow() {
         onDragEnd={handleDragEnd}
       />
       {showHint && <div className="pet-hint">{hint}</div>}
-      {settings.clickThrough && (
-        <div className="pet-badge" aria-label={t('pet.clickThroughOn')}>
-          <Lock aria-hidden="true" size={11} strokeWidth={2.2} />
-        </div>
-      )}
     </div>
   );
 }

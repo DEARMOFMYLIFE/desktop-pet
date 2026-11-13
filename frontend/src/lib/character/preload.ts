@@ -1,6 +1,5 @@
 import type { PetSkin } from '../../types';
 import type { SpriteManifest } from '../animation/manifest';
-import { PET_SKIN_IDS } from '../petSkins';
 import { characterAssetUrl, fetchCharacterManifest } from './api';
 
 const manifestCache = new Map<PetSkin, SpriteManifest>();
@@ -8,7 +7,6 @@ const pendingManifests = new Map<PetSkin, Promise<SpriteManifest>>();
 const loadedImages = new Set<string>();
 const imageCache = new Map<string, HTMLImageElement>();
 const pendingImages = new Map<string, Promise<string | null>>();
-const idlePreloaded = new Set<PetSkin>();
 const statesPreloaded = new Set<PetSkin>();
 
 export function getCachedManifest(skin: PetSkin): SpriteManifest | null {
@@ -77,21 +75,6 @@ export function loadImage(url: string, fallbackUrl?: string | null): Promise<str
   return request;
 }
 
-export function preloadSkinIdle(skin: PetSkin): void {
-  if (idlePreloaded.has(skin)) return;
-  idlePreloaded.add(skin);
-  void loadManifest(skin)
-    .then((manifest) => {
-      const config = manifest.states.idle;
-      if (!config) return;
-      void loadImage(
-        characterAssetUrl(skin, config.file),
-        config.fallback ? characterAssetUrl(skin, config.fallback) : null,
-      );
-    })
-    .catch((error: unknown) => console.warn('sprite idle preload failed', skin, error));
-}
-
 export function preloadSkinStates(skin: PetSkin): void {
   if (statesPreloaded.has(skin)) return;
   statesPreloaded.add(skin);
@@ -105,9 +88,4 @@ export function preloadSkinStates(skin: PetSkin): void {
       }
     })
     .catch((error: unknown) => console.warn('sprite state preload failed', skin, error));
-}
-
-/** Preload every skin's idle sheet so skin switching is instant. */
-export function preloadAllSkins(): void {
-  for (const skin of PET_SKIN_IDS) preloadSkinIdle(skin);
 }
