@@ -1,6 +1,6 @@
 {
   "app": {
-    "name": "小驻",
+    "name": "凪",
     "tagline": "桌边的小小陪伴"
   },
   "common": {
@@ -54,7 +54,7 @@
     "done": "时间到"
   },
   "settings": {
-    "title": "小驻 设置",
+    "title": "凪 设置",
     "subtitle": "设置",
     "tabs": {
       "general": "通用",
@@ -79,7 +79,7 @@
       "languageEn": "English",
       "alwaysOnTop": "始终置顶",
       "clickThrough": "点击穿透",
-      "clickThroughHint": "开启后小人不会挡住鼠标；用托盘恢复。",
+      "clickThroughHint": "开启后可爱陪伴不会挡住鼠标；用托盘恢复。",
       "petSize": "角色尺寸",
       "sizeS": "小",
       "sizeM": "中",
@@ -194,7 +194,7 @@
       "reduceOff": "关闭",
       "skin": "角色皮肤",
       "defaultSkin": "默认角色",
-      "skinHint": "选择一个小人；所有动作会同步切换。",
+      "skinHint": "选择一个可爱陪伴；所有动作会同步切换。",
       "skins": {
         "honey": "蜂蜜",
         "cream": "奶油",
@@ -277,11 +277,11 @@
     "step": "第 {n} 步，共 3 步",
     "welcomeTitle": "欢迎来到{name}",
     "welcomeBody": "我会在桌边陪着你，也会帮你专注。",
-    "nameLabel": "给小人起个名字（可选）",
-    "namePlaceholder": "小驻",
+    "nameLabel": "给你的可爱陪伴起个名字（可选）",
+    "namePlaceholder": "凪",
     "preferencesTitle": "先认识一下你的习惯",
     "language": "界面语言",
-    "autostart": "开机时自动启动小驻",
+    "autostart": "开机时自动启动凪",
     "autostartHint": "可以随时在设置里关闭。",
     "notifications": "允许通知",
     "notificationsHint": "计时结束和提醒会通过系统通知找到你。",

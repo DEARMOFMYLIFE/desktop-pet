@@ -52,9 +52,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tagName: ${{ github.ref_name }}
-          releaseName: "XiaoZhu ${{ github.ref_name }}"
+          releaseName: "Nagi ${{ github.ref_name }}"
           releaseBody: |
-            XiaoZhu desktop companion — unsigned builds.
+            Nagi desktop companion — unsigned builds.
 
             - Windows: NSIS / MSI
             - macOS: DMG (x64 and arm64)

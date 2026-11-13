@@ -8,7 +8,7 @@ use crate::windows;
 #[tauri::command]
 pub fn app_info(app: AppHandle) -> AppInfo {
     AppInfo {
-        name: "小驻".into(),
+        name: "凪".into(),
         version: app.package_info().version.to_string(),
         platform: std::env::consts::OS.into(),
     }

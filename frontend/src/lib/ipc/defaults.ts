@@ -2,7 +2,7 @@ import type { Settings } from '../../types';
 
 export const DEFAULT_SETTINGS: Settings = {
   language: 'system',
-  petName: '小驻',
+  petName: '凪',
   petSize: 'M',
   petSkin: 'coral',
   appIcon: 'clock',

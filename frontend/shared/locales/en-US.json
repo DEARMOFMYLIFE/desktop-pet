@@ -1,6 +1,6 @@
 {
   "app": {
-    "name": "XiaoZhu",
+    "name": "Nagi",
     "tagline": "A little companion by your desk"
   },
   "common": {
@@ -54,7 +54,7 @@
     "done": "Time's up"
   },
   "settings": {
-    "title": "XiaoZhu Settings",
+    "title": "Nagi Settings",
     "subtitle": "Settings",
     "tabs": {
       "general": "General",
@@ -278,10 +278,10 @@
     "welcomeTitle": "Welcome to {name}",
     "welcomeBody": "I'll stay by your desk and help you focus.",
     "nameLabel": "Name your companion (optional)",
-    "namePlaceholder": "XiaoZhu",
+    "namePlaceholder": "Nagi",
     "preferencesTitle": "A couple of preferences",
     "language": "Language",
-    "autostart": "Launch XiaoZhu at startup",
+    "autostart": "Launch Nagi at startup",
     "autostartHint": "You can turn this off in settings anytime.",
     "notifications": "Allow notifications",
     "notificationsHint": "Timer endings and reminders will reach you through system notifications.",

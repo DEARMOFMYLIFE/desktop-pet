@@ -103,7 +103,7 @@ export const PetStage = memo(function PetStage({
       }}
       role="button"
       tabIndex={0}
-      aria-label="小驻"
+      aria-label="凪"
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={endPointer}

@@ -65,7 +65,7 @@ export function useOnboarding() {
     try {
       await api.updateSettings({
         ...settings,
-        petName: settings.petName.trim() || '小驻',
+        petName: settings.petName.trim() || '凪',
         firstRun: false,
       });
       await api.closeWindow('onboarding');

@@ -1,8 +1,8 @@
 [package]
 name = "xiaozhu"
 version = "0.1.0"
-description = "小驻 XiaoZhu — desktop companion and focus assistant"
-authors = ["XiaoZhu contributors"]
+description = "凪 Nagi — desktop companion and focus assistant"
+authors = ["Nagi contributors"]
 edition = "2021"
 rust-version = "1.77"
 

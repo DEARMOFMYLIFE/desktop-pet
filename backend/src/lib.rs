@@ -167,7 +167,7 @@ pub fn run() {
             commands::todo_reorder,
         ])
         .run(tauri::generate_context!())
-        .expect("error while running XiaoZhu");
+        .expect("error while running Nagi");
 }
 
 fn init_logging() {

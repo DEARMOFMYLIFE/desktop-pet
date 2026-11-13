@@ -20,7 +20,7 @@ fn clean_name(pet_name: &str) -> String {
     let name = pet_name.replace(['\n', '\r'], " ");
     let name = name.trim();
     if name.is_empty() {
-        "小驻".into()
+        "凪".into()
     } else {
         name.to_string()
     }
@@ -30,7 +30,7 @@ pub fn display_name(app: &AppHandle) -> String {
     app.state::<AppState>()
         .snapshot()
         .map(|settings| clean_name(&settings.pet_name))
-        .unwrap_or_else(|_| "小驻".into())
+        .unwrap_or_else(|_| "凪".into())
 }
 
 pub fn apply_brand_name(app: &AppHandle, pet_name: &str) {

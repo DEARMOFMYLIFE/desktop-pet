@@ -35,11 +35,11 @@ if [[ "$MODE" == "--dev" ]]; then
   if [[ -n "$NATIVE_BINARY" && -n "$NATIVE_LIBDIR" ]]; then
     EXEC="/usr/bin/env XIAOZHU_NATIVE_BINARY=$NATIVE_BINARY XIAOZHU_NATIVE_LIBDIR=$NATIVE_LIBDIR $ROOT/scripts/launch-desktop.sh"
   fi
-  NAME="小驻"
+  NAME="凪"
 else
   EXEC="xiaozhu"
   ICON="xiaozhu"
-  NAME="小驻"
+  NAME="凪"
 fi
 
 TMP_FILE="$(mktemp)"
@@ -50,24 +50,31 @@ cat >"$TMP_FILE" <<EOF
 Type=Application
 Version=1.0
 Name=$NAME
-Name[en]=XiaoZhu
+Name[en]=Nagi
 GenericName=Desktop companion
-Comment=桌面陪伴小人 · 番茄钟 · 健康提醒
+Comment=可爱陪伴 · 番茄钟 · 健康提醒
 Comment[en]=Desktop companion, pomodoro and wellness reminders
 Exec=$EXEC
 Icon=$ICON
 Terminal=false
 Categories=Utility;
-Keywords=pomodoro;focus;timer;companion;小驻;番茄钟;
+Keywords=pomodoro;focus;timer;companion;凪;番茄钟;
 StartupNotify=true
-StartupWMClass=XiaoZhu
+StartupWMClass=Xiaozhu
 EOF
 
 install -Dm644 "$TMP_FILE" "$APPS_DIR/com.xiaozhu.app.desktop"
 
+LEGACY_DESKTOP="$DESKTOP_DIR/小驻.desktop"
+if [[ -f "$LEGACY_DESKTOP" && ! -f "$DESKTOP_DIR/Nagi.desktop" ]]; then
+  mv -f "$LEGACY_DESKTOP" "$DESKTOP_DIR/Nagi.desktop" || true
+elif [[ -f "$LEGACY_DESKTOP" ]]; then
+  rm -f "$LEGACY_DESKTOP" || true
+fi
+
 if [[ -d "$DESKTOP_DIR" ]]; then
-  install -m755 "$TMP_FILE" "$DESKTOP_DIR/小驻.desktop"
-  gio set "$DESKTOP_DIR/小驻.desktop" metadata::trusted true 2>/dev/null || true
+  install -m755 "$TMP_FILE" "$DESKTOP_DIR/Nagi.desktop"
+  gio set "$DESKTOP_DIR/Nagi.desktop" metadata::trusted true 2>/dev/null || true
 fi
 
 update-desktop-database "$APPS_DIR" >/dev/null 2>&1 || true
@@ -75,5 +82,5 @@ desktop-file-validate "$APPS_DIR/com.xiaozhu.app.desktop" || true
 
 echo "installed: $APPS_DIR/com.xiaozhu.app.desktop"
 if [[ -d "$DESKTOP_DIR" ]]; then
-  echo "desktop:   $DESKTOP_DIR/小驻.desktop"
+  echo "desktop:   $DESKTOP_DIR/Nagi.desktop"
 fi

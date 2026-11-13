@@ -11,6 +11,13 @@ use crate::types::{PetSnapshot, ReminderRow, Settings, TimerSnapshot};
 
 /// Map legacy skin ids to the new 16-skin catalog so existing installs
 /// keep working after the character pack was replaced.
+fn normalize_pet_name(name: &mut String) {
+    let trimmed = name.trim();
+    if trimmed == "小驻" || trimmed.eq_ignore_ascii_case("xiaozhu") || trimmed.is_empty() {
+        *name = "凪".into();
+    }
+}
+
 fn normalize_pet_skin(skin: &mut String) {
     let next = match skin.as_str() {
         "female-person" => "coral",
@@ -50,6 +57,11 @@ impl AppState {
             })
             .unwrap_or_default();
         normalize_pet_skin(&mut settings.pet_skin);
+        let previous_name = settings.pet_name.clone();
+        normalize_pet_name(&mut settings.pet_name);
+        if settings.pet_name != previous_name {
+            db.set_setting("settings", &serde_json::to_string(&settings)?)?;
+        }
 
         let (mood, energy) = db.load_pet_state()?;
         let (timer, timer_expired) =

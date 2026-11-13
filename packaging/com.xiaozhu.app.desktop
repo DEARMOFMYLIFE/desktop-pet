@@ -1,15 +1,15 @@
 [Desktop Entry]
 Type=Application
 Version=1.0
-Name=小驻
-Name[en]=XiaoZhu
+Name=凪
+Name[en]=Nagi
 GenericName=Desktop companion
-Comment=桌面陪伴小人 · 番茄钟 · 健康提醒
+Comment=可爱陪伴 · 番茄钟 · 健康提醒
 Comment[en]=Desktop companion, pomodoro and wellness reminders
 Exec=xiaozhu
 Icon=xiaozhu
 Terminal=false
 Categories=Utility;
-Keywords=pomodoro;focus;timer;companion;小驻;番茄钟;
+Keywords=pomodoro;focus;timer;companion;凪;番茄钟;
 StartupNotify=true
-StartupWMClass=XiaoZhu
+StartupWMClass=Xiaozhu

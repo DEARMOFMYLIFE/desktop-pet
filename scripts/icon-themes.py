@@ -1,4 +1,4 @@
-"""Generate XiaoZhu's app icon themes (original flat art, MIT).
+"""Generate Nagi's app icon themes (original flat art, MIT).
 
 Themes: clock (default), star, moon, coffee, sun, leaf, heart, cloud, book, flower.
 Outputs:

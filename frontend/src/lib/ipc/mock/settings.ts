@@ -4,7 +4,7 @@ import { DEFAULT_SETTINGS } from '../defaults';
 const MOCK_KEY = 'xiaozhu.settings';
 
 export const MOCK_APP: AppInfo = {
-  name: '小驻',
+  name: '凪',
   version: '0.1.0',
   platform: 'browser',
 };

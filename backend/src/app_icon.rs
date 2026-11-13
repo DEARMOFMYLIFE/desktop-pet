@@ -134,13 +134,7 @@ fn update_linux_desktop(value: &str, data: &[u8]) -> std::io::Result<()> {
     // Keep a stable path for notification daemons.
     fs::write(icon_dir.join("app-icon.png"), data)?;
 
-    let mut entries = vec![data_home.join("applications/com.xiaozhu.app.desktop")];
-    if let Some(desktop) = dirs::desktop_dir() {
-        entries.push(desktop.join("小驻.desktop"));
-    }
-    entries.push(home.join("Desktop/小驻.desktop"));
-    entries.sort();
-    entries.dedup();
+    let entries = crate::desktop_brand::desktop_entries();
 
     for path in entries {
         if path.exists() {

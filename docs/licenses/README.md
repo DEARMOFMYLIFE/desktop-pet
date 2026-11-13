@@ -19,7 +19,7 @@ Required fields per asset:
 | Name | Author | Source | License | Modifications |
 |---|---|---|---|---|
 | Cute Girl - Free Sprites | pzUH | https://opengameart.org/content/cute-girl-free-sprites | CC0 1.0 | 16 palette variants, 11 action states, custom sit/focus/sleep/droop poses, 200×200 |
-| XiaoZhu app icon themes | XiaoZhu contributors | `scripts/icon-themes.py` | MIT | Original clock / star / moon / coffee icons, tray variants and brand logos |
+| Nagi app icon themes | Nagi contributors | `scripts/icon-themes.py` | MIT | Original clock / star / moon / coffee icons, tray variants and brand logos |
 
 Rules:
 

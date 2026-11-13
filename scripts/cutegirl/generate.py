@@ -1,4 +1,4 @@
-"""Build XiaoZhu character assets from the CC0 Cute Girl pack (pzUH)."""
+"""Build Nagi character assets from the CC0 Cute Girl pack (pzUH)."""
 from __future__ import annotations
 from PIL import Image, ImageDraw, ImageFilter
 import numpy as np
