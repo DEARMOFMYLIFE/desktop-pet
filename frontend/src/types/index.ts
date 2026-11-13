@@ -31,3 +31,4 @@ export type { ReminderPayload, ReminderRow } from './reminder';
 export type { DailyStat, StatsRange, StatsResult } from './stats';
 export type { DatePickerMode, DatePickerPosition } from './datePicker';
 export type { SettingsPanelProps, SettingsTab, TabId } from './settingsPanels';
+export type { AppIconDialogProps } from './appIcon';
