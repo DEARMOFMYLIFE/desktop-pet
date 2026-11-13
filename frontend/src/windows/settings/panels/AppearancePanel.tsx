@@ -45,7 +45,7 @@ export function AppearancePanel({ settings, update }: SettingsPanelProps) {
   return (
     <>
       <SettingsCard title={t('settings.appearance.skin')}>
-        <p className="muted skin-hint">{t('settings.appearance.skinHint')}</p>
+        <p className="card-description">{t('settings.appearance.skinHint')}</p>
         <div className="skin-grid">
           {SKINS.map((skin) => (
             <button
@@ -67,7 +67,7 @@ export function AppearancePanel({ settings, update }: SettingsPanelProps) {
         </div>
       </SettingsCard>
       <SettingsCard title={t('settings.appearance.appIcon')}>
-        <p className="muted icon-hint">{t('settings.appearance.appIconHint')}</p>
+        <p className="card-description">{t('settings.appearance.appIconHint')}</p>
         <div className="app-icon-row">
           <img className="app-icon-preview" src={iconSrc} alt="" decoding="async" />
           <Select
@@ -76,7 +76,7 @@ export function AppearancePanel({ settings, update }: SettingsPanelProps) {
             label={t('settings.appearance.appIcon')}
             onChange={(value) => void update({ appIcon: value })}
           />
-          <Button onClick={() => setDialogOpen(true)}>
+          <Button className="btn-control" onClick={() => setDialogOpen(true)}>
             {t('settings.appearance.addAppIcon')}
           </Button>
         </div>

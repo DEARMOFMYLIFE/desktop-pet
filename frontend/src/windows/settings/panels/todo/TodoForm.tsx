@@ -69,7 +69,7 @@ export function TodoForm({
           />
         </div>
       </div>
-      {error && <div className="todo-error">{error}</div>}
+      {error && <p className="form-error">{error}</p>}
     </div>
   );
 }

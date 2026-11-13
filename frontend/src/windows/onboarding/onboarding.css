@@ -35,12 +35,11 @@
   }
 
   .onboarding-card {
-    @apply rounded-lg border border-line bg-surface px-4 py-1;
-    box-shadow: var(--shadow-xs);
+    @apply px-4 py-1;
   }
 
-  .onboarding-main > .notice {
-    @apply mt-3.5;
+  .onboarding-shell > .notice {
+    @apply mb-2.5;
   }
 
   .onboarding-row {
@@ -81,8 +80,4 @@
 
   .onboarding-actions {
     @apply flex gap-2;
-  }
-
-  .onboarding-actions .btn {
-    @apply min-h-8 px-3 text-xs;
   }

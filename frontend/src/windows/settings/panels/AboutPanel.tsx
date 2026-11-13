@@ -39,10 +39,10 @@ export function AboutPanel({ appInfo, settings }: SettingsPanelProps) {
         <p className="privacy">{t('settings.about.privacy')}</p>
       </SettingsCard>
       <SettingsCard title={t('settings.about.licenses')}>
-        <p className="muted">{t('settings.about.licensesHint')}</p>
+        <p className="card-description">{t('settings.about.licensesHint')}</p>
       </SettingsCard>
       <SettingsCard title={t('settings.about.data')}>
-        <p className="muted about-data-hint">{t('settings.about.dataHint')}</p>
+        <p className="card-description">{t('settings.about.dataHint')}</p>
         <div className="button-row about-data-actions">
           <Button onClick={openDataFolder}>{t('settings.about.openDataFolder')}</Button>
           <Button variant="danger" onClick={requestClearData}>

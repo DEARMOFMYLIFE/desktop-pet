@@ -26,8 +26,8 @@
   "pet": {
     "hint": "Double-click for settings · right-click for more",
     "click": "Hehe, that tickles.",
-    "ghostOn": "Ghost mode: I won't get in your way.",
-    "ghostOff": "Ghost mode is off."
+    "ghostOn": "Click-through is on: I won't get in your way.",
+    "ghostOff": "Click-through is off."
   },
   "bubble": {
     "title": "Focusing",
@@ -50,7 +50,6 @@
     "todoDone": "Complete task",
     "presets": "Quick timer (minutes)",
     "countUpAction": "Count up",
-    "m0": "M2 uses the real timer",
     "done": "Time's up"
   },
   "settings": {
@@ -79,7 +78,7 @@
       "languageEn": "English",
       "alwaysOnTop": "Always on top",
       "clickThrough": "Click-through",
-      "clickThroughHint": "The companion won't block your mouse. Restore it from the tray.",
+      "clickThroughHint": "The character won't block your mouse. Restore it from the tray.",
       "petSize": "Character size",
       "sizeS": "Small",
       "sizeM": "Medium",
@@ -105,8 +104,7 @@
       "presets": "Timer presets",
       "presetPlaceholder": "Minutes",
       "addPreset": "Add",
-      "removePreset": "Remove preset",
-      "m2": "M2"
+      "removePreset": "Remove preset"
     },
     "reminders": {
       "title": "Reminders",
@@ -127,7 +125,7 @@
       "snooze": "Snooze",
       "snooze5": "5 min",
       "snooze10": "10 min",
-      "footer": "Reminders show a system notification and make the companion wave; ack or snooze from the bubble."
+      "footer": "Reminders show a system notification and make the character wave; acknowledge or snooze from the bubble."
     },
     "todos": {
       "title": "Tasks",
@@ -140,8 +138,6 @@
       "add": "Add task",
       "edit": "Edit",
       "delete": "Delete",
-      "save": "Save",
-      "cancel": "Cancel",
       "titlePlaceholder": "What needs doing?",
       "notePlaceholder": "Note (optional)",
       "due": "Due",
@@ -194,7 +190,7 @@
       "reduceOff": "Off",
       "skin": "Character skin",
       "defaultSkin": "Default character",
-      "skinHint": "Pick a companion; all action sheets switch together.",
+      "skinHint": "Choose a character skin; all action sheets switch together.",
       "skins": {
         "honey": "Honey",
         "cream": "Cream",
@@ -213,7 +209,6 @@
         "snow": "Snow",
         "sunny": "Sunny"
       },
-      "later": "Later",
       "appIcon": "App icon",
       "appIconHint": "Choose the icon used on the desktop, tray and windows",
       "iconClock": "Clock",
@@ -246,7 +241,7 @@
       "description": "Click a shortcut to record a new one; include a modifier",
       "focus": "Start / pause focus",
       "clickThrough": "Click-through",
-      "toggleVisible": "Show / hide companion",
+      "toggleVisible": "Show / hide character",
       "enabled": "Active",
       "hint": "Click a shortcut, then press the new combination. Conflicts keep the old value.",
       "recording": "Press a key combination…",
@@ -292,7 +287,7 @@
     "shortcutsHint": "Global shortcuts are enabled; see Settings for details.",
     "shortcutFocus": "Start / pause focus",
     "shortcutGhost": "Click-through",
-    "shortcutVisible": "Show / hide companion",
+    "shortcutVisible": "Show / hide character",
     "finish": "Get started",
     "skip": "Skip onboarding",
     "back": "Back",

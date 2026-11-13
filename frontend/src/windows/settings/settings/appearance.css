@@ -7,8 +7,7 @@
   }
 
   .stats-card {
-    @apply flex flex-col gap-0.5 rounded-lg border border-line bg-surface p-3;
-    box-shadow: var(--shadow-xs);
+    @apply flex flex-col gap-0.5 p-3;
   }
 
   .stats-card strong {
@@ -39,37 +38,12 @@
     @apply whitespace-nowrap;
   }
 
-  .empty .btn {
-    @apply mt-2;
-  }
-
-  .chip-row {
-    @apply flex flex-wrap gap-2;
-  }
-
-  .chip {
-    @apply inline-flex h-6 items-center rounded-md border border-line bg-surface px-2.5 text-xs text-muted transition-colors duration-150;
-  }
-
-  .icon-hint {
-    @apply -mt-1.5 mb-3 text-xs;
-  }
-
   .app-icon-row {
     @apply flex items-center gap-3;
   }
 
-  .app-icon-row .btn {
-    @apply h-9;
-    line-height: 34px;
-  }
-
   .app-icon-preview {
     @apply h-10 w-10 rounded-md border border-line bg-surface-muted object-contain p-0.5;
-  }
-
-  .skin-hint {
-    @apply -mt-1.5 mb-3 text-xs;
   }
 
   .skin-grid {
@@ -108,11 +82,6 @@
     @apply border-b-0;
   }
 
-  kbd {
-    @apply inline-block whitespace-nowrap rounded-[6px] border border-b-2 border-line bg-surface-muted px-2 text-center font-mono text-[11px] text-muted;
-    line-height: 19px;
-  }
-
   .shortcut-recorder {
     @apply block h-8 min-w-[150px] whitespace-nowrap rounded-sm border border-line bg-surface-muted px-3 text-center font-mono text-[11px] text-ink;
     line-height: 30px;
@@ -124,10 +93,6 @@
 
   .shortcut-recorder.is-recording {
     @apply border-accent bg-accent-soft text-accent;
-  }
-
-  .notice-error {
-    @apply border-danger text-danger;
   }
 
   .about-card {
@@ -160,11 +125,6 @@
 
   .privacy {
     @apply m-0 text-xs leading-relaxed text-muted;
-  }
-
-
-  .about-data-hint {
-    @apply mb-0;
   }
 
   .about-data-actions {

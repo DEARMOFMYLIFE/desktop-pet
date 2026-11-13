@@ -1,29 +1,31 @@
-import { Keyboard } from 'lucide-react';
-import { Notice } from '../../../components/settings/Notice';
+import { Card } from '../../../components/ui/Card';
+import { formatShortcut } from '../../../lib/format';
 import { t } from '../../../lib/i18n';
+import type { ShortcutSettings } from '../../../types';
 
-const SHORTCUTS = [
-  ['onboarding.shortcutFocus', 'Ctrl + Alt + P'],
-  ['onboarding.shortcutGhost', 'Ctrl + Alt + X'],
-  ['onboarding.shortcutVisible', 'Ctrl + Alt + H'],
+const SHORTCUT_LABELS = [
+  ['onboarding.shortcutFocus', 'focus'],
+  ['onboarding.shortcutGhost', 'clickThrough'],
+  ['onboarding.shortcutVisible', 'toggleVisible'],
 ] as const;
 
-export function StepShortcuts() {
+interface StepShortcutsProps {
+  shortcuts: ShortcutSettings;
+}
+
+export function StepShortcuts({ shortcuts }: StepShortcutsProps) {
   return (
     <>
       <h1>{t('onboarding.shortcutsTitle')}</h1>
       <p className="onboarding-lead">{t('onboarding.shortcutsHint')}</p>
-      <div className="onboarding-card">
-        {SHORTCUTS.map(([labelKey, keys]) => (
+      <Card className="onboarding-card">
+        {SHORTCUT_LABELS.map(([labelKey, action]) => (
           <div className="onboarding-shortcut" key={labelKey}>
             <span>{t(labelKey)}</span>
-            <kbd>{keys}</kbd>
+            <kbd>{formatShortcut(shortcuts[action])}</kbd>
           </div>
         ))}
-      </div>
-      <Notice icon={<Keyboard size={14} aria-hidden="true" />}>
-        {t('onboarding.shortcutsHint')}
-      </Notice>
+      </Card>
     </>
   );
 }

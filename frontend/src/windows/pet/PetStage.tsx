@@ -1,4 +1,5 @@
 import { memo, useEffect, useRef } from 'react';
+import { t } from '../../lib/i18n';
 import type { PointerEvent as ReactPointerEvent } from 'react';
 import type { PetPoint, PetStageProps } from '../../types';
 import { useSpriteAnimation } from './useSpriteAnimation';
@@ -103,7 +104,7 @@ export const PetStage = memo(function PetStage({
       }}
       role="button"
       tabIndex={0}
-      aria-label="小柚"
+      aria-label={t('app.name')}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={endPointer}

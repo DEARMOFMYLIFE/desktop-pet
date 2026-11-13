@@ -1,3 +1,4 @@
+import { ErrorNotice } from '../../components/ui/ErrorNotice';
 import { ErrorPane } from '../../components/ui/ErrorPane';
 import { LoadingPane } from '../../components/ui/LoadingPane';
 import { useOnboarding } from '../../hooks/useOnboarding';
@@ -44,8 +45,10 @@ export function OnboardingWindow() {
             onRequestPermission={onboarding.requestPermission}
           />
         )}
-        {onboarding.step === 2 && <StepShortcuts />}
+        {onboarding.step === 2 && <StepShortcuts shortcuts={onboarding.settings.shortcuts} />}
       </main>
+
+      {onboarding.saveError && <ErrorNotice>{onboarding.saveError}</ErrorNotice>}
 
       <OnboardingFooter
         step={onboarding.step}

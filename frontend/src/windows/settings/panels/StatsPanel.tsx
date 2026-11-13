@@ -1,5 +1,4 @@
-import { AlertTriangle } from 'lucide-react';
-import { Notice } from '../../../components/settings/Notice';
+import { ErrorNotice } from '../../../components/ui/ErrorNotice';
 import { SettingsCard } from '../../../components/settings/SettingsCard';
 import { Button } from '../../../components/ui/Button';
 import { useStatsPanel } from '../../../hooks/useStatsPanel';
@@ -34,11 +33,7 @@ export function StatsPanel(_props: SettingsPanelProps) {
         </div>
       </div>
 
-      {error && (
-        <Notice className="notice-error" icon={<AlertTriangle size={14} aria-hidden="true" />}>
-          {error}
-        </Notice>
-      )}
+      {error && <ErrorNotice>{error}</ErrorNotice>}
 
       <StatsCards stats={stats} />
 

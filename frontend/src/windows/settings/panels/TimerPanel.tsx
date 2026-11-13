@@ -90,7 +90,7 @@ export function TimerPanel({ settings, update }: SettingsPanelProps) {
               <ClearButton onClick={() => timer.setPresetDraft('')} />
             )}
           </div>
-          <Button variant="primary" onClick={timer.addPreset}>
+          <Button className="btn-control" variant="primary" onClick={timer.addPreset}>
             {t('settings.timer.addPreset')}
           </Button>
         </div>

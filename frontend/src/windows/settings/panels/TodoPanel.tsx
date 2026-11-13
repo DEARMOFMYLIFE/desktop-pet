@@ -1,5 +1,4 @@
-import { AlertTriangle } from 'lucide-react';
-import { Notice } from '../../../components/settings/Notice';
+import { ErrorNotice } from '../../../components/ui/ErrorNotice';
 import { useTodoPanel } from '../../../hooks/useTodoPanel';
 import { SettingsCard } from '../../../components/settings/SettingsCard';
 import { ConfirmDialog } from '../../../components/ui/ConfirmDialog';
@@ -22,11 +21,7 @@ export function TodoPanel({ notify, settings }: SettingsPanelProps) {
         onQueryChange={todo.setQuery}
         onNew={todo.openNew}
       />
-      {todo.error && !todo.showForm && (
-        <Notice className="notice-error" icon={<AlertTriangle size={14} aria-hidden="true" />}>
-          {todo.error}
-        </Notice>
-      )}
+      {todo.error && !todo.showForm && <ErrorNotice>{todo.error}</ErrorNotice>}
 
       <TodoList
         todos={todo.visible}
@@ -43,6 +38,7 @@ export function TodoPanel({ notify, settings }: SettingsPanelProps) {
         due={todo.due}
         remind={todo.remind}
         error={todo.error}
+        saving={todo.saving}
         onTitleChange={todo.setTitle}
         onNoteChange={todo.setNote}
         onDueChange={todo.setDue}

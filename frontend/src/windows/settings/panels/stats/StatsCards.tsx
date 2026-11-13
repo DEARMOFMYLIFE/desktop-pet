@@ -1,3 +1,4 @@
+import { Card } from '../../../../components/ui/Card';
 import { t } from '../../../../lib/i18n';
 import type { StatsResult } from '../../../../types';
 
@@ -17,10 +18,10 @@ export function StatsCards({ stats }: { stats: StatsResult | null }) {
   return (
     <div className="stats-grid">
       {cards.map((card) => (
-        <div className="stats-card" key={card.label}>
+        <Card className="stats-card" key={card.label}>
           <strong>{card.value}</strong>
           <span>{card.label}</span>
-        </div>
+        </Card>
       ))}
     </div>
   );

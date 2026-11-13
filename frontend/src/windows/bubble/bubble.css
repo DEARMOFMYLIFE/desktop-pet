@@ -3,11 +3,7 @@
   }
 
   .bubble-card {
-    @apply flex h-full flex-col rounded-lg border border-line bg-surface px-3.5 pb-2.5 pt-3 shadow-soft;
-  }
-
-  .bubble-card {
-    @apply cursor-grab;
+    @apply flex h-full cursor-grab flex-col px-3.5 pb-2.5 pt-3 shadow-soft;
   }
 
   .bubble-card:active {
@@ -35,14 +31,6 @@
     @apply text-xs font-semibold text-muted;
   }
 
-  .bubble-close {
-    @apply grid h-6 w-6 place-items-center rounded-sm border-0 bg-transparent p-0 leading-none text-muted;
-  }
-
-  .bubble-close:hover {
-    @apply bg-surface-muted text-ink;
-  }
-
   .bubble-time {
     @apply mt-0.5 text-[30px] font-bold tracking-[-0.03em] tabular-nums;
   }
@@ -59,17 +47,12 @@
     @apply mt-auto flex items-center gap-2;
   }
 
-  .bubble-actions .btn {
-    @apply min-h-[30px] px-2.5 text-xs;
-  }
-
   .bubble-presets {
     @apply mt-2.5 flex flex-wrap gap-1.5;
   }
 
   .bubble-chip {
-    @apply inline-block h-6 min-w-7 rounded-md border border-line bg-surface px-2 text-center text-[11px] tabular-nums text-muted transition-colors duration-150;
-    line-height: 22px;
+    @apply min-w-7 tabular-nums;
   }
 
   .bubble-chip:hover {

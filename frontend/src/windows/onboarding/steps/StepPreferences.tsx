@@ -1,4 +1,5 @@
 import { Button } from '../../../components/ui/Button';
+import { Card } from '../../../components/ui/Card';
 import { Segmented } from '../../../components/ui/Segmented';
 import { Switch } from '../../../components/ui/Switch';
 import { t } from '../../../lib/i18n';
@@ -22,7 +23,7 @@ export function StepPreferences({
   return (
     <>
       <h1>{t('onboarding.preferencesTitle')}</h1>
-      <div className="onboarding-card">
+      <Card className="onboarding-card">
         <div className="onboarding-row">
           <span>{t('onboarding.language')}</span>
           <Segmented
@@ -60,7 +61,7 @@ export function StepPreferences({
                 : t('onboarding.allow')}
           </Button>
         </div>
-      </div>
+      </Card>
     </>
   );
 }

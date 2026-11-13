@@ -102,11 +102,6 @@
     @apply w-full;
   }
 
-  .preset-add .btn {
-    @apply h-9;
-    line-height: 34px;
-  }
-
   .todo-toolbar .btn {
     @apply h-10;
     line-height: 38px;

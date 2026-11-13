@@ -1,5 +1,6 @@
 import { Keyboard } from 'lucide-react';
-import { Notice } from '../../../components/settings/Notice';
+import { ErrorNotice } from '../../../components/ui/ErrorNotice';
+import { Notice } from '../../../components/ui/Notice';
 import { Button } from '../../../components/ui/Button';
 import { SettingsCard } from '../../../components/settings/SettingsCard';
 import { useShortcutsPanel } from '../../../hooks/useShortcutsPanel';
@@ -7,8 +8,8 @@ import { t } from '../../../lib/i18n';
 import type { SettingsPanelProps } from '../settingsTypes';
 import { ShortcutRow } from './shortcuts/ShortcutRow';
 
-export function ShortcutsPanel({ settings }: SettingsPanelProps) {
-  const shortcuts = useShortcutsPanel(settings);
+export function ShortcutsPanel({ settings, notify }: SettingsPanelProps) {
+  const shortcuts = useShortcutsPanel(settings, notify);
 
   return (
     <>
@@ -41,9 +42,7 @@ export function ShortcutsPanel({ settings }: SettingsPanelProps) {
           onError={shortcuts.setError}
         />
       </SettingsCard>
-      {shortcuts.error && (
-        <Notice className="notice-error">{shortcuts.error}</Notice>
-      )}
+      {shortcuts.error && <ErrorNotice>{shortcuts.error}</ErrorNotice>}
       <SettingsCard>
         <Button onClick={shortcuts.resetShortcuts}>
           {t('settings.shortcuts.reset')}

@@ -4,7 +4,10 @@ import { errorMessage } from '../lib/errorMessage';
 import { t } from '../lib/i18n';
 import type { Settings, ShortcutAction } from '../types';
 
-export function useShortcutsPanel(settings: Settings) {
+export function useShortcutsPanel(
+  settings: Settings,
+  notify?: (message: string) => void,
+) {
   const [focus, setFocus] = useState(settings.shortcuts.focus);
   const [clickThrough, setClickThrough] = useState(settings.shortcuts.clickThrough);
   const [toggleVisible, setToggleVisible] = useState(settings.shortcuts.toggleVisible);
@@ -37,7 +40,10 @@ export function useShortcutsPanel(settings: Settings) {
     apply(accelerator);
     void api
       .updateShortcut(action, accelerator)
-      .then(applySaved)
+      .then((saved) => {
+        applySaved(saved);
+        notify?.(t('common.saved'));
+      })
       .catch((reason: unknown) => {
         setError(errorMessage(reason, t('settings.shortcuts.conflict')));
         resetLocal();
@@ -48,7 +54,10 @@ export function useShortcutsPanel(settings: Settings) {
     setError('');
     void api
       .resetShortcuts()
-      .then(applySaved)
+      .then((saved) => {
+        applySaved(saved);
+        notify?.(t('common.saved'));
+      })
       .catch((reason: unknown) =>
         setError(errorMessage(reason, t('settings.shortcuts.conflict'))),
       );

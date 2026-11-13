@@ -110,6 +110,7 @@ export function AppIconDialog({
           <Button onClick={onClose}>{t('common.cancel')}</Button>
           <Button
             variant="primary"
+            loading={saving}
             disabled={saving || !file || !name.trim()}
             onClick={() => void save()}
           >
@@ -176,7 +177,7 @@ export function AppIconDialog({
         </div>
       </label>
 
-      {error && <p className="dialog-error">{error}</p>}
+      {error && <p className="form-error">{error}</p>}
     </Modal>
   );
 }

@@ -23,6 +23,10 @@
     @apply border-danger;
   }
 
+  .form-error {
+    @apply m-0 mt-1 text-xs leading-relaxed text-danger;
+  }
+
   .number-control {
     @apply inline-flex min-h-8 items-center gap-0.5 rounded-sm border border-line bg-surface px-1 transition-[border-color,box-shadow] duration-150;
   }

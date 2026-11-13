@@ -9,15 +9,11 @@ interface ErrorPaneProps {
 export function ErrorPane({ message, transparent = false }: ErrorPaneProps) {
   return (
     <div
-      className={`flex h-full w-full flex-col items-center justify-center gap-2 p-6 text-center ${
-        transparent ? 'bg-transparent' : 'bg-bg'
-      }`}
+      className={`pane pane-error${transparent ? ' pane-transparent' : ''}`}
       role="alert"
     >
       <AlertTriangle size={20} className="text-danger" aria-hidden="true" />
-      <p className="m-0 max-w-xs text-xs leading-relaxed text-muted">
-        {message ?? t('error.generic')}
-      </p>
+      <p>{message ?? t('error.generic')}</p>
     </div>
   );
 }

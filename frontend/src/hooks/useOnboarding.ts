@@ -13,6 +13,7 @@ export function useOnboarding() {
   const [saving, setSaving] = useState(false);
   const [permission, setPermission] = useState('unknown');
   const [loadError, setLoadError] = useState('');
+  const [saveError, setSaveError] = useState('');
 
   useEffect(() => {
     preloadAllSkins();
@@ -62,6 +63,7 @@ export function useOnboarding() {
   const finish = async () => {
     if (!settings || saving) return;
     setSaving(true);
+    setSaveError('');
     try {
       await api.updateSettings({
         ...settings,
@@ -72,6 +74,7 @@ export function useOnboarding() {
     } catch (error) {
       console.error('onboarding finish failed', error);
       setSaving(false);
+      setSaveError(errorMessage(error, t('error.generic')));
     }
   };
 
@@ -81,6 +84,7 @@ export function useOnboarding() {
     saving,
     permission,
     loadError,
+    saveError,
     patchSettings,
     setLanguage,
     requestPermission,

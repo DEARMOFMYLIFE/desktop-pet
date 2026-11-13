@@ -28,6 +28,7 @@ export function useTodoPanel(notify?: (message: string) => void) {
   const [due, setDue] = useState('');
   const [remind, setRemind] = useState('');
   const [error, setError] = useState('');
+  const [saving, setSaving] = useState(false);
 
   const load = () => {
     void api
@@ -92,6 +93,7 @@ export function useTodoPanel(notify?: (message: string) => void) {
   }, []);
 
   const save = async () => {
+    if (saving) return;
     const input: TodoInput = {
       title: title.trim(),
       note: note.trim(),
@@ -102,6 +104,7 @@ export function useTodoPanel(notify?: (message: string) => void) {
       setError(t('settings.todos.titleRequired'));
       return;
     }
+    setSaving(true);
     try {
       if (editing) {
         await api.todoUpdate(editing.id, input);
@@ -113,6 +116,8 @@ export function useTodoPanel(notify?: (message: string) => void) {
       notify?.(t('settings.todos.saved'));
     } catch (reason) {
       setError(errorMessage(reason, t('settings.todos.saveFailed')));
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -163,6 +168,7 @@ export function useTodoPanel(notify?: (message: string) => void) {
     remind,
     setRemind,
     error,
+    saving,
     visible,
     pendingDelete,
     resetForm,

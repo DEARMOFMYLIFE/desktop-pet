@@ -57,4 +57,17 @@
     @apply inline-block h-5 rounded-sm bg-accent-soft px-[7px] text-center text-[10.5px] font-[650] text-accent-ink;
     line-height: 20px;
   }
+
+  .chip-row {
+    @apply flex flex-wrap gap-2;
+  }
+
+  .chip {
+    @apply inline-flex h-6 items-center rounded-md border border-line bg-surface px-2.5 text-xs text-muted transition-colors duration-150;
+  }
+
+  kbd {
+    @apply inline-block whitespace-nowrap rounded-[6px] border border-b-2 border-line bg-surface-muted px-2 text-center font-mono text-[11px] text-muted;
+    line-height: 19px;
+  }
 }

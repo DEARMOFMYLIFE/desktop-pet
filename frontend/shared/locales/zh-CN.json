@@ -26,8 +26,8 @@
   "pet": {
     "hint": "双击打开设置 · 右键更多",
     "click": "嘿嘿，好痒。",
-    "ghostOn": "摸鱼模式：我不会挡住你。",
-    "ghostOff": "摸鱼模式已关闭。"
+    "ghostOn": "点击穿透已开启：我不会挡住你。",
+    "ghostOff": "点击穿透已关闭。"
   },
   "bubble": {
     "title": "专注中",
@@ -50,7 +50,6 @@
     "todoDone": "完成待办",
     "presets": "快速计时（分钟）",
     "countUpAction": "正计时",
-    "m0": "M2 已接入真实计时",
     "done": "时间到"
   },
   "settings": {
@@ -79,7 +78,7 @@
       "languageEn": "English",
       "alwaysOnTop": "始终置顶",
       "clickThrough": "点击穿透",
-      "clickThroughHint": "开启后可爱陪伴不会挡住鼠标；用托盘恢复。",
+      "clickThroughHint": "开启后角色不会挡住鼠标；用托盘恢复。",
       "petSize": "角色尺寸",
       "sizeS": "小",
       "sizeM": "中",
@@ -105,8 +104,7 @@
       "presets": "计时器预设",
       "presetPlaceholder": "添加分钟数",
       "addPreset": "添加",
-      "removePreset": "移除预设",
-      "m2": "M2 接入"
+      "removePreset": "移除预设"
     },
     "reminders": {
       "title": "提醒",
@@ -127,7 +125,7 @@
       "snooze": "稍后提醒",
       "snooze5": "5 分钟",
       "snooze10": "10 分钟",
-      "footer": "提醒会显示系统通知，并让小人招手；可在气泡里“知道了”或“稍后”。"
+      "footer": "提醒会显示系统通知，并让角色招手；可在气泡里“知道了”或“稍后”。"
     },
     "todos": {
       "title": "待办",
@@ -140,8 +138,6 @@
       "add": "添加待办",
       "edit": "编辑",
       "delete": "删除",
-      "save": "保存",
-      "cancel": "取消",
       "titlePlaceholder": "要做什么？",
       "notePlaceholder": "备注（可选）",
       "due": "截止",
@@ -194,7 +190,7 @@
       "reduceOff": "关闭",
       "skin": "角色皮肤",
       "defaultSkin": "默认角色",
-      "skinHint": "选择一个可爱陪伴；所有动作会同步切换。",
+      "skinHint": "选择一个角色皮肤；所有动作会同步切换。",
       "skins": {
         "honey": "蜂蜜",
         "cream": "奶油",
@@ -213,7 +209,6 @@
         "snow": "雪花",
         "sunny": "阳光"
       },
-      "later": "后续",
       "appIcon": "应用图标",
       "appIconHint": "选择桌面、托盘和窗口使用的图标",
       "iconClock": "时钟",
@@ -244,9 +239,9 @@
     "shortcuts": {
       "title": "快捷键",
       "description": "点击快捷键即可改键；至少包含一个修饰键",
-      "focus": "开始/暂停专注",
+      "focus": "开始 / 暂停专注",
       "clickThrough": "点击穿透",
-      "toggleVisible": "显示/隐藏小人",
+      "toggleVisible": "显示 / 隐藏角色",
       "enabled": "已启用",
       "hint": "点击下面的快捷键，然后按下新的组合键。冲突时会提示并保留旧值。",
       "recording": "请按下组合键…",
@@ -292,7 +287,7 @@
     "shortcutsHint": "全局快捷键已启用；可在设置中查看。",
     "shortcutFocus": "开始 / 暂停专注",
     "shortcutGhost": "点击穿透",
-    "shortcutVisible": "显示 / 隐藏小人",
+    "shortcutVisible": "显示 / 隐藏角色",
     "finish": "开始使用",
     "skip": "跳过引导",
     "back": "上一步",

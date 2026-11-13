@@ -12,6 +12,10 @@
     @apply flex h-[1.625em] shrink-0 items-center justify-center;
   }
 
+  .notice-error {
+    @apply border-danger text-danger;
+  }
+
   .dialog-overlay {
     @apply fixed inset-0 z-[220] grid place-items-center bg-black/40 p-6 backdrop-blur-[2px];
   }
@@ -57,10 +61,6 @@
     @apply flex justify-end gap-2 border-t border-line px-5 py-4;
   }
 
-  .dialog-error {
-    @apply mb-0 mt-2 text-xs leading-relaxed text-danger;
-  }
-
   .icon-upload {
     @apply flex items-center gap-4 rounded-md border border-line bg-surface-muted p-3;
   }
@@ -95,6 +95,14 @@
 
   .empty {
     @apply grid min-h-[140px] place-items-center rounded-lg border border-dashed border-line p-6 text-center text-[13px] text-muted;
+  }
+
+  .empty p {
+    @apply m-0;
+  }
+
+  .empty .btn {
+    @apply mt-2;
   }
 
 

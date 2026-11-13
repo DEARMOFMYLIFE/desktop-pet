@@ -1,9 +1,8 @@
 import { Sparkles } from 'lucide-react';
-import { Notice } from '../../../components/settings/Notice';
+import { Notice } from '../../../components/ui/Notice';
 import { SettingsCard } from '../../../components/settings/SettingsCard';
 import { SettingRow } from '../../../components/settings/SettingRow';
 import { Button } from '../../../components/ui/Button';
-import { Select } from '../../../components/ui/Select';
 import { Segmented } from '../../../components/ui/Segmented';
 import { Switch } from '../../../components/ui/Switch';
 import { useGeneralPanel } from '../../../hooks/useGeneralPanel';
@@ -35,7 +34,7 @@ export function GeneralPanel({ settings, update }: SettingsPanelProps) {
           title={t('settings.general.language')}
           hint={t('settings.general.languageHint')}
         >
-          <Select
+          <Segmented
             value={settings.language}
             options={languageOptions}
             label={t('settings.general.language')}

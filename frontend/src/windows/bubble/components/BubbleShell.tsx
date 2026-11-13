@@ -20,10 +20,10 @@ export function BubbleShell({ label, onClose, className, children }: BubbleShell
 
   return (
     <div className="bubble-root">
-      <div className={`bubble-card${className ? ` ${className}` : ''}`} onPointerDown={startDrag}>
+      <div className={`card bubble-card${className ? ` ${className}` : ''}`} onPointerDown={startDrag}>
         <div className="bubble-head">
           <span className="bubble-label">{label}</span>
-          <IconButton label={t('bubble.close')} className="bubble-close" onClick={onClose}>
+          <IconButton label={t('bubble.close')} onClick={onClose}>
             <X size={15} aria-hidden="true" />
           </IconButton>
         </div>

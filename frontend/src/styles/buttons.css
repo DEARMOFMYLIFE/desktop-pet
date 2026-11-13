@@ -1,6 +1,6 @@
 @layer components {
   .btn {
-    @apply inline-block h-8 whitespace-nowrap rounded-md border border-line bg-surface px-3 text-center align-middle text-[13px] font-medium text-ink transition-[background-color,border-color,transform,box-shadow] duration-150;
+    @apply inline-block h-8 flex-none whitespace-nowrap rounded-md border border-line bg-surface px-3 text-center align-middle text-[13px] font-medium text-ink transition-[background-color,border-color,transform,box-shadow] duration-150;
     line-height: 30px;
     box-shadow: var(--shadow-xs);
   }
@@ -8,10 +8,6 @@
   .btn-content {
     position: relative;
     top: 0;
-  }
-
-  .btn {
-    flex: none;
   }
 
   .btn svg {
@@ -88,6 +84,11 @@
   .btn-sm {
     @apply h-7 px-2 text-[11px];
     line-height: 26px;
+  }
+
+  .btn-control {
+    @apply h-9;
+    line-height: 34px;
   }
 
   .btn:disabled {

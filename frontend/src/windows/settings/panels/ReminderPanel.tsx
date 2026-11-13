@@ -1,5 +1,5 @@
 import { ArrowRight, Lightbulb } from 'lucide-react';
-import { Notice } from '../../../components/settings/Notice';
+import { Notice } from '../../../components/ui/Notice';
 import { SettingsCard } from '../../../components/settings/SettingsCard';
 import { SettingRow } from '../../../components/settings/SettingRow';
 import { Input } from '../../../components/ui/Input';
@@ -28,7 +28,6 @@ export function ReminderPanel({ settings, update }: SettingsPanelProps) {
       <SettingsCard
         title={t('settings.reminders.types')}
         description={t('settings.reminders.typesHint')}
-        descriptionClassName="reminder-hint"
       >
         {REMINDERS.map((item) => (
           <SettingRow key={item.enabledKey} title={t(item.labelKey)}>

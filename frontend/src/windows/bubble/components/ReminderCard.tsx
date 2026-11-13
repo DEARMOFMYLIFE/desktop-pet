@@ -22,11 +22,11 @@ export function ReminderCard({
     <BubbleShell label={reminder.title} onClose={onClose} className="reminder-card">
       <div className="reminder-body">{reminder.body}</div>
       <div className="bubble-actions">
-        <Button variant="primary" onClick={onAcknowledge}>
+        <Button size="sm" variant="primary" onClick={onAcknowledge}>
           {reminder.kind === 'todo' ? t('bubble.todoDone') : t('bubble.ack')}
         </Button>
         {reminder.kind !== 'todo' && (
-          <Button onClick={onSnooze}>{t('bubble.snooze', { n: snoozeMin })}</Button>
+          <Button size="sm" onClick={onSnooze}>{t('bubble.snooze', { n: snoozeMin })}</Button>
         )}
       </div>
     </BubbleShell>

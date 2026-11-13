@@ -44,12 +44,12 @@ export function TimerCard({
       </div>
 
       <div className="bubble-actions">
-        <Button variant="primary" onClick={onPrimary}>
+        <Button size="sm" variant="primary" onClick={onPrimary}>
           {primaryLabel}
         </Button>
-        {active && <Button onClick={onSkip}>{t('bubble.skip')}</Button>}
+        {active && <Button size="sm" onClick={onSkip}>{t('bubble.skip')}</Button>}
         {active && (
-          <Button variant="ghost" onClick={onReset}>
+          <Button size="sm" variant="ghost" onClick={onReset}>
             {t('bubble.reset')}
           </Button>
         )}
@@ -61,13 +61,13 @@ export function TimerCard({
             <button
               key={minutes}
               type="button"
-              className="bubble-chip"
+              className="chip bubble-chip"
               onClick={() => onStartPreset(minutes)}
             >
               {minutes}
             </button>
           ))}
-          <button type="button" className="bubble-chip" onClick={onStartCountUp}>
+          <button type="button" className="chip bubble-chip" onClick={onStartCountUp}>
             {t('bubble.countUpAction')}
           </button>
         </div>

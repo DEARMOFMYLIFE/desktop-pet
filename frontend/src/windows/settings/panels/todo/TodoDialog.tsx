@@ -11,6 +11,7 @@ interface TodoDialogProps {
   due: string;
   remind: string;
   error: string;
+  saving: boolean;
   onTitleChange: (value: string) => void;
   onNoteChange: (value: string) => void;
   onDueChange: (value: string) => void;
@@ -27,6 +28,7 @@ export function TodoDialog({
   due,
   remind,
   error,
+  saving,
   onTitleChange,
   onNoteChange,
   onDueChange,
@@ -43,9 +45,9 @@ export function TodoDialog({
       className="max-w-[560px]"
       footer={
         <>
-          <Button onClick={onCancel}>{t('settings.todos.cancel')}</Button>
-          <Button variant="primary" onClick={onSave}>
-            {t('settings.todos.save')}
+          <Button onClick={onCancel}>{t('common.cancel')}</Button>
+          <Button variant="primary" loading={saving} onClick={onSave}>
+            {t('common.save')}
           </Button>
         </>
       }

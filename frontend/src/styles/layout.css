@@ -30,6 +30,26 @@
     @apply mb-1.5 mt-0 text-[14px] font-[650] tracking-[-0.01em] text-ink;
   }
 
+  .card-description {
+    @apply m-0 mb-3 text-xs leading-relaxed text-muted;
+  }
+
+  .pane {
+    @apply flex h-full w-full items-center justify-center bg-bg;
+  }
+
+  .pane-transparent {
+    @apply bg-transparent;
+  }
+
+  .pane-error {
+    @apply flex-col gap-2 p-6 text-center;
+  }
+
+  .pane-error p {
+    @apply m-0 max-w-xs text-xs leading-relaxed text-muted;
+  }
+
   .row {
     @apply flex min-h-[44px] items-center justify-between gap-4;
   }
