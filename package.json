@@ -1,0 +1,20 @@
+{
+  "name": "xiaozhu",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": ["frontend"],
+  "description": "小驻 XiaoZhu — 常驻屏幕边缘的 2D 陪伴小人 + 轻量专注助手",
+  "scripts": {
+    "dev": "npm run dev -w frontend",
+    "build": "npm run build -w frontend",
+    "preview": "npm run preview -w frontend",
+    "test": "npm run test -w frontend",
+    "test:watch": "npm run test:watch -w frontend",
+    "lint": "npm run lint -w frontend",
+    "format": "npm run format -w frontend",
+    "tauri": "tauri"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.12.4"
+  }
+}
