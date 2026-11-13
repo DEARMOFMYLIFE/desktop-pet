@@ -1,32 +1,44 @@
 # Changelog
 
+## Unreleased — 2026-11-13
+
+### Changed
+
+- 项目正式更名为 **小柚 Yuzu**；应用品牌、窗口标题、角色名称与桌面标签同步更新。
+- 技术标识全量迁移：Rust crate/二进制 `yuzu`、Tauri `com.yuzu.app`、npm `yuzu` / `@yuzu/frontend`、数据目录与日志目录 `yuzu`。
+- 默认角色皮肤更新为 **Cute Girl** 的 16 套配色皮肤与 11 种动作状态。
+- 设置页新增 10 套应用图标主题、自定义图标导入与桌面品牌同步。
+- 新增项目专用日期时间组件、月份/年份快速选择、SVG 清空按钮和统一 Modal。
+- 搜索框、时间输入、设置页布局与按钮样式统一到现有 Token 和组件体系。
+- README、文档与界面截图更新为当前小柚品牌和界面。
+
+### Removed
+
+- 移除 GitHub Actions 工作流及相关 CI 构建、发布、校验和脚本。
+- 移除旧版发布脚本与本地环境自检脚本，构建统一使用 Tauri/本地命令。
+
+### Added
+
+- 旧数据目录、数据库、桌面入口、快捷方式与角色名称的自动迁移。
+- 前端 6 个测试与 Rust 5 个 lib 测试。
+- 所有前后端源文件和样式文件保持在 200 行以内。
+
 ## v0.1.0 — 2026-11-09
 
 ### Added
 
-- 桌面小人「小柚 Yuzu」：透明置顶宠物窗、屏幕边缘活动、拖拽/吸附、点击反馈。
-- 4 套原创 Q 版角色皮肤（女生/男生 × 四种配色），每套 11 个动作序列帧。
+- 透明置顶宠物窗、屏幕边缘活动、拖拽/吸附与点击反馈。
 - 番茄钟 / 倒计时 / 正计时：暂停、继续、跳过、重置、停止、快照恢复。
 - 气泡计时窗、托盘菜单、小人右键菜单。
-- 健康提醒：喝水 / 久坐 / 护眼、活跃时段、专注策略、稍后提醒。
-- 待办：CRUD、截止/提醒时间、筛选、到点提醒。
-- 专注统计：今日 / 7 天 / 30 天、完成率、每日柱状图。
-- 极简养成：心情/精力、低心情 droop。
+- 健康提醒、待办、专注统计、极简养成。
 - 中英双语、首次引导、开机自启、全局快捷键、通知权限。
-- 快捷键改键与冲突检测。
-- 数据目录打开、清除全部数据。
-- Twemoji CC-BY 4.0 应用/托盘图标。
-- Tailwind CSS v3 + PostCSS 样式体系，保留设计 Token 与语义类。
-- Lucide React 线性图标替换界面 emoji 图标。
-- 设置页抽出侧边栏 / Header 布局组件。
-- 原创 Q 版角色（4 套皮肤、11 动作）与 Canvas 残影修复。
-- 自定义下拉、搜索框、Checkbox、数字步进输入、Button/Card 组件。
-- Linux 桌面快捷方式与开发启动脚本。
+- SQLite 本地存储、完全离线、无账号、无遥测。
+- Tailwind CSS v3 + PostCSS、Lucide React 图标、设置页布局组件与共享 UI。
+- Linux 桌面快捷方式与启动脚本。
 
 ### Packaging
 
 - Tauri 2 bundle targets: Windows NSIS/MSI, macOS DMG (x64/arm64), Linux AppImage/deb.
-- GitHub Actions CI + tag-triggered draft release with SHA256 checksums.
 - MIT license + third-party asset licenses.
 
 ### Known limitations

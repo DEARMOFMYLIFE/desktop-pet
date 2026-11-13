@@ -50,7 +50,7 @@
 | Rust | **未安装** | M0 前置：`rustup` 安装 stable 工具链 |
 | WebKitGTK 4.1 | **未安装** | M0 前置：Linux 构建依赖 |
 | GTK3 | **未安装** | M0 前置：Linux 构建依赖 |
-| 目标平台 | Windows 10/11、macOS 12+、Linux（Ubuntu 22.04+） | 开发机只能直接冒烟 Linux，Windows/macOS 需 CI 或实机验证 |
+| 目标平台 | Windows 10/11、macOS 12+、Linux（Ubuntu 22.04+） | 开发机只能直接冒烟 Linux，Windows/macOS 需实机验证 |
 
 ### 2.3 硬约束
 
@@ -214,7 +214,7 @@
 | 通知权限被拒（macOS/Windows） | 提醒失效 | 首次引导请求权限；被拒时降级为气泡提醒 + 设置页常驻提示 |
 | 系统休眠 / 锁屏导致计时漂移 | 番茄钟不准 | 以墙钟时间重算剩余；恢复时一次性结算；记录 `interrupted` |
 | 未签名安装包触发 SmartScreen / Gatekeeper | 安装受阻 | 文档说明；P1 再做签名与公证；提供校验和 |
-| Rust / WebKitGTK 环境缺失 | M0 无法启动 | 技术文档列出三端依赖与安装命令；M0 第一项做环境自检脚本 |
+| Rust / WebKitGTK 环境缺失 | M0 无法启动 | 技术文档列出三端依赖与安装命令；M0 第一项做环境确认 |
 
 ---
 

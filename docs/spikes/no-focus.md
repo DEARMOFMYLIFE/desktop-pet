@@ -64,6 +64,6 @@
 
 ## 下一步
 
-- 在 Windows/macOS 实机或 CI runner 上跑最小 Tauri 窗口 spike；
+- 在 Windows/macOS 实机 上跑最小 Tauri 窗口 spike；
 - 记录结果到本文，再决定是否进入正式实现；
 - 若 spike 失败，保留 `focus: false` + 点击穿透作为产品级降级方案。
