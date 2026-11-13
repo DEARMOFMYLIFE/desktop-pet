@@ -38,6 +38,10 @@ pub fn settings_update(
     windows::apply_settings(&app, &next)?;
     if icon_changed {
         crate::app_icon::apply(&app, &next.app_icon);
+        #[cfg(target_os = "linux")]
+        if let Err(error) = crate::tray::refresh(&app) {
+            tracing::warn!(?error, "tray icon refresh failed");
+        }
     }
     if name_changed {
         #[cfg(target_os = "linux")]

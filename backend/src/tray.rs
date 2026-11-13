@@ -1,3 +1,6 @@
+#[cfg(target_os = "linux")]
+use std::path::PathBuf;
+
 use tauri::image::Image;
 use tauri::menu::{Menu, MenuItem, PredefinedMenuItem};
 use tauri::tray::TrayIconBuilder;
@@ -41,12 +44,22 @@ pub fn setup(app: &AppHandle) -> Result<(), AppError> {
         ],
     )?;
 
+    let app_icon = app
+        .state::<AppState>()
+        .snapshot()
+        .map(|settings| settings.app_icon)
+        .unwrap_or_else(|_| "clock".into());
+
     #[cfg(target_os = "macos")]
     let icon = Image::from_bytes(include_bytes!("../icons/tray-template.png"))
         .map_err(|error| AppError::Internal(format!("tray icon: {error}")))?;
     #[cfg(not(target_os = "macos"))]
-    let icon = Image::from_bytes(include_bytes!("../icons/tray.png"))
-        .map_err(|error| AppError::Internal(format!("tray icon: {error}")))?;
+    let icon = crate::app_icon::load_bytes(app, &app_icon)
+        .and_then(|data| Image::from_bytes(&data).ok())
+        .unwrap_or_else(|| {
+            Image::from_bytes(include_bytes!("../icons/tray.png"))
+                .expect("bundled tray icon must decode")
+        });
 
     #[allow(unused_mut)]
     let mut tray_builder = TrayIconBuilder::with_id("main")
@@ -102,12 +115,47 @@ pub fn setup(app: &AppHandle) -> Result<(), AppError> {
         tray_builder = tray_builder.icon_as_template(true);
     }
 
+    #[cfg(target_os = "linux")]
+    {
+        tray_builder = tray_builder.temp_dir_path(tray_temp_dir(&app_icon));
+    }
+
     let tray = tray_builder.build(app)?;
 
     let state = app.state::<AppState>();
     state.set_tray(tray);
     state.set_tray_available(true);
 
+    if let Some(tray) = app.tray_by_id("main") {
+        let name = crate::windows::display_name(app);
+        let _ = tray.set_tooltip(Some(&name));
+    }
+
     tracing::info!("tray ready");
     Ok(())
+}
+
+#[cfg(target_os = "linux")]
+fn tray_temp_dir(value: &str) -> PathBuf {
+    let safe: String = value
+        .chars()
+        .map(|character| {
+            if character.is_ascii_alphanumeric() || matches!(character, '-' | '_') {
+                character
+            } else {
+                '_'
+            }
+        })
+        .collect();
+    let root = std::env::var_os("XDG_RUNTIME_DIR")
+        .map(PathBuf::from)
+        .unwrap_or_else(std::env::temp_dir);
+    root.join("yuzu-tray").join(safe)
+}
+
+/// Linux panels often cache the first AppIndicator icon. Rebuilding the tray
+/// with a per-icon temp path avoids the old icon cache.
+pub fn refresh(app: &AppHandle) -> Result<(), AppError> {
+    app.remove_tray_by_id("main");
+    setup(app)
 }

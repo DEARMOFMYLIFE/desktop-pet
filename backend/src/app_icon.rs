@@ -69,6 +69,7 @@ pub fn apply(app: &AppHandle, value: &str) {
 }
 
 fn apply_icons(app: &AppHandle, data: &[u8]) {
+    #[cfg(not(target_os = "linux"))]
     if let Some(tray) = app.tray_by_id("main") {
         if let Ok(image) = Image::from_bytes(data) {
             if let Err(error) = tray.set_icon(Some(image)) {
