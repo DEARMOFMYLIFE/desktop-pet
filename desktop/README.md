@@ -10,6 +10,9 @@
 - `resources/bin/`：本地放入的真实 Tauri 程序（不提交）
 - `resources/lib/`：可选的本地运行库（不提交）
 
+> 仓库中不需要放 `yuzu.desktop`：桌面入口由 `install-desktop.sh` 使用绝对路径和
+> 当前图标生成；`packaging/com.yuzu.app.desktop` 是正式安装包模板。
+
 ## 打开方式
 
 ```bash

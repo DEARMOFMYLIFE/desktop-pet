@@ -83,7 +83,7 @@
   }
 
   .shortcut-recorder {
-    @apply block h-8 min-w-[150px] whitespace-nowrap rounded-sm border border-line bg-surface-muted px-3 text-center font-mono text-[11px] text-ink;
+    @apply block h-8 min-w-[150px] whitespace-nowrap rounded-sm border border-line bg-surface-muted px-3 text-center font-mono text-[12.5px] text-ink;
     line-height: 30px;
   }
 

@@ -47,6 +47,10 @@
     @apply mt-auto flex items-center gap-2;
   }
 
+  .bubble-actions .btn {
+    @apply min-h-[30px] px-2.5 text-xs;
+  }
+
   .bubble-presets {
     @apply mt-2.5 flex flex-wrap gap-1.5;
   }

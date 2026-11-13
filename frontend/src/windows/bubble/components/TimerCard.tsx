@@ -44,12 +44,12 @@ export function TimerCard({
       </div>
 
       <div className="bubble-actions">
-        <Button size="sm" variant="primary" onClick={onPrimary}>
+        <Button variant="primary" onClick={onPrimary}>
           {primaryLabel}
         </Button>
-        {active && <Button size="sm" onClick={onSkip}>{t('bubble.skip')}</Button>}
+        {active && <Button onClick={onSkip}>{t('bubble.skip')}</Button>}
         {active && (
-          <Button size="sm" variant="ghost" onClick={onReset}>
+          <Button variant="ghost" onClick={onReset}>
             {t('bubble.reset')}
           </Button>
         )}

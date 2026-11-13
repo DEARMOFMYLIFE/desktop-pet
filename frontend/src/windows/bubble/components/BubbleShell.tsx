@@ -1,7 +1,7 @@
 import { X } from 'lucide-react';
 import type { PointerEvent as ReactPointerEvent, ReactNode } from 'react';
-import { api } from '../../../lib/ipc';
 import { IconButton } from '../../../components/ui/IconButton';
+import { useWindowDrag } from '../../../hooks/useWindowDrag';
 import { t } from '../../../lib/i18n';
 
 interface BubbleShellProps {
@@ -12,10 +12,11 @@ interface BubbleShellProps {
 }
 
 export function BubbleShell({ label, onClose, className, children }: BubbleShellProps) {
+  const startWindowDrag = useWindowDrag();
   const startDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
     if (event.button !== 0) return;
     if ((event.target as HTMLElement).closest('button, a, input, select, textarea')) return;
-    void api.startWindowDrag();
+    startWindowDrag();
   };
 
   return (
