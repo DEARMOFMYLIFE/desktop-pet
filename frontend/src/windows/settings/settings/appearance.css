@@ -1,0 +1,172 @@
+  .stats-toolbar {
+    @apply mb-3 flex justify-end;
+  }
+
+  .stats-grid {
+    @apply mb-3.5 grid grid-cols-4 gap-2.5;
+  }
+
+  .stats-card {
+    @apply flex flex-col gap-0.5 rounded-lg border border-line bg-surface p-3;
+    box-shadow: var(--shadow-xs);
+  }
+
+  .stats-card strong {
+    @apply text-[26px] tracking-[-0.02em] tabular-nums;
+  }
+
+  .stats-card span {
+    @apply text-[11px] text-muted;
+  }
+
+  .stats-chart {
+    @apply flex min-h-[170px] items-end gap-2 overflow-x-auto px-1 pt-3;
+  }
+
+  .stats-bar-wrap {
+    @apply flex min-w-[22px] flex-1 flex-col items-center justify-end gap-1 text-[9px] text-muted;
+  }
+
+  .stats-bar-value {
+    @apply min-h-3 text-[9px] tabular-nums text-muted;
+  }
+
+  .stats-bar {
+    @apply w-full max-w-6 rounded-b-[2px] rounded-t-[6px] bg-accent opacity-[0.86] transition-[height] duration-200;
+  }
+
+  .stats-bar-wrap > span {
+    @apply whitespace-nowrap;
+  }
+
+  .empty .btn {
+    @apply mt-2;
+  }
+
+  .chip-row {
+    @apply flex flex-wrap gap-2;
+  }
+
+  .chip {
+    @apply inline-flex h-6 items-center rounded-md border border-line bg-surface px-2.5 text-xs text-muted transition-colors duration-150;
+  }
+
+  .icon-hint {
+    @apply -mt-1.5 mb-3 text-xs;
+  }
+
+  .app-icon-row {
+    @apply flex items-center gap-3;
+  }
+
+  .app-icon-row .btn {
+    @apply h-9;
+    line-height: 34px;
+  }
+
+  .app-icon-preview {
+    @apply h-10 w-10 rounded-md border border-line bg-surface-muted object-contain p-0.5;
+  }
+
+  .skin-hint {
+    @apply -mt-1.5 mb-3 text-xs;
+  }
+
+  .skin-grid {
+    @apply grid grid-cols-4 gap-2;
+  }
+
+  .skin-card {
+    @apply flex flex-col items-center gap-1 rounded-md border border-line bg-surface-muted px-1 pb-1.5 pt-1.5 text-[10px] text-muted transition-[border-color,background-color,color] duration-150;
+  }
+
+  .skin-card img {
+    @apply h-14 w-12 object-contain;
+  }
+
+  .skin-card:hover {
+    @apply border-accent text-ink;
+  }
+
+  .skin-card.is-active {
+    @apply border-accent bg-accent-soft text-ink shadow-[0_0_0_2px_var(--accent-soft)];
+  }
+
+  .range-wrap {
+    @apply flex min-w-[180px] items-center gap-2.5 text-xs text-muted;
+  }
+
+  .range-wrap input {
+    @apply w-[130px] accent-accent;
+  }
+
+  .shortcut-row {
+    @apply grid min-h-[46px] grid-cols-[1fr_auto_auto] items-center gap-3 border-b border-line text-[13px];
+  }
+
+  .shortcut-row:last-child {
+    @apply border-b-0;
+  }
+
+  kbd {
+    @apply inline-block whitespace-nowrap rounded-[6px] border border-b-2 border-line bg-surface-muted px-2 text-center font-mono text-[11px] text-muted;
+    line-height: 19px;
+  }
+
+  .shortcut-recorder {
+    @apply block h-8 min-w-[150px] whitespace-nowrap rounded-sm border border-line bg-surface-muted px-3 text-center font-mono text-[11px] text-ink;
+    line-height: 30px;
+  }
+
+  .shortcut-recorder:hover {
+    @apply border-accent;
+  }
+
+  .shortcut-recorder.is-recording {
+    @apply border-accent bg-accent-soft text-accent;
+  }
+
+  .notice-error {
+    @apply border-danger text-danger;
+  }
+
+  .about-card {
+    @apply flex flex-col gap-3.5;
+  }
+
+  .about-head {
+    @apply flex items-center gap-3;
+  }
+
+  .about-head h2 {
+    @apply m-0 text-lg;
+  }
+
+  .about-head p {
+    @apply mb-0 mt-0.5 text-xs;
+  }
+
+  .about-mark {
+    @apply h-12 w-12 text-[28px];
+  }
+
+  .about-grid {
+    @apply grid grid-cols-[auto_1fr] gap-x-[18px] gap-y-1.5 border-y border-line py-3 text-xs text-muted;
+  }
+
+  .about-grid span:nth-child(even) {
+    @apply tabular-nums text-ink;
+  }
+
+  .privacy {
+    @apply m-0 text-xs leading-relaxed text-muted;
+  }
+
+
+  .about-data-hint {
+    @apply mb-0;
+  }
+
+  .about-data-actions {
+    @apply mt-3;
+  }

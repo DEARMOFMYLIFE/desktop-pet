@@ -1,0 +1,97 @@
+  .reminder-hint {
+    @apply -mt-1.5 mb-2.5 text-xs;
+  }
+
+  .reminder-controls {
+    @apply flex items-center gap-2;
+  }
+
+  .time-range {
+    @apply flex items-center gap-2;
+  }
+
+  .time-range .input {
+    @apply w-[110px];
+  }
+
+  .todo-toolbar-wrap {
+    @apply mb-3 flex flex-col gap-2.5;
+  }
+
+  .todo-toolbar {
+    @apply flex items-center gap-2;
+  }
+
+  .todo-search {
+    @apply min-w-0 flex-1;
+  }
+
+  .todo-toolbar-wrap > .segmented {
+    @apply self-start;
+  }
+
+  .todo-form {
+    @apply flex flex-col gap-2.5;
+  }
+
+  .todo-note {
+    @apply min-h-[120px] resize-y px-2.5 py-2;
+  }
+
+  .todo-time-grid {
+    @apply grid grid-cols-2 gap-2.5;
+  }
+
+  .todo-time-field {
+    @apply flex flex-col gap-1 text-[11px] text-muted;
+  }
+
+  .todo-error {
+    @apply text-xs text-danger;
+  }
+
+  .todo-list {
+    @apply flex flex-col;
+  }
+
+  .todo-row {
+    @apply flex items-start gap-2.5 border-b border-line py-2.5;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 48px;
+  }
+
+  .todo-row:last-child {
+    @apply border-b-0;
+  }
+
+  .todo-row.is-done .todo-main strong {
+    @apply text-muted line-through;
+  }
+
+  .todo-main {
+    @apply flex min-w-0 flex-1 flex-col gap-[3px];
+  }
+
+  .todo-main strong {
+    @apply text-[13px] font-semibold;
+  }
+
+  .todo-main small {
+    @apply text-xs text-muted;
+  }
+
+  .todo-meta {
+    @apply flex flex-wrap gap-2.5 text-[11px] text-muted;
+  }
+
+  .todo-actions {
+    @apply flex gap-0.5;
+  }
+
+  .todo-actions .btn {
+    @apply min-h-7 px-2 text-[11px];
+  }
+
+  .todo-delete:hover {
+    @apply text-danger;
+  }

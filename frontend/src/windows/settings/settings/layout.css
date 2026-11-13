@@ -1,0 +1,113 @@
+  .settings-shell {
+    @apply grid h-screen grid-cols-[210px_minmax(0,1fr)] overflow-hidden;
+  }
+
+  .settings-sidebar {
+    @apply flex flex-col gap-4 border-r border-line bg-surface-muted px-3 pb-3 pt-4;
+  }
+
+  .brand {
+    @apply flex items-center gap-2.5 px-2.5;
+  }
+
+  .brand-mark,
+  .about-mark {
+    @apply grid h-9 w-9 place-items-center overflow-hidden rounded-md bg-accent-soft text-xl;
+  }
+
+  .brand-mark img,
+  .about-mark img {
+    @apply h-full w-full object-contain;
+  }
+
+  .brand-text {
+    @apply flex flex-col leading-tight;
+  }
+
+  .brand-text strong {
+    @apply text-sm;
+  }
+
+  .brand-text span {
+    @apply text-[11px] text-muted;
+  }
+
+  .settings-nav {
+    @apply flex flex-col gap-1;
+  }
+
+  .settings-nav button {
+    @apply relative block h-[38px] w-full rounded-sm border-0 bg-transparent px-3 text-left text-[13px] font-medium text-muted;
+    line-height: 38px;
+  }
+
+  .settings-nav button:hover {
+    @apply bg-surface text-ink;
+  }
+
+  .settings-nav button.is-active {
+    @apply bg-surface font-semibold text-ink shadow-sm;
+  }
+
+  .sidebar-foot {
+    @apply mt-auto border-t border-line px-2.5 pt-3 text-[11px] leading-normal text-muted;
+  }
+
+  .settings-main {
+    @apply overflow-auto px-6 pb-8 pt-6;
+  }
+
+  .settings-header h1 {
+    @apply m-0 text-[20px] tracking-[-0.02em];
+  }
+
+  .settings-header p {
+    @apply mb-5 mt-1 text-[13px] text-muted;
+  }
+
+  .settings-content {
+    @apply flex w-full max-w-[720px] flex-col gap-3.5;
+  }
+
+  .settings-content .stats-toolbar,
+  .settings-content .stats-grid {
+    @apply mb-0;
+  }
+
+  .button-row {
+    @apply flex flex-wrap items-center gap-2.5;
+  }
+
+  .chip.preset-chip {
+    @apply min-w-[74px] justify-between gap-1.5 pr-[5px] whitespace-nowrap;
+  }
+
+  .preset-chip button {
+    @apply grid h-[18px] w-[18px] place-items-center rounded-full border-0 bg-transparent text-[13px] leading-none text-muted;
+  }
+
+  .preset-chip button:hover {
+    @apply bg-line text-ink;
+  }
+
+  .preset-add {
+    @apply mt-3 flex items-center gap-2;
+  }
+
+  .preset-add .preset-input {
+    @apply w-[220px];
+  }
+
+  .preset-add .preset-input .input {
+    @apply w-full;
+  }
+
+  .preset-add .btn {
+    @apply h-9;
+    line-height: 34px;
+  }
+
+  .todo-toolbar .btn {
+    @apply h-10;
+    line-height: 38px;
+  }
