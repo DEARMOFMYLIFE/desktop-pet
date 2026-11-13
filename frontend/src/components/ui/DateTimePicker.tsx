@@ -49,12 +49,12 @@ export function DateTimePicker({ value, onChange, label, placeholder }: DateTime
     updatePosition();
     window.addEventListener('resize', updatePosition);
     window.addEventListener('scroll', updatePosition, true);
-    document.addEventListener('mousedown', onPointerDown);
+    document.addEventListener('mousedown', onPointerDown, true);
     document.addEventListener('keydown', onKeyDown);
     return () => {
       window.removeEventListener('resize', updatePosition);
       window.removeEventListener('scroll', updatePosition, true);
-      document.removeEventListener('mousedown', onPointerDown);
+      document.removeEventListener('mousedown', onPointerDown, true);
       document.removeEventListener('keydown', onKeyDown);
     };
   }, [open]);

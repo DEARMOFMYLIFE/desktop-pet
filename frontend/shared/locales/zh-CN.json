@@ -27,7 +27,8 @@
     "hint": "双击打开设置 · 右键更多",
     "click": "嘿嘿，好痒。",
     "ghostOn": "点击穿透已开启：我不会挡住你。",
-    "ghostOff": "点击穿透已关闭。"
+    "ghostOff": "点击穿透已关闭。",
+    "clickThroughOn": "点击穿透已开启"
   },
   "bubble": {
     "title": "专注中",

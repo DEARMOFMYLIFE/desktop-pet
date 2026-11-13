@@ -54,10 +54,13 @@ pub fn setup(app: &AppHandle) -> Result<(), AppError> {
         .menu(&menu)
         .show_menu_on_left_click(true)
         .on_menu_event(|app, event| match event.id.as_ref() {
-            "toggle_pet" => toggle_pet_window(app),
+            "toggle_pet" => windows::toggle_pet_visibility(app),
             "start_focus" => {
                 if let Err(error) = timer::start(app, TimerStartRequest::Pomodoro) {
                     tracing::warn!(?error, "failed to start focus from tray");
+                }
+                if let Err(error) = windows::open_bubble(app) {
+                    tracing::warn!(?error, "failed to open bubble from tray");
                 }
             }
             "pause_focus" => {
@@ -107,18 +110,4 @@ pub fn setup(app: &AppHandle) -> Result<(), AppError> {
 
     tracing::info!("tray ready");
     Ok(())
-}
-
-fn toggle_pet_window(app: &AppHandle) {
-    let Some(window) = app.get_webview_window(windows::PET) else {
-        return;
-    };
-    match window.is_visible() {
-        Ok(true) => {
-            let _ = window.hide();
-        }
-        _ => {
-            let _ = window.show();
-        }
-    }
 }

@@ -27,7 +27,8 @@
     "hint": "Double-click for settings · right-click for more",
     "click": "Hehe, that tickles.",
     "ghostOn": "Click-through is on: I won't get in your way.",
-    "ghostOff": "Click-through is off."
+    "ghostOff": "Click-through is off.",
+    "clickThroughOn": "Click-through is on"
   },
   "bubble": {
     "title": "Focusing",

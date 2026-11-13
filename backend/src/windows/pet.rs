@@ -116,6 +116,15 @@ fn size_to_logical(size: &str) -> f64 {
     }
 }
 
+pub fn show_pet(app: &AppHandle) {
+    if let Some(pet) = app.get_webview_window(PET) {
+        let _ = pet.show();
+        if let Ok(settings) = app.state::<AppState>().snapshot() {
+            let _ = restore_position(&pet, &settings);
+        }
+    }
+}
+
 pub fn hide_pet(app: &AppHandle) {
     if let Some(pet) = app.get_webview_window(PET) {
         let _ = pet.hide();
@@ -130,9 +139,7 @@ pub fn toggle_pet_visibility(app: &AppHandle) {
         Ok(true) => {
             let _ = pet.hide();
         }
-        _ => {
-            let _ = pet.show();
-        }
+        _ => show_pet(app),
     }
 }
 

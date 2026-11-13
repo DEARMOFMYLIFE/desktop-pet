@@ -6,6 +6,7 @@ mod custom_icons;
 mod desktop_brand;
 mod error;
 mod legacy;
+mod menu;
 mod pet;
 mod reminders;
 mod shortcuts;
@@ -28,6 +29,7 @@ pub fn run() {
 
     tauri::Builder::default()
         .plugin(tauri_plugin_single_instance::init(|app, _args, _cwd| {
+            windows::show_pet(app);
             if let Err(error) = windows::open_settings(app) {
                 tracing::warn!(?error, "failed to focus settings from second instance");
             }
@@ -62,27 +64,7 @@ pub fn run() {
                 tracing::warn!(?error, "failed to apply autostart setting");
             }
 
-            app.on_menu_event(|app, event| match event.id.as_ref() {
-                "pet_focus" => {
-                    if let Err(error) = timer::start(app, crate::timer::TimerStartRequest::Pomodoro)
-                    {
-                        tracing::warn!(?error, "failed to start focus from pet menu");
-                    }
-                }
-                "pet_settings" => {
-                    if let Err(error) = windows::open_settings(app) {
-                        tracing::warn!(?error, "failed to open settings from pet menu");
-                    }
-                }
-                "pet_ghost" => {
-                    if let Err(error) = windows::toggle_click_through(app) {
-                        tracing::warn!(?error, "failed to toggle click-through");
-                    }
-                }
-                "pet_hide" => windows::hide_pet(app),
-                "pet_quit" => app.exit(0),
-                _ => {}
-            });
+            app.on_menu_event(menu::handle);
 
             windows::setup_pet_window(app.handle())?;
             let snapshot = app.state::<state::AppState>().snapshot()?;

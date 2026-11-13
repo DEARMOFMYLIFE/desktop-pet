@@ -69,7 +69,8 @@ pub fn close_window(app: &tauri::AppHandle, label: &str) -> Result<(), AppError>
 
 pub use bubble::open_bubble;
 pub use pet::{
-    apply_settings, hide_pet, setup_pet_window, toggle_click_through, toggle_pet_visibility,
+    apply_settings, hide_pet, setup_pet_window, show_pet, toggle_click_through,
+    toggle_pet_visibility,
 };
 pub use position::snap_and_save;
 pub use settings::{open_onboarding, open_settings};
