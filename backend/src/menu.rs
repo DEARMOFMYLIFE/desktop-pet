@@ -6,6 +6,7 @@ use crate::{timer, windows};
 pub fn handle(app: &AppHandle, event: MenuEvent) {
     match event.id().as_ref() {
         "pet_focus" => {
+            let _ = timer::stop(app);
             if let Err(error) = timer::start(app, timer::TimerStartRequest::Pomodoro) {
                 tracing::warn!(?error, "failed to start focus from pet menu");
             }

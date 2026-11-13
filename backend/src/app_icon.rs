@@ -90,17 +90,27 @@ fn apply_icons(app: &AppHandle, data: &[u8]) {
 }
 
 #[cfg(target_os = "linux")]
-pub fn notification_icon() -> Option<PathBuf> {
+pub fn notification_icon(app: &AppHandle) -> Option<PathBuf> {
     let home = std::env::var_os("HOME").map(PathBuf::from)?;
     let data_home = std::env::var_os("XDG_DATA_HOME")
         .map(PathBuf::from)
         .unwrap_or_else(|| home.join(".local/share"));
-    let path = data_home.join("yuzu/app-icon.png");
-    path.exists().then_some(path)
+    let value = app
+        .state::<AppState>()
+        .snapshot()
+        .ok()
+        .map(|settings| settings.app_icon)
+        .unwrap_or_else(|| "clock".into());
+    let themed = data_home.join("yuzu").join(icon_file_name(&value));
+    if themed.exists() {
+        return Some(themed);
+    }
+    let fallback = data_home.join("yuzu/app-icon.png");
+    fallback.exists().then_some(fallback)
 }
 
 #[cfg(not(target_os = "linux"))]
-pub fn notification_icon() -> Option<PathBuf> {
+pub fn notification_icon(_app: &AppHandle) -> Option<PathBuf> {
     None
 }
 

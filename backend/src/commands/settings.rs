@@ -34,8 +34,13 @@ pub fn settings_update(
     }
     let icon_changed = incoming.app_icon != current.app_icon;
     let name_changed = incoming.pet_name != current.pet_name;
+    let click_through_changed = incoming.click_through != current.click_through;
     let next = state.update(|current| *current = incoming)?;
     windows::apply_settings(&app, &next)?;
+    #[cfg(target_os = "linux")]
+    if click_through_changed {
+        windows::refresh_pet_surface(&app);
+    }
     if icon_changed {
         crate::app_icon::apply(&app, &next.app_icon);
         #[cfg(target_os = "linux")]
@@ -62,8 +67,13 @@ pub fn click_through_set(
             "click-through requires the tray to be available".into(),
         ));
     }
+    let current = state.snapshot()?.click_through;
     let next = state.update(|settings| settings.click_through = enabled)?;
     windows::apply_settings(&app, &next)?;
+    #[cfg(target_os = "linux")]
+    if current != enabled {
+        windows::refresh_pet_surface(&app);
+    }
     Ok(next)
 }
 

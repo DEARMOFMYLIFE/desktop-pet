@@ -34,7 +34,7 @@ pub fn emit_pet_state(app: &AppHandle, state: PetState) {
 pub fn notify(app: &AppHandle, title: &str, body: &str) {
     use tauri_plugin_notification::NotificationExt;
     let mut builder = app.notification().builder().title(title).body(body);
-    if let Some(icon) = crate::app_icon::notification_icon() {
+    if let Some(icon) = crate::app_icon::notification_icon(app) {
         builder = builder.icon(icon.to_string_lossy().to_string());
     }
     if let Err(error) = builder.show() {

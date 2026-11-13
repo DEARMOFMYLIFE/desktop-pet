@@ -72,10 +72,6 @@ export function usePetWindow() {
     api
       .on<{ enabled: boolean }>('pet:click_through', ({ enabled }) => {
         setSettings((previous) => (previous ? { ...previous, clickThrough: enabled } : previous));
-        setHint(t(enabled ? 'pet.ghostOn' : 'pet.ghostOff'));
-        setShowHint(true);
-        if (hintTimerRef.current !== null) window.clearTimeout(hintTimerRef.current);
-        hintTimerRef.current = window.setTimeout(() => setShowHint(false), 1800);
         // The native toggle already persisted the value; read it back so a
         // late duplicate event cannot leave the pet in the old visual state.
         refreshSettings();
@@ -137,15 +133,11 @@ export function usePetWindow() {
       .catch((error: unknown) => console.error('pet click failed', error));
 
     if (reactTimerRef.current !== null) window.clearTimeout(reactTimerRef.current);
-    if (hintTimerRef.current !== null) window.clearTimeout(hintTimerRef.current);
 
     reactTimerRef.current = window.setTimeout(
       () => setPetState((current) => (current === 'react' ? 'idle' : current)),
       1600,
     );
-    setHint(t('pet.click'));
-    setShowHint(true);
-    hintTimerRef.current = window.setTimeout(() => setShowHint(false), 900);
   }, []);
 
   const handleDoubleClick = useCallback(() => {

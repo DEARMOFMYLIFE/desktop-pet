@@ -24,6 +24,11 @@ use tauri::Manager;
 use tracing_subscriber::EnvFilter;
 
 pub fn run() {
+    // WebKitGTK's compositing path can leave stale frames on transparent
+    // always-on-top windows (ghosted hint text / delayed badge updates).
+    #[cfg(target_os = "linux")]
+    std::env::set_var("WEBKIT_DISABLE_COMPOSITING_MODE", "1");
+
     legacy::migrate_user_dirs();
     init_logging();
 

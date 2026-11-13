@@ -5140,6 +5140,8 @@ dependencies = [
  "chrono",
  "dirs 6.0.0",
  "fastrand",
+ "gdkx11",
+ "gtk",
  "rusqlite",
  "serde",
  "serde_json",
@@ -5154,6 +5156,7 @@ dependencies = [
  "tracing",
  "tracing-appender",
  "tracing-subscriber",
+ "x11rb",
 ]
 
 [[package]]

@@ -172,9 +172,16 @@ func makeCommand(root, app string, bundle bool, args []string) (*exec.Cmd, error
 }
 
 func addDisplayBackend(cmd *exec.Cmd) {
-	if runtime.GOOS == "linux" && os.Getenv("GDK_BACKEND") == "" &&
-		os.Getenv("DISPLAY") != "" && os.Getenv("WAYLAND_DISPLAY") == "" {
+	if runtime.GOOS != "linux" {
+		return
+	}
+	if os.Getenv("GDK_BACKEND") == "" && os.Getenv("DISPLAY") != "" && os.Getenv("WAYLAND_DISPLAY") == "" {
 		cmd.Env = append(cmd.Env, "GDK_BACKEND=x11")
+	}
+	// WebKitGTK can keep stale frames on transparent windows when its
+	// compositing path is enabled; the launcher sets this before app startup.
+	if os.Getenv("WEBKIT_DISABLE_COMPOSITING_MODE") == "" {
+		cmd.Env = append(cmd.Env, "WEBKIT_DISABLE_COMPOSITING_MODE=1")
 	}
 }
 

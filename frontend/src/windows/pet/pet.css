@@ -1,9 +1,11 @@
   .pet-hint {
     @apply pointer-events-none absolute bottom-1 left-1/2 max-w-[94%] -translate-x-1/2 overflow-hidden text-ellipsis whitespace-nowrap rounded-full bg-[var(--overlay-text)] px-2 py-[1px] text-[10px] leading-[1.2] text-white;
+    will-change: transform;
   }
 
   .pet-root {
     @apply relative grid h-screen w-screen place-items-center overflow-hidden bg-transparent;
+    transform: translateZ(0);
   }
 
   .pet-canvas {
@@ -21,6 +23,7 @@
 
   .pet-badge {
     @apply pointer-events-none absolute bottom-1.5 right-1.5 grid h-5 w-5 place-items-center rounded-full bg-[var(--overlay-surface)] transition-opacity duration-150;
+    will-change: opacity;
   }
 
   .pet-badge.is-hidden {

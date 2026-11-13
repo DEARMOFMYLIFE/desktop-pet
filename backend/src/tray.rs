@@ -69,6 +69,7 @@ pub fn setup(app: &AppHandle) -> Result<(), AppError> {
         .on_menu_event(|app, event| match event.id.as_ref() {
             "toggle_pet" => windows::toggle_pet_visibility(app),
             "start_focus" => {
+                let _ = timer::stop(app);
                 if let Err(error) = timer::start(app, TimerStartRequest::Pomodoro) {
                     tracing::warn!(?error, "failed to start focus from tray");
                 }
