@@ -1,0 +1,93 @@
+  .bubble-root {
+    @apply h-screen w-screen bg-transparent p-2;
+  }
+
+  .bubble-card {
+    @apply flex h-full flex-col rounded-lg border border-line bg-surface px-3.5 pb-2.5 pt-3 shadow-soft;
+  }
+
+  .bubble-card {
+    @apply cursor-grab;
+  }
+
+  .bubble-card:active {
+    @apply cursor-grabbing;
+  }
+
+  .bubble-card button,
+  .bubble-card a,
+  .bubble-card input,
+  .bubble-card select,
+  .bubble-card textarea {
+    cursor: pointer;
+  }
+
+  .bubble-head {
+    @apply flex cursor-grab items-center justify-between gap-2 select-none;
+    touch-action: none;
+  }
+
+  .bubble-head:active {
+    @apply cursor-grabbing;
+  }
+
+  .bubble-label {
+    @apply text-xs font-semibold text-muted;
+  }
+
+  .bubble-close {
+    @apply grid h-6 w-6 place-items-center rounded-sm border-0 bg-transparent p-0 leading-none text-muted;
+  }
+
+  .bubble-close:hover {
+    @apply bg-surface-muted text-ink;
+  }
+
+  .bubble-time {
+    @apply mt-0.5 text-[30px] font-bold tracking-[-0.03em] tabular-nums;
+  }
+
+  .bubble-progress {
+    @apply my-2.5 h-1 overflow-hidden rounded-full bg-surface-muted;
+  }
+
+  .bubble-progress span {
+    @apply block h-full rounded-[inherit] bg-accent transition-[width] duration-300;
+  }
+
+  .bubble-actions {
+    @apply mt-auto flex items-center gap-2;
+  }
+
+  .bubble-actions .btn {
+    @apply min-h-[30px] px-2.5 text-xs;
+  }
+
+  .bubble-presets {
+    @apply mt-2.5 flex flex-wrap gap-1.5;
+  }
+
+  .bubble-chip {
+    @apply inline-block h-6 min-w-7 rounded-md border border-line bg-surface px-2 text-center text-[11px] tabular-nums text-muted transition-colors duration-150;
+    line-height: 22px;
+  }
+
+  .bubble-chip:hover {
+    @apply border-accent bg-accent-soft text-ink;
+  }
+
+  .bubble-foot {
+    @apply mt-2 flex items-center justify-between gap-2.5 text-[9px] text-muted;
+  }
+
+  .bubble-rounds {
+    @apply tabular-nums;
+  }
+
+  .reminder-card {
+    @apply justify-between;
+  }
+
+  .reminder-body {
+    @apply my-3 text-[13px] leading-relaxed;
+  }
