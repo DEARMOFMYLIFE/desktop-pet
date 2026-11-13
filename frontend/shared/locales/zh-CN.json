@@ -1,6 +1,6 @@
 {
   "app": {
-    "name": "凪",
+    "name": "小柚",
     "tagline": "桌边的小小陪伴"
   },
   "common": {
@@ -54,7 +54,7 @@
     "done": "时间到"
   },
   "settings": {
-    "title": "凪 设置",
+    "title": "小柚 设置",
     "subtitle": "设置",
     "tabs": {
       "general": "通用",
@@ -278,10 +278,10 @@
     "welcomeTitle": "欢迎来到{name}",
     "welcomeBody": "我会在桌边陪着你，也会帮你专注。",
     "nameLabel": "给你的可爱陪伴起个名字（可选）",
-    "namePlaceholder": "凪",
+    "namePlaceholder": "小柚",
     "preferencesTitle": "先认识一下你的习惯",
     "language": "界面语言",
-    "autostart": "开机时自动启动凪",
+    "autostart": "开机时自动启动小柚",
     "autostartHint": "可以随时在设置里关闭。",
     "notifications": "允许通知",
     "notificationsHint": "计时结束和提醒会通过系统通知找到你。",

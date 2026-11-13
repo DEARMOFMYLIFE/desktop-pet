@@ -1,8 +1,8 @@
-# 凪 Nagi
+# 小柚 Yuzu
 
 > 常驻屏幕边缘的可爱陪伴 + 轻量专注助手。
 
-凪是一个跨平台桌面应用：一个 2D 可爱陪伴住在屏幕边缘，会待机、走动、睡觉、对你的点击做出反应；它同时提供番茄钟、计时器、健康提醒、待办和专注统计。完全离线，无账号、无联网、数据仅存本机。
+小柚是一个跨平台桌面应用：一个 2D 可爱陪伴住在屏幕边缘，会待机、走动、睡觉、对你的点击做出反应；它同时提供番茄钟、计时器、健康提醒、待办和专注统计。完全离线，无账号、无联网、数据仅存本机。
 
 ---
 
@@ -109,7 +109,7 @@
 - 原生应用启动成功：宠物窗、设置窗、首次引导、气泡/提醒窗均正常显示
 - 已完成：首次引导 3 步 → 完成、宠物拖拽/吸附、快捷键启动专注、点击穿透开启/恢复、设置页 8 Tab、自定义下拉、气泡计时、健康提醒气泡
 - 新增角色：4 套原创 Q 版皮肤、11 个动作；已修复透明帧叠加残影
-- 桌面快捷方式：`~/.local/share/applications/com.xiaozhu.app.desktop` 与 `~/Desktop/Nagi.desktop`，已用 `gtk-launch` 验证可启动
+- 桌面快捷方式：`~/.local/share/applications/com.yuzu.app.desktop` 与 `~/Desktop/Yuzu.desktop`，已用 `gtk-launch` 验证可启动
 - 唯一环境注意：系统未全局安装 `libwebkit2gtk-4.1-dev` 等开发包，且当前无免密 sudo；长期建议执行 `sudo apt install libwebkit2gtk-4.1-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev`
 
 **待完成**

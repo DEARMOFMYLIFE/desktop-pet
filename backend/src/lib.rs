@@ -5,6 +5,7 @@ mod custom_icons;
 #[cfg(target_os = "linux")]
 mod desktop_brand;
 mod error;
+mod legacy;
 mod pet;
 mod reminders;
 mod shortcuts;
@@ -22,6 +23,7 @@ use tauri::Manager;
 use tracing_subscriber::EnvFilter;
 
 pub fn run() {
+    legacy::migrate_user_dirs();
     init_logging();
 
     tauri::Builder::default()
@@ -167,23 +169,23 @@ pub fn run() {
             commands::todo_reorder,
         ])
         .run(tauri::generate_context!())
-        .expect("error while running Nagi");
+        .expect("error while running Yuzu");
 }
 
 fn init_logging() {
     let log_dir = dirs::data_local_dir()
         .unwrap_or_else(std::env::temp_dir)
-        .join("xiaozhu")
+        .join("yuzu")
         .join("logs");
     let _ = std::fs::create_dir_all(&log_dir);
 
-    let appender = tracing_appender::rolling::daily(&log_dir, "xiaozhu.log");
+    let appender = tracing_appender::rolling::daily(&log_dir, "yuzu.log");
     let (writer, guard) = tracing_appender::non_blocking(appender);
     // Keep the non-blocking writer alive for the whole process lifetime.
     std::mem::forget(guard);
 
     let filter = EnvFilter::try_from_default_env()
-        .unwrap_or_else(|_| EnvFilter::new("xiaozhu_lib=debug,tauri=info"));
+        .unwrap_or_else(|_| EnvFilter::new("yuzu_lib=debug,tauri=info"));
     tracing_subscriber::fmt()
         .with_env_filter(filter)
         .with_writer(writer)

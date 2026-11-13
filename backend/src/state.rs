@@ -13,8 +13,11 @@ use crate::types::{PetSnapshot, ReminderRow, Settings, TimerSnapshot};
 /// keep working after the character pack was replaced.
 fn normalize_pet_name(name: &mut String) {
     let trimmed = name.trim();
-    if trimmed == "小驻" || trimmed.eq_ignore_ascii_case("xiaozhu") || trimmed.is_empty() {
-        *name = "凪".into();
+    let legacy_ascii = trimmed.eq_ignore_ascii_case("yuzu")
+        || trimmed.eq_ignore_ascii_case("nagi")
+        || trimmed.eq_ignore_ascii_case("xiaozhu");
+    if trimmed == "小驻" || trimmed == "凪" || legacy_ascii || trimmed.is_empty() {
+        *name = "小柚".into();
     }
 }
 

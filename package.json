@@ -1,9 +1,9 @@
 {
-  "name": "xiaozhu",
+  "name": "yuzu",
   "private": true,
   "version": "0.1.0",
   "workspaces": ["frontend"],
-  "description": "凪 Nagi — 常驻屏幕边缘的可爱陪伴 + 轻量专注助手",
+  "description": "小柚 Yuzu — 常驻屏幕边缘的可爱陪伴 + 轻量专注助手",
   "scripts": {
     "dev": "npm run dev -w frontend",
     "build": "npm run build -w frontend",

@@ -94,7 +94,7 @@ pub fn notification_icon() -> Option<PathBuf> {
     let data_home = std::env::var_os("XDG_DATA_HOME")
         .map(PathBuf::from)
         .unwrap_or_else(|| home.join(".local/share"));
-    let path = data_home.join("xiaozhu/app-icon.png");
+    let path = data_home.join("yuzu/app-icon.png");
     path.exists().then_some(path)
 }
 
@@ -125,7 +125,7 @@ fn update_linux_desktop(value: &str, data: &[u8]) -> std::io::Result<()> {
     let data_home = std::env::var_os("XDG_DATA_HOME")
         .map(PathBuf::from)
         .unwrap_or_else(|| home.join(".local/share"));
-    let icon_dir = data_home.join("xiaozhu");
+    let icon_dir = data_home.join("yuzu");
     fs::create_dir_all(&icon_dir)?;
 
     // A fresh path avoids desktop-shell icon caches keyed by the old file.

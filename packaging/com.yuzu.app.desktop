@@ -1,15 +1,15 @@
 [Desktop Entry]
 Type=Application
 Version=1.0
-Name=凪
-Name[en]=Nagi
+Name=小柚
+Name[en]=Yuzu
 GenericName=Desktop companion
 Comment=可爱陪伴 · 番茄钟 · 健康提醒
 Comment[en]=Desktop companion, pomodoro and wellness reminders
-Exec=xiaozhu
-Icon=xiaozhu
+Exec=yuzu
+Icon=yuzu
 Terminal=false
 Categories=Utility;
-Keywords=pomodoro;focus;timer;companion;凪;番茄钟;
+Keywords=pomodoro;focus;timer;companion;小柚;番茄钟;
 StartupNotify=true
-StartupWMClass=Xiaozhu
+StartupWMClass=Yuzu

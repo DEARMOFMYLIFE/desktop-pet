@@ -106,7 +106,7 @@ impl Default for Settings {
     fn default() -> Self {
         Self {
             language: "system".into(),
-            pet_name: "凪".into(),
+            pet_name: "小柚".into(),
             pet_size: "M".into(),
             pet_skin: "coral".into(),
             app_icon: "clock".into(),

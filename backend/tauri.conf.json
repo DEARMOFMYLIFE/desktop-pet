@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "Nagi",
-  "mainBinaryName": "xiaozhu",
-  "identifier": "com.xiaozhu.app",
+  "productName": "Yuzu",
+  "mainBinaryName": "yuzu",
+  "identifier": "com.yuzu.app",
   "version": "0.1.0",
   "build": {
     "beforeDevCommand": "npm run dev -w frontend",
@@ -14,7 +14,7 @@
     "windows": [
       {
         "label": "pet",
-        "title": "凪",
+        "title": "小柚",
         "url": "pet.html",
         "width": 208,
         "height": 208,
@@ -38,13 +38,13 @@
     "active": true,
     "targets": "all",
     "createUpdaterArtifacts": false,
-    "publisher": "Nagi contributors",
-    "copyright": "Copyright © 2026 Nagi contributors",
+    "publisher": "Yuzu contributors",
+    "copyright": "Copyright © 2026 Yuzu contributors",
     "license": "MIT",
     "licenseFile": "../LICENSE",
     "category": "Productivity",
     "shortDescription": "A desktop companion and lightweight focus assistant.",
-    "longDescription": "Nagi is a 2D companion that lives at the edge of your screen, with a pomodoro timer, reminders, tasks, focus stats and four selectable character skins. Fully offline.",
+    "longDescription": "Yuzu is a 2D companion that lives at the edge of your screen, with a pomodoro timer, reminders, tasks, focus stats and four selectable character skins. Fully offline.",
     "windows": {
       "nsis": {
         "installMode": "currentUser",

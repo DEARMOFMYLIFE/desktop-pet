@@ -6,11 +6,11 @@ afterEach(() => setLocale('zh-CN'));
 describe('i18n', () => {
   it('translates both locales', () => {
     setLocale('zh-CN');
-    expect(t('app.name')).toBe('凪');
+    expect(t('app.name')).toBe('小柚');
     expect(t('settings.general.alwaysOnTop')).toBe('始终置顶');
 
     setLocale('en-US');
-    expect(t('app.name')).toBe('Nagi');
+    expect(t('app.name')).toBe('Yuzu');
     expect(t('settings.general.alwaysOnTop')).toBe('Always on top');
   });
 

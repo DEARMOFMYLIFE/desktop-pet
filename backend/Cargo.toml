@@ -1,13 +1,13 @@
 [package]
-name = "xiaozhu"
+name = "yuzu"
 version = "0.1.0"
-description = "凪 Nagi — desktop companion and focus assistant"
-authors = ["Nagi contributors"]
+description = "小柚 Yuzu — desktop companion and focus assistant"
+authors = ["Yuzu contributors"]
 edition = "2021"
 rust-version = "1.77"
 
 [lib]
-name = "xiaozhu_lib"
+name = "yuzu_lib"
 crate-type = ["staticlib", "cdylib", "rlib"]
 
 [build-dependencies]

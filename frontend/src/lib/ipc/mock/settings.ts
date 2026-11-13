@@ -1,10 +1,10 @@
 import type { AppInfo, Settings } from '../../../types';
 import { DEFAULT_SETTINGS } from '../defaults';
 
-const MOCK_KEY = 'xiaozhu.settings';
+const MOCK_KEY = 'yuzu.settings';
 
 export const MOCK_APP: AppInfo = {
-  name: '凪',
+  name: '小柚',
   version: '0.1.0',
   platform: 'browser',
 };
