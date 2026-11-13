@@ -1,0 +1,88 @@
+  .onboarding-shell {
+    @apply flex flex-col px-7 pb-[18px] pt-5;
+  }
+
+  .onboarding-head {
+    @apply flex items-center justify-between gap-3 text-[11px] text-muted;
+  }
+
+  .onboarding-brand {
+    @apply inline-flex items-center gap-1.5 text-[13px] font-[650] text-ink;
+  }
+
+  .onboarding-logo {
+    @apply h-5 w-5 object-contain;
+  }
+
+  .onboarding-main {
+    @apply flex flex-1 flex-col justify-center py-2.5;
+  }
+
+  .onboarding-main h1 {
+    @apply mb-1.5 mt-0 text-[22px] tracking-[-0.02em];
+  }
+
+  .onboarding-lead {
+    @apply mb-4 mt-0 text-[13px] leading-relaxed text-muted;
+  }
+
+  .onboarding-mascot {
+    @apply mx-auto mb-1 grid h-[132px] w-[132px] place-items-center;
+  }
+
+  .onboarding-field {
+    @apply mt-3 flex flex-col gap-1.5 text-xs text-muted;
+  }
+
+  .onboarding-card {
+    @apply rounded-lg border border-line bg-surface px-4 py-1;
+    box-shadow: var(--shadow-xs);
+  }
+
+  .onboarding-main > .notice {
+    @apply mt-3.5;
+  }
+
+  .onboarding-row {
+    @apply flex min-h-[54px] items-center justify-between gap-[18px] border-b border-line text-[13px];
+  }
+
+  .onboarding-row:last-child {
+    @apply border-b-0;
+  }
+
+  .onboarding-row small {
+    @apply mt-0.5 block text-[11px] text-muted;
+  }
+
+  .onboarding-shortcut {
+    @apply flex min-h-12 items-center justify-between gap-4 border-b border-line text-[13px];
+  }
+
+  .onboarding-shortcut:last-child {
+    @apply border-b-0;
+  }
+
+  .onboarding-foot {
+    @apply flex items-center justify-between gap-4 border-t border-line pt-3;
+  }
+
+  .onboarding-dots {
+    @apply flex gap-1.5;
+  }
+
+  .onboarding-dots span {
+    @apply h-1.5 w-1.5 rounded-full bg-line;
+  }
+
+  .onboarding-dots span.is-active {
+    @apply w-[18px] rounded-full bg-accent;
+  }
+
+  .onboarding-actions {
+    @apply flex gap-2;
+  }
+
+  .onboarding-actions .btn {
+    @apply min-h-8 px-3 text-xs;
+  }
