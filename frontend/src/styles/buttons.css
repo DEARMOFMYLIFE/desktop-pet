@@ -1,0 +1,110 @@
+@layer components {
+  .btn {
+    @apply inline-block h-8 whitespace-nowrap rounded-md border border-line bg-surface px-3 text-center align-middle text-[13px] font-medium text-ink transition-[background-color,border-color,transform,box-shadow] duration-150;
+    line-height: 30px;
+    box-shadow: var(--shadow-xs);
+  }
+
+  .btn-content {
+    position: relative;
+    top: 0;
+  }
+
+  .btn {
+    flex: none;
+  }
+
+  .btn svg {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .select-label {
+    position: relative;
+    top: -0.5px;
+  }
+
+  .btn-content > svg:not(:last-child) {
+    margin-right: 5px;
+  }
+
+  .btn-content > svg:last-child:not(:first-child) {
+    margin-left: 5px;
+  }
+
+  .btn:hover {
+    @apply border-[color:var(--accent)] bg-surface;
+  }
+
+  .btn:active {
+    @apply translate-y-px;
+    box-shadow: none;
+  }
+
+  .btn-primary {
+    @apply border-transparent bg-accent text-white;
+    box-shadow: var(--shadow-accent);
+  }
+
+  .btn-primary:hover {
+    @apply border-transparent bg-accent;
+    filter: brightness(0.97);
+  }
+
+  .btn-ghost,
+  .btn-quiet {
+    @apply border-transparent bg-transparent text-muted;
+    box-shadow: none;
+  }
+
+  .btn-ghost:hover,
+  .btn-quiet:hover {
+    @apply border-transparent bg-surface-muted text-ink;
+  }
+
+  .btn-quiet {
+    @apply underline-offset-2 hover:underline;
+  }
+
+  .btn-danger {
+    @apply border-transparent bg-danger text-white;
+    box-shadow: var(--shadow-danger);
+  }
+
+  .btn-danger:hover {
+    @apply border-transparent bg-danger text-white;
+    filter: brightness(0.95);
+  }
+
+  .btn-danger-outline {
+    @apply border-[color:var(--danger-soft-line)] bg-surface text-danger;
+    box-shadow: none;
+  }
+
+  .btn-danger-outline:hover {
+    @apply border-[color:var(--danger)] bg-[color:var(--danger-soft)] text-[color:var(--danger-ink)];
+  }
+
+  .btn-sm {
+    @apply h-7 px-2 text-[11px];
+    line-height: 26px;
+  }
+
+  .btn:disabled {
+    @apply cursor-not-allowed opacity-50;
+    box-shadow: none;
+    transform: none;
+  }
+
+  .icon-btn {
+    @apply grid h-7 w-7 place-items-center rounded-sm border-0 bg-transparent p-0 text-muted transition-colors duration-150;
+  }
+
+  .icon-btn:hover {
+    @apply bg-surface-muted text-ink;
+  }
+
+  .icon-btn-danger:hover {
+    @apply bg-surface-muted text-danger;
+  }
+}

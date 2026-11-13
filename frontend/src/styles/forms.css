@@ -1,0 +1,179 @@
+@layer components {
+  .input {
+    @apply h-9 w-full rounded-sm border border-line bg-surface px-2.5 py-0 text-[13px] text-ink transition-[border-color,box-shadow] duration-150;
+    line-height: 32px;
+    padding-bottom: 1px;
+  }
+
+  .input:hover {
+    @apply border-[color:var(--text-secondary)];
+  }
+
+  .input:focus,
+  .input:focus-visible {
+    @apply border-accent outline-none;
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+
+  .input::placeholder {
+    @apply text-muted opacity-70;
+  }
+
+  .input-invalid {
+    @apply border-danger;
+  }
+
+  .number-control {
+    @apply inline-flex min-h-8 items-center gap-0.5 rounded-sm border border-line bg-surface px-1 transition-[border-color,box-shadow] duration-150;
+  }
+
+  .number-control:focus-within {
+    @apply border-accent;
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+
+  .number-control-compact {
+    @apply min-h-7;
+  }
+
+  .number-control-input {
+    @apply h-6 w-9 border-0 bg-transparent px-0 text-center text-[12.5px] tabular-nums text-ink outline-none;
+    line-height: 24px;
+    -moz-appearance: textfield;
+  }
+
+  .number-control-input::-webkit-inner-spin-button,
+  .number-control-input::-webkit-outer-spin-button {
+    margin: 0;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .number-control-unit {
+    @apply pr-0.5 text-[10.5px] text-muted;
+    line-height: 24px;
+  }
+
+  .number-step {
+    @apply grid h-6 w-6 shrink-0 place-items-center rounded-xs border-0 bg-transparent p-0 text-muted;
+  }
+
+  .number-step:hover:not(:disabled) {
+    @apply bg-surface-muted text-ink;
+  }
+
+  .number-step:disabled {
+    @apply cursor-not-allowed opacity-30;
+  }
+
+  .number-control-compact .number-step {
+    @apply h-5 w-5;
+  }
+
+  .number-control-compact .number-control-input {
+    @apply h-5 w-8 text-[11.5px];
+    line-height: 20px;
+  }
+
+  .textarea {
+    @apply h-auto min-h-[60px] resize-y px-2.5 py-2;
+    line-height: 1.5;
+  }
+
+  .select-trigger {
+    @apply flex h-9 min-w-[150px] items-center justify-between gap-2 rounded-sm border border-line bg-surface px-2.5 text-left text-[13px] leading-none text-ink transition-[border-color,box-shadow] duration-150;
+  }
+
+  .select-trigger:hover {
+    @apply border-[color:var(--text-secondary)];
+  }
+
+  .select-trigger.is-open,
+  .select-trigger:focus-visible {
+    @apply border-accent outline-none;
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+
+  .select-trigger:disabled {
+    @apply cursor-not-allowed opacity-50;
+  }
+
+  .select-menu {
+    @apply fixed z-[160] overflow-y-auto rounded-md border border-line bg-surface p-1;
+    box-shadow: var(--shadow);
+  }
+
+  .select-option {
+    @apply flex h-9 w-full items-center justify-between gap-2 rounded-sm px-2 text-left text-[13px] text-ink;
+    line-height: 32px;
+  }
+
+  .select-option > span {
+    position: relative;
+    top: -0.5px;
+  }
+
+  .select-option.is-active {
+    @apply bg-surface-muted;
+  }
+
+  .select-option[aria-selected='true'] {
+    @apply font-semibold text-accent-ink;
+  }
+
+  .search-field {
+    @apply relative flex min-w-[180px] items-center;
+  }
+
+  .search-icon-wrap {
+    @apply pointer-events-none absolute left-1.5 top-1/2 grid h-7 w-7 -translate-y-1/2 place-items-center rounded-md bg-accent-soft text-accent-ink;
+  }
+
+  .search-input {
+    @apply h-10 rounded-md border-line bg-surface pl-11 pr-10 text-[13px] font-medium text-ink;
+    line-height: 36px;
+    padding-bottom: 1px;
+  }
+
+  .search-input::placeholder {
+    color: var(--text-secondary);
+    font-weight: 400;
+    opacity: 1;
+  }
+
+  .search-input::-webkit-search-cancel-button {
+    display: none;
+  }
+
+  .search-clear {
+    @apply absolute right-1.5 top-1/2 -translate-y-1/2;
+  }
+
+  .clear-btn {
+    @apply grid h-6 w-6 shrink-0 place-items-center rounded-md border-0 bg-transparent p-0 text-muted transition-colors duration-150;
+  }
+
+  .clear-btn:hover {
+    @apply bg-surface-muted text-ink;
+  }
+
+  .clearable-field {
+    @apply relative w-full;
+  }
+
+  .clearable-field .input {
+    @apply pr-9;
+  }
+
+  .clearable-field .textarea {
+    @apply pr-10;
+  }
+
+  .clearable-field > .clear-btn {
+    @apply absolute right-1.5 top-1/2 -translate-y-1/2;
+  }
+
+  .clearable-field.is-textarea > .clear-btn {
+    @apply top-2 translate-y-0;
+  }
+}

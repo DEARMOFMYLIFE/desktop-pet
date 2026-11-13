@@ -1,0 +1,41 @@
+import type { Settings } from '../../types';
+
+export const DEFAULT_SETTINGS: Settings = {
+  language: 'system',
+  petName: '小驻',
+  petSize: 'M',
+  petSkin: 'coral',
+  appIcon: 'clock',
+  petOpacity: 1,
+  clickThrough: false,
+  alwaysOnTop: true,
+  reduceMotion: 'system',
+  autostart: false,
+  firstRun: true,
+  petPosition: null,
+  pomodoro: {
+    focusMin: 25,
+    shortBreakMin: 5,
+    longBreakMin: 15,
+    rounds: 4,
+    autoStartNext: false,
+  },
+  timerPresets: [5, 10, 15, 30, 60],
+  shortcuts: {
+    focus: 'CmdOrCtrl+Alt+P',
+    clickThrough: 'CmdOrCtrl+Alt+X',
+    toggleVisible: 'CmdOrCtrl+Alt+H',
+  },
+  reminders: {
+    waterEnabled: true,
+    waterIntervalMin: 45,
+    sedentaryEnabled: true,
+    sedentaryIntervalMin: 60,
+    eyesEnabled: true,
+    eyesIntervalMin: 20,
+    activeStart: '08:00',
+    activeEnd: '22:00',
+    focusBehavior: 'notify_only',
+    snoozeMin: 5,
+  },
+};

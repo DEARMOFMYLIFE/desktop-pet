@@ -1,0 +1,52 @@
+@layer components {
+  .app-shell {
+    @apply h-full select-text overflow-auto bg-bg text-ink;
+    background-image: radial-gradient(circle at 92% 0%, var(--accent-soft) 0, transparent 42%);
+  }
+
+  .app-shell button,
+  .app-shell .segmented,
+  .app-shell .select-trigger,
+  .app-shell .switch,
+  .app-shell .skin-card {
+    @apply select-none;
+  }
+
+  .app-shell input,
+  .app-shell textarea {
+    @apply select-text;
+  }
+
+  .muted {
+    @apply text-muted;
+  }
+
+  .card {
+    @apply rounded-lg border border-line bg-surface p-4;
+    box-shadow: var(--shadow-xs);
+  }
+
+  .card-title {
+    @apply mb-1.5 mt-0 text-[14px] font-[650] tracking-[-0.01em] text-ink;
+  }
+
+  .row {
+    @apply flex min-h-[44px] items-center justify-between gap-4;
+  }
+
+  .row + .row {
+    @apply border-t border-line;
+  }
+
+  .row-label {
+    @apply flex flex-col gap-0.5;
+  }
+
+  .row-label strong {
+    @apply text-[13px] font-semibold;
+  }
+
+  .row-label small {
+    @apply text-[11.5px] leading-relaxed text-muted;
+  }
+}

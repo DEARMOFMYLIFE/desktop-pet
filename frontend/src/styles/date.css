@@ -1,0 +1,143 @@
+@layer components {
+  .date-field {
+    @apply relative w-full;
+  }
+
+  .date-trigger {
+    @apply flex h-9 w-full items-center gap-2 rounded-sm border border-line bg-surface px-2.5 pr-9 text-left text-[13px] text-ink transition-[border-color,box-shadow] duration-150;
+  }
+
+  .date-trigger:hover {
+    @apply border-[color:var(--text-secondary)];
+  }
+
+  .date-trigger:focus-visible {
+    @apply border-accent outline-none;
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+
+  .date-trigger-icon {
+    @apply shrink-0 text-muted;
+  }
+
+  .date-placeholder {
+    @apply truncate text-muted;
+  }
+
+  .date-value {
+    @apply truncate;
+  }
+
+  .date-clear {
+    @apply absolute right-1.5 top-1/2 -translate-y-1/2;
+  }
+
+  .date-popover {
+    @apply fixed z-[240] w-[304px] rounded-lg border border-line bg-surface p-3 select-text;
+    box-shadow: var(--shadow);
+  }
+
+  .date-popover button {
+    @apply select-none;
+  }
+
+  .date-head {
+    @apply mb-2 flex items-center justify-between gap-1;
+  }
+
+  .date-month {
+    @apply text-[13px] font-semibold;
+  }
+
+  .date-month-button {
+    @apply inline-flex items-center gap-0.5 rounded-sm border-0 bg-transparent px-1 py-0.5 text-ink transition-colors duration-150;
+  }
+
+  .date-month-button:hover {
+    @apply bg-surface-muted;
+  }
+
+  .date-nav {
+    @apply h-7 w-7;
+  }
+
+  .date-periods {
+    @apply mt-1 grid grid-cols-3 gap-1.5;
+  }
+
+  .date-period {
+    @apply grid h-9 place-items-center rounded-md text-[12px] text-ink transition-colors duration-150;
+  }
+
+  .date-period:hover {
+    @apply bg-surface-muted;
+  }
+
+  .date-period.is-selected {
+    @apply bg-accent text-white;
+  }
+
+  .date-period.is-selected:hover {
+    @apply bg-accent;
+  }
+
+  .date-weekdays {
+    @apply grid grid-cols-7 gap-1;
+  }
+
+  .date-weekday {
+    @apply py-0.5 text-center text-[10px] font-medium uppercase tracking-wide text-muted;
+  }
+
+  .date-grid {
+    @apply mt-1 grid grid-cols-7 gap-1;
+  }
+
+  .date-day {
+    @apply grid h-8 w-full place-items-center rounded-md text-[12px] text-ink transition-colors duration-150;
+  }
+
+  .date-day:hover {
+    @apply bg-surface-muted;
+  }
+
+  .date-day.is-outside {
+    @apply text-muted opacity-40;
+  }
+
+  .date-day.is-today {
+    @apply border border-line;
+  }
+
+  .date-day.is-selected {
+    @apply border-transparent bg-accent text-white;
+  }
+
+  .date-day.is-selected:hover {
+    @apply bg-accent;
+  }
+
+  .date-time {
+    @apply mt-3 flex items-center justify-between gap-2 border-t border-line pt-3;
+  }
+
+  .date-time-label {
+    @apply text-[11px] text-muted;
+  }
+
+  .date-time-parts {
+    @apply flex items-center gap-1;
+  }
+
+  .date-time-colon {
+    @apply text-xs text-muted;
+  }
+
+  .date-foot {
+    @apply mt-3 flex items-center justify-between gap-2;
+  }
+
+  .date-foot-left {
+    @apply flex gap-1;
+  }
+}
