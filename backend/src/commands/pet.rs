@@ -93,13 +93,13 @@ pub fn pet_menu(app: AppHandle, window: WebviewWindow) -> Result<(), AppError> {
     let ghost = CheckMenuItem::with_id(
         &app,
         "pet_ghost",
-        "摸鱼模式（点击穿透）",
+        "点击穿透",
         true,
         settings.click_through,
         None::<&str>,
     )?;
     let settings_item = MenuItem::with_id(&app, "pet_settings", "设置…", true, None::<&str>)?;
-    let hide = MenuItem::with_id(&app, "pet_hide", "隐藏小人", true, None::<&str>)?;
+    let hide = MenuItem::with_id(&app, "pet_hide", "隐藏角色", true, None::<&str>)?;
     let quit = MenuItem::with_id(&app, "pet_quit", "退出应用", true, None::<&str>)?;
     let separator_one = PredefinedMenuItem::separator(&app)?;
     let separator_two = PredefinedMenuItem::separator(&app)?;

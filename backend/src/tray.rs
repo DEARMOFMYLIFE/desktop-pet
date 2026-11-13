@@ -9,7 +9,7 @@ use crate::timer::{self, TimerStartRequest};
 use crate::windows;
 
 pub fn setup(app: &AppHandle) -> Result<(), AppError> {
-    let toggle_pet = MenuItem::with_id(app, "toggle_pet", "显示 / 隐藏小人", true, None::<&str>)?;
+    let toggle_pet = MenuItem::with_id(app, "toggle_pet", "显示 / 隐藏角色", true, None::<&str>)?;
     let start_focus =
         MenuItem::with_id(app, "start_focus", "开始专注 25 分钟", true, None::<&str>)?;
     let pause_focus = MenuItem::with_id(app, "pause_focus", "暂停 / 继续专注", true, None::<&str>)?;
@@ -17,7 +17,7 @@ pub fn setup(app: &AppHandle) -> Result<(), AppError> {
     let bubble = MenuItem::with_id(app, "bubble", "显示气泡", true, None::<&str>)?;
     let ghost = MenuItem::with_id(app, "ghost", "切换点击穿透", true, None::<&str>)?;
     let settings = MenuItem::with_id(app, "settings", "设置…", true, None::<&str>)?;
-    let onboarding = MenuItem::with_id(app, "onboarding", "首次引导预览", true, None::<&str>)?;
+    let onboarding = MenuItem::with_id(app, "onboarding", "预览首次引导", true, None::<&str>)?;
     let quit = MenuItem::with_id(app, "quit", "退出应用", true, None::<&str>)?;
     let separator_top = PredefinedMenuItem::separator(app)?;
     let separator_timer = PredefinedMenuItem::separator(app)?;
