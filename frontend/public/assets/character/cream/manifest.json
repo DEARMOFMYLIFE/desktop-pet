@@ -1,0 +1,88 @@
+{
+  "character": "cream",
+  "displayName": "Cream",
+  "version": 4,
+  "frameSize": [
+    200,
+    200
+  ],
+  "anchor": [
+    0.5,
+    1.0
+  ],
+  "hitbox": [
+    0.15,
+    0.05,
+    0.7,
+    0.9
+  ],
+  "defaultState": "idle",
+  "states": {
+    "idle": {
+      "file": "idle.webp",
+      "frames": 16,
+      "fps": 10,
+      "loop": true
+    },
+    "walk": {
+      "file": "walk.webp",
+      "frames": 20,
+      "fps": 14,
+      "loop": true
+    },
+    "sit": {
+      "file": "sit.webp",
+      "frames": 6,
+      "fps": 4,
+      "loop": true
+    },
+    "sleep": {
+      "file": "sleep.webp",
+      "frames": 8,
+      "fps": 4,
+      "loop": true
+    },
+    "focus": {
+      "file": "focus.webp",
+      "frames": 6,
+      "fps": 4,
+      "loop": true
+    },
+    "break": {
+      "file": "break.webp",
+      "frames": 16,
+      "fps": 8,
+      "loop": true
+    },
+    "celebrate": {
+      "file": "celebrate.webp",
+      "frames": 16,
+      "fps": 12,
+      "loop": false
+    },
+    "drag": {
+      "file": "drag.webp",
+      "frames": 10,
+      "fps": 10,
+      "loop": true
+    },
+    "react": {
+      "file": "react.webp",
+      "frames": 10,
+      "fps": 14,
+      "loop": false
+    },
+    "remind": {
+      "file": "remind.webp",
+      "frames": 10,
+      "fps": 8,
+      "loop": true
+    },
+    "droop": {
+      "file": "droop.webp",
+      "frames": 6,
+      "fps": 4,
+      "loop": true
+    }
+  }
+}

@@ -1,0 +1,24 @@
+  .pet-hint {
+    @apply pointer-events-none absolute bottom-1 left-1/2 max-w-[94%] -translate-x-1/2 overflow-hidden text-ellipsis whitespace-nowrap rounded-full bg-[var(--overlay-text)] px-2 py-[1px] text-[10px] leading-[1.2] text-white;
+  }
+
+  .pet-root {
+    @apply relative grid h-screen w-screen place-items-center overflow-hidden bg-transparent;
+  }
+
+  .pet-canvas {
+    @apply relative block h-[min(100vw,100vh)] max-h-[260px] w-[min(100vw,100vh)] max-w-[260px] cursor-grab touch-none overflow-hidden;
+  }
+
+  .pet-sprite-canvas {
+    @apply pointer-events-none block h-full w-full select-none;
+  }
+
+  .pet-canvas:active {
+    @apply cursor-grabbing;
+  }
+
+  .pet-badge {
+    @apply pointer-events-none absolute bottom-1.5 right-1.5 grid h-5 w-5 place-items-center rounded-full bg-[var(--overlay-surface)];
+  }
+
