@@ -153,9 +153,28 @@ fn tray_temp_dir(value: &str) -> PathBuf {
     root.join("yuzu-tray").join(safe)
 }
 
-/// Linux panels often cache the first AppIndicator icon. Rebuilding the tray
-/// with a per-icon temp path avoids the old icon cache.
+/// Linux panels often cache the first AppIndicator icon. Keep the indicator
+/// registered, but move it to a per-icon temp directory before swapping the
+/// image; this makes AppIndicator load a new path instead of a cached frame.
 pub fn refresh(app: &AppHandle) -> Result<(), AppError> {
-    app.remove_tray_by_id("main");
-    setup(app)
+    let tray = app
+        .tray_by_id("main")
+        .ok_or_else(|| AppError::Internal("tray is not available".into()))?;
+    let app_icon = app
+        .state::<AppState>()
+        .snapshot()
+        .map(|settings| settings.app_icon)
+        .unwrap_or_else(|_| "clock".into());
+    let data = crate::app_icon::load_bytes(app, &app_icon)
+        .ok_or_else(|| AppError::Internal("tray icon data is missing".into()))?;
+    let image = Image::from_bytes(&data)
+        .map_err(|error| AppError::Internal(format!("tray icon: {error}")))?;
+
+    #[cfg(target_os = "linux")]
+    tray.set_temp_dir_path(Some(tray_temp_dir(&app_icon)))?;
+
+    tray.set_icon(Some(image))?;
+    let name = crate::windows::display_name(app);
+    let _ = tray.set_tooltip(Some(&name));
+    Ok(())
 }
