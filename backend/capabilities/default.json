@@ -1,0 +1,18 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Default capability for XiaoZhu windows",
+  "windows": [
+    "pet",
+    "bubble",
+    "settings",
+    "onboarding"
+  ],
+  "permissions": [
+    "core:default",
+    "notification:default",
+    "global-shortcut:default",
+    "autostart:default",
+    "core:window:allow-start-dragging"
+  ]
+}
