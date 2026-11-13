@@ -65,34 +65,71 @@ sudo apt install libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev
 
 macOS 需要 Xcode Command Line Tools；Windows 需要 WebView2 与 Visual Studio Build Tools。
 
-### 开发预览
+### 打开方式
+
+#### 原生应用
 
 ```bash
-npm install
-npm run dev
+./desktop/yuzu
 ```
 
-浏览器预览使用 mock IPC，可以直接打开：
+Linux 使用静态 ELF 启动器；macOS 使用 `desktop/open-app-macos.command`，Windows 使用
+`desktop/open-app-windows.cmd`。启动器会按以下顺序寻找程序：
 
-- `http://localhost:1420/pet.html`
-- `http://localhost:1420/settings.html`
-- `http://localhost:1420/onboarding.html`
-- `http://localhost:1420/bubble.html`
+1. `desktop/resources/bin/yuzu`
+2. `backend/target/release/yuzu`
+3. `backend/target/debug/yuzu`
+4. `YUZU_NATIVE_BINARY`
 
-### 桌面应用
+首次使用需要先构建 Tauri 程序：
 
 ```bash
-npm run tauri -- dev
 npm run tauri -- build
 ```
 
-Linux 桌面快捷方式：
+如果本机使用本地 sysroot 运行库（例如 `/tmp` 下的 WebKitGTK），可以准备一份稳定入口：
 
 ```bash
-./scripts/install-desktop-shortcut.sh
+./desktop/launcher/prepare.sh \
+  --binary /tmp/xz-native-target/release/yuzu \
+  --libdir /tmp/xz-merged-lib
 ```
 
-该脚本会创建 `com.yuzu.app.desktop` 应用入口和桌面快捷方式；已有旧品牌快捷方式会自动迁移。
+> Linux ELF 是启动器，不会把 Tauri/WebKitGTK 打包进单文件。跨机器分发仍应使用
+> Tauri 的 AppImage / deb / dmg / NSIS 安装包。
+
+#### 桌面快捷方式
+
+```bash
+./install-desktop.sh              # 安装
+./install-desktop.sh --uninstall  # 卸载（保留应用与数据）
+```
+
+脚本会自动识别 Linux、macOS 和 Windows Git Bash，生成对应的应用菜单和桌面入口。
+旧的 `scripts/install-desktop-shortcut.sh` 仍可用，会转发到新入口。
+
+#### 浏览器预览
+
+```bash
+./start.sh          # 启动 Vite
+./start.sh --prod   # 构建后启动生产预览
+./start.sh --build  # 仅构建前端
+./start.sh --app    # 直接打开原生应用
+./start.sh --open   # 启动后自动打开浏览器
+```
+
+浏览器模式使用 mock IPC，不会读写原生应用数据。启动后可访问：
+
+- `http://127.0.0.1:1420/settings.html`
+- `http://127.0.0.1:1420/pet.html`
+- `http://127.0.0.1:1420/bubble.html`
+- `http://127.0.0.1:1420/onboarding.html`
+
+#### Tauri 开发
+
+```bash
+npm run tauri -- dev
+```
 
 ### 检查与测试
 
@@ -149,9 +186,17 @@ desktop-pet/
 │   │   └── pet/                 # 姿态与好感度
 │   ├── icons/                   # 应用/托盘图标
 │   └── tauri.conf.json
+├── desktop/                     # Linux ELF 启动器、多平台入口与资源
+│   ├── yuzu                     # Linux x86_64 静态 ELF
+│   ├── launcher/                # Go 源码、构建与本地运行时准备
+│   ├── open-app-macos.command
+│   ├── open-app-windows.cmd
+│   └── resources/               # 本机 Tauri 程序与运行库（不提交）
 ├── docs/                        # 设计、工程与发布文档
-├── scripts/                     # 角色/图标生成、启动、桌面安装
-├── packaging/                   # Linux 桌面入口
+├── scripts/                     # 角色/图标生成、Tauri 开发启动
+├── packaging/                   # 正式安装包桌面入口
+├── install-desktop.sh           # 跨平台桌面快捷方式
+├── start.sh                     # 浏览器预览启动器
 └── README.md
 ```
 
@@ -167,7 +212,7 @@ desktop-pet/
 | [06 · 代码拆分](docs/06-代码拆分与目录结构.md) | 目录结构、公共组件与 hooks |
 | [07 · UI 一致性](docs/07-UI一致性与性能优化.md) | 样式复用与性能 |
 | [08 · 组件规范](docs/08-前端设计与组件规范.md) | 视觉方向与组件约定 |
-| [09 · 桌面快捷方式](docs/09-桌面快捷方式.md) | Linux 桌面入口与启动 |
+| [09 · 桌面快捷方式](docs/09-桌面快捷方式.md) | ELF 启动器、多平台快捷方式与启动 |
 | [10 · 一致性复审](docs/10-代码与UI一致性复审.md) | 代码与界面检查 |
 | [11 · 页面合规](docs/11-页面与组件合规检查.md) | 布局、API 与类型规范 |
 | [12 · 性能审计](docs/12-性能审计与优化.md) | 渲染、资源与定时器 |

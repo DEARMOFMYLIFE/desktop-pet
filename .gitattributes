@@ -1,0 +1,5 @@
+# 跨平台换行：Windows 启动脚本使用 CRLF，其余保持 LF
+*.cmd text eol=crlf
+*.bat text eol=crlf
+# Linux ELF 是构建产物，Git 按二进制处理
+desktop/yuzu binary

@@ -59,3 +59,12 @@ desktop.ini
 
 # Local credentials
 .git-credentials
+
+# ============================================================
+# 7. 桌面启动器本地运行时（源码与 Linux 启动器 ELF 保留）
+# ============================================================
+desktop/launcher.env
+desktop/resources/bin/*
+!desktop/resources/bin/.gitkeep
+desktop/resources/lib/*
+!desktop/resources/lib/.gitkeep

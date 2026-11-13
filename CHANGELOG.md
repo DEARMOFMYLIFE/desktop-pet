@@ -19,6 +19,10 @@
 
 ### Added
 
+- Linux 静态 ELF 启动器 `desktop/yuzu`，以及 macOS / Windows 启动入口。
+- 跨平台 `install-desktop.sh`：安装/卸载 Linux、macOS、Windows Git Bash 桌面快捷方式。
+- `start.sh` 浏览器预览启动器：开发、生产、仅构建和直接启动原生应用。
+- `desktop/launcher/prepare.sh`：准备本机 Tauri 程序与可选 sysroot 运行库。
 - 旧数据目录、数据库、桌面入口、快捷方式与角色名称的自动迁移。
 - 前端 6 个测试与 Rust 5 个 lib 测试。
 - 所有前后端源文件和样式文件保持在 200 行以内。
