@@ -23,13 +23,19 @@ export function TodoPanel({ notify, settings }: SettingsPanelProps) {
       />
       {todo.error && !todo.showForm && <ErrorNotice>{todo.error}</ErrorNotice>}
 
-      <TodoList
-        todos={todo.visible}
-        language={settings.language}
-        onToggle={todo.toggle}
-        onEdit={todo.openEdit}
-        onDelete={todo.requestRemove}
-      />
+      {todo.loading ? (
+        <div className="empty" aria-busy="true">
+          {t('common.loading')}
+        </div>
+      ) : (
+        <TodoList
+          todos={todo.visible}
+          language={settings.language}
+          onToggle={todo.toggle}
+          onEdit={todo.openEdit}
+          onDelete={todo.requestRemove}
+        />
+      )}
       <TodoDialog
         open={todo.showForm}
         editing={todo.editing !== null}

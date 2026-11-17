@@ -14,6 +14,7 @@ export function useTodoList({ notify, setError }: TodoListOptions) {
   const [filter, setFilter] = useState<TodoFilter>('all');
   const [query, setQuery] = useState('');
   const [pendingDelete, setPendingDelete] = useState<Todo | null>(null);
+  const [loading, setLoading] = useState(true);
 
   const load = useCallback(() => {
     void api
@@ -27,10 +28,14 @@ export function useTodoList({ notify, setError }: TodoListOptions) {
     void api
       .todoList()
       .then((next) => {
-        if (!cancelled) setTodos(next);
+        if (cancelled) return;
+        setTodos(next);
+        setLoading(false);
       })
       .catch((reason: unknown) => {
-        if (!cancelled) setError(errorMessage(reason, t('error.generic')));
+        if (cancelled) return;
+        setError(errorMessage(reason, t('error.generic')));
+        setLoading(false);
       });
     return () => {
       cancelled = true;
@@ -98,6 +103,7 @@ export function useTodoList({ notify, setError }: TodoListOptions) {
     query,
     setQuery,
     pendingDelete,
+    loading,
     visible,
     reload: load,
     toggle,
