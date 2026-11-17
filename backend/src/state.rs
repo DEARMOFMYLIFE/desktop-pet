@@ -11,7 +11,7 @@ use crate::types::{PetSnapshot, ReminderRow, Settings, TimerSnapshot};
 
 mod normalize;
 
-use normalize::{normalize_pet_name, normalize_pet_skin};
+use normalize::{normalize_pet_name, normalize_pet_skin, normalize_timer_presets};
 
 pub struct AppState {
     db: Db,
@@ -39,7 +39,9 @@ impl AppState {
         normalize_pet_skin(&mut settings.pet_skin);
         let previous_name = settings.pet_name.clone();
         normalize_pet_name(&mut settings.pet_name);
-        if settings.pet_name != previous_name {
+        let previous_presets = settings.timer_presets.clone();
+        normalize_timer_presets(&mut settings.timer_presets);
+        if settings.pet_name != previous_name || settings.timer_presets != previous_presets {
             db.set_setting("settings", &serde_json::to_string(&settings)?)?;
         }
 

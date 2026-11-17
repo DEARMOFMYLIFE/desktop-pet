@@ -118,7 +118,7 @@ impl Default for Settings {
             first_run: true,
             pet_position: None,
             pomodoro: PomodoroSettings::default(),
-            timer_presets: vec![5, 10, 15, 30, 60],
+            timer_presets: vec![5, 10, 15, 25, 30, 60],
             shortcuts: ShortcutSettings::default(),
             reminders: ReminderSettings::default(),
         }

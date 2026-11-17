@@ -10,7 +10,7 @@ fn click_reacts_then_returns_to_idle() {
     assert_eq!(pet.click().state, PetState::React);
     assert!(pet.take_dirty());
 
-    let (snapshot, walk) = pet.tick(Instant::now() + Duration::from_secs(2));
+    let (snapshot, walk) = pet.tick(Instant::now() + Duration::from_millis(1100));
     assert!(walk.is_none());
     assert_eq!(snapshot.map(|value| value.state), Some(PetState::Idle));
 }

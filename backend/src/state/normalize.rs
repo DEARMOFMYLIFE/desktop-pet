@@ -22,3 +22,9 @@ pub(super) fn normalize_pet_skin(skin: &mut String) {
     };
     *skin = next.to_string();
 }
+
+pub(super) fn normalize_timer_presets(presets: &mut Vec<u32>) {
+    if presets.as_slice() == [5, 10, 15, 30, 60] {
+        *presets = vec![5, 10, 15, 25, 30, 60];
+    }
+}

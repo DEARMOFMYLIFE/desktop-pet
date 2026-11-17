@@ -4,7 +4,9 @@ use tauri::{Emitter, Manager};
 
 /// Runs the 1 Hz pet state ticker until the app exits.
 pub async fn run(app: tauri::AppHandle) {
-    let mut interval = tokio::time::interval(Duration::from_secs(1));
+    // Non-looping actions (react/celebrate) need to release their last frame
+    // promptly; a 1 Hz tick made that final pose linger for up to 2 seconds.
+    let mut interval = tokio::time::interval(Duration::from_millis(200));
     loop {
         interval.tick().await;
         if let Err(error) = tick_once(&app).await {

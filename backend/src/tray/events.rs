@@ -1,16 +1,12 @@
 use tauri::AppHandle;
 
-use crate::timer::{self, TimerStartRequest};
+use crate::timer;
 use crate::windows;
 
 pub(super) fn handle(app: &AppHandle, id: &str) {
     match id {
         "toggle_pet" => windows::toggle_pet_visibility(app),
         "start_focus" => {
-            let _ = timer::stop(app);
-            if let Err(error) = timer::start(app, TimerStartRequest::Pomodoro) {
-                tracing::warn!(?error, "failed to start focus from tray");
-            }
             if let Err(error) = windows::open_bubble(app) {
                 tracing::warn!(?error, "failed to open bubble from tray");
             }

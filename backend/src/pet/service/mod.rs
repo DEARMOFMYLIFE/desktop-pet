@@ -67,7 +67,7 @@ impl PetService {
         self.last_interaction = now;
         self.state = PetState::React;
         self.base_state = PetState::Idle;
-        self.one_shot_until = Some(now + Duration::from_millis(1500));
+        self.one_shot_until = Some(now + Duration::from_millis(1000));
 
         if now.duration_since(self.last_reward) >= Duration::from_secs(300) {
             self.mood = (self.mood + 1).min(100);
@@ -80,8 +80,8 @@ impl PetService {
     pub fn set_state(&mut self, state: PetState) {
         self.abort_walk();
         self.one_shot_until = match state {
-            PetState::React => Some(Instant::now() + Duration::from_millis(1500)),
-            PetState::Celebrate => Some(Instant::now() + Duration::from_secs(3)),
+            PetState::React => Some(Instant::now() + Duration::from_millis(1000)),
+            PetState::Celebrate => Some(Instant::now() + Duration::from_secs(2)),
             PetState::Remind => Some(Instant::now() + Duration::from_secs(3)),
             _ => None,
         };

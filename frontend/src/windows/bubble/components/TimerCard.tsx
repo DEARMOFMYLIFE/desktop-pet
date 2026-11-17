@@ -19,6 +19,8 @@ interface TimerCardProps {
   onClose: () => void;
 }
 
+const DEFAULT_FOCUS_MINUTES = 25;
+
 export function TimerCard({
   timer,
   settings,
@@ -57,16 +59,23 @@ export function TimerCard({
 
       {!active && settings && (
         <div className="bubble-presets">
-          {settings.timerPresets.map((minutes) => (
-            <button
-              key={minutes}
-              type="button"
-              className="chip bubble-chip"
-              onClick={() => onStartPreset(minutes)}
-            >
-              {minutes}
-            </button>
-          ))}
+          {Array.from(new Set([...settings.timerPresets, DEFAULT_FOCUS_MINUTES]))
+            .sort((a, b) => a - b)
+            .map((minutes) => (
+              <button
+                key={minutes}
+                type="button"
+                className={
+                  minutes === DEFAULT_FOCUS_MINUTES
+                    ? 'chip bubble-chip bubble-chip-selected'
+                    : 'chip bubble-chip'
+                }
+                aria-pressed={minutes === DEFAULT_FOCUS_MINUTES}
+                onClick={() => onStartPreset(minutes)}
+              >
+                {minutes}
+              </button>
+            ))}
           <button type="button" className="chip bubble-chip" onClick={onStartCountUp}>
             {t('bubble.countUpAction')}
           </button>

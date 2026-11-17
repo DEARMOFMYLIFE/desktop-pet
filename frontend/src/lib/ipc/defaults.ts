@@ -20,7 +20,7 @@ export const DEFAULT_SETTINGS: Settings = {
     rounds: 4,
     autoStartNext: false,
   },
-  timerPresets: [5, 10, 15, 30, 60],
+  timerPresets: [5, 10, 15, 25, 30, 60],
   shortcuts: {
     focus: 'CmdOrCtrl+Alt+P',
     clickThrough: 'CmdOrCtrl+Alt+X',

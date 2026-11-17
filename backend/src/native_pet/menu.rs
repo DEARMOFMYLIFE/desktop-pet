@@ -13,8 +13,6 @@ pub(super) fn show(app: &AppHandle) {
     let labels = menu_text::pet(&language);
     let menu = gtk::Menu::new();
     add_item(&menu, labels.start_focus, app, |app| {
-        let _ = crate::timer::stop(app);
-        let _ = crate::timer::start(app, crate::timer::TimerStartRequest::Pomodoro);
         let _ = crate::windows::open_bubble(app);
     });
     add_item(&menu, labels.click_through, app, |app| {

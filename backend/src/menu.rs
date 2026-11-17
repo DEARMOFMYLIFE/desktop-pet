@@ -1,15 +1,11 @@
 use tauri::menu::MenuEvent;
 use tauri::AppHandle;
 
-use crate::{timer, windows};
+use crate::windows;
 
 pub fn handle(app: &AppHandle, event: MenuEvent) {
     match event.id().as_ref() {
         "pet_focus" => {
-            let _ = timer::stop(app);
-            if let Err(error) = timer::start(app, timer::TimerStartRequest::Pomodoro) {
-                tracing::warn!(?error, "failed to start focus from pet menu");
-            }
             if let Err(error) = windows::open_bubble(app) {
                 tracing::warn!(?error, "failed to open bubble from pet menu");
             }

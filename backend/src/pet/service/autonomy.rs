@@ -75,7 +75,7 @@ impl PetService {
             85..=94 => {
                 self.state = PetState::React;
                 self.base_state = PetState::Idle;
-                self.one_shot_until = Some(now + Duration::from_millis(1500));
+                self.one_shot_until = Some(now + Duration::from_millis(1000));
                 None
             }
             _ => {

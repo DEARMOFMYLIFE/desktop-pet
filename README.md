@@ -6,15 +6,17 @@
 
 ![小柚的通用设置](docs/previews/ui-general.png)
 
+> 界面截图来自当前版本：Linux 原生角色窗口、透明提示区、自适应气泡与中英文菜单。
+
 ---
 
 ## 她是什么
 
-- **桌面陪伴**：透明置顶的陪伴窗口，支持拖拽、吸附、边缘走动、点击反应和多种状态动画。
-- **专注助手**：番茄钟、倒计时、正计时、阶段切换、自动开始、专注记录和统计。
+- **桌面陪伴**：透明置顶的陪伴窗口，支持拖拽、吸附、边缘走动、点击反应和多种状态动画；Linux 使用原生 GTK/Cairo 角色窗口，Windows/macOS 保留 WebView 渲染。
+- **专注助手**：番茄钟、倒计时、正计时、阶段切换、自动开始、专注记录和统计；右键或托盘“开始专注 25 分钟”会先打开气泡并预选 25 分钟，由你点击开始。
 - **温柔提醒**：喝水、久坐、护眼提醒，支持活跃时段、专注期间策略与稍后提醒。
 - **待办清单**：弹窗式新增/编辑，截止时间、提醒时间和完成状态一目了然。
-- **个性化**：16 套角色皮肤、10 套应用图标主题，也可以导入自己的图标。
+- **个性化**：16 套角色皮肤、10 套应用图标主题，也可以导入自己的图标；角色右键菜单、托盘菜单和窗口标题跟随中英文设置切换。
 - **完全离线**：无账号、无联网、无遥测；设置和记录保存在本机 SQLite 中。
 
 ## 界面一览
@@ -31,7 +33,7 @@
 | --- | --- |
 | ![专注气泡](docs/previews/ui-bubble.png) | ![关于与数据](docs/previews/ui-about.png) |
 
-角色素材使用 pzUH 的 **Cute Girl - Free Sprites**（CC0 1.0）。默认皮肤是珊瑚，共有 16 套配色；每套都包含待机、走路、坐下、睡觉、专注、休息、庆祝、拖拽、回应、提醒和低落等状态。
+角色素材使用 pzUH 的 **Cute Girl - Free Sprites**（CC0 1.0）。默认皮肤是珊瑚，共有 16 套配色；每套都包含待机、走路、坐下、睡觉、专注、休息、庆祝、拖拽、回应、提醒和低落等状态。`react` 等单次动作会在动作结束后短暂停顿再回到待机，不会在末帧停留两秒。
 
 ![小柚角色预览](docs/previews/cute-girl-preview.gif)
 
@@ -43,7 +45,7 @@
 
 ### 为什么用透明小窗口
 
-小柚住在屏幕边缘，而不是在应用窗口里等待被打开。她应该像桌面上的一盏小灯：存在感刚刚好，需要时伸手就能碰到，不需要时可以安静待着。
+小柚住在屏幕边缘，而不是在应用窗口里等待被打开。她应该像桌面上的一盏小灯：存在感刚刚好，需要时伸手就能碰到，不需要时可以安静待着。Linux 版本把角色绘制迁到原生 GTK/Cairo 透明窗口，提示文字放在角色下方，气泡会按角色位置自动避让。
 
 ### 为什么坚持离线
 
@@ -60,7 +62,7 @@
 Ubuntu 22.04 / Debian 系：
 
 ```bash
-sudo apt install libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev
+sudo apt install libwebkit2gtk-4.1-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev
 ```
 
 macOS 需要 Xcode Command Line Tools；Windows 需要 WebView2 与 Visual Studio Build Tools。
@@ -152,6 +154,7 @@ cargo test --manifest-path backend/Cargo.toml --lib
 | 前端 | React 18 + TypeScript（strict） |
 | 构建 | Vite |
 | 样式 | Tailwind CSS + 设计 Token |
+| 角色渲染（Linux） | GTK3 + Cairo 原生透明窗口 |
 | 图标 | Lucide React + 项目原创图标资源 |
 | 测试 | Vitest + Rust 单元测试 |
 
@@ -179,6 +182,7 @@ desktop-pet/
 ├── backend/
 │   ├── src/
 │   │   ├── commands/            # Tauri commands
+│   │   ├── native_pet/          # Linux GTK/Cairo 原生角色窗口
 │   │   ├── windows/             # 窗口、位置与品牌同步
 │   │   ├── storage/             # SQLite 持久化
 │   │   ├── timer/               # 计时引擎
