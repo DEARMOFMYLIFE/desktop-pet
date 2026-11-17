@@ -166,6 +166,7 @@
       "saved": "待办已保存",
       "deleted": "待办已删除",
       "deleteConfirm": "确定删除这条待办吗？",
+      "deleteTitle": "删除待办",
       "editTitle": "编辑待办",
       "dialogHint": "记录一件小事，到点提醒。",
       "datePlaceholder": "选择日期和时间",

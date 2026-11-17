@@ -166,6 +166,7 @@
       "saved": "Task saved",
       "deleted": "Task deleted",
       "deleteConfirm": "Delete this task?",
+      "deleteTitle": "Delete task",
       "editTitle": "Edit task",
       "dialogHint": "Capture a small task and get reminded.",
       "datePlaceholder": "Select date and time",

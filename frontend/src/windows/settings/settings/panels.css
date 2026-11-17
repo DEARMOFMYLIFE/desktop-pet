@@ -80,10 +80,6 @@
     @apply flex gap-0.5;
   }
 
-  .todo-actions .btn {
-    @apply min-h-7 px-2 text-[11px];
-  }
-
   .todo-delete:hover {
     @apply text-danger;
   }

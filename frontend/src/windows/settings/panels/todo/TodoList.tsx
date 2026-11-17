@@ -1,9 +1,7 @@
-import { Clock } from 'lucide-react';
 import { memo } from 'react';
-import { Button } from '../../../../components/ui/Button';
-import { Checkbox } from '../../../../components/ui/Checkbox';
 import { t } from '../../../../lib/i18n';
 import type { Todo } from '../../../../types';
+import { TodoRow } from './TodoRow';
 
 interface TodoListProps {
   todos: Todo[];
@@ -27,43 +25,14 @@ export const TodoList = memo(function TodoList({
   return (
     <div className="todo-list" data-language={language}>
       {todos.map((todo) => (
-        <div key={todo.id} className={`todo-row${todo.completed ? ' is-done' : ''}`}>
-          <Checkbox
-            checked={todo.completed}
-            onChange={() => onToggle(todo)}
-            ariaLabel={todo.title}
-          />
-          <div className="todo-main">
-            <strong>{todo.title}</strong>
-            {todo.note && <small>{todo.note}</small>}
-            <div className="todo-meta">
-              {todo.remindAt && (
-                <span className="inline-flex items-center gap-1">
-                  <Clock size={11} aria-hidden="true" />
-                  {t('settings.todos.remind')}: {new Date(todo.remindAt).toLocaleString()}
-                </span>
-              )}
-              {todo.dueAt && (
-                <span>
-                  {t('settings.todos.due')}: {new Date(todo.dueAt).toLocaleString()}
-                </span>
-              )}
-            </div>
-          </div>
-          <div className="todo-actions">
-            <Button variant="ghost" size="sm" onClick={() => onEdit(todo)}>
-              {t('settings.todos.edit')}
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="todo-delete"
-              onClick={() => onDelete(todo)}
-            >
-              {t('settings.todos.delete')}
-            </Button>
-          </div>
-        </div>
+        <TodoRow
+          key={todo.id}
+          todo={todo}
+          language={language}
+          onToggle={onToggle}
+          onEdit={onEdit}
+          onDelete={onDelete}
+        />
       ))}
     </div>
   );

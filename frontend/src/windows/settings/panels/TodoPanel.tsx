@@ -48,7 +48,7 @@ export function TodoPanel({ notify, settings }: SettingsPanelProps) {
       />
       <ConfirmDialog
         open={todo.pendingDelete !== null}
-        title={t('settings.todos.delete')}
+        title={t('settings.todos.deleteTitle')}
         message={t('settings.todos.deleteConfirm')}
         confirmLabel={t('settings.todos.delete')}
         cancelLabel={t('common.cancel')}
