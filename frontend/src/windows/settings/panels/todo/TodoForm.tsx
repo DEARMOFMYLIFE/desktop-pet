@@ -1,5 +1,5 @@
 import { ClearButton } from '../../../../components/ui/ClearButton';
-import { DateTimePicker } from '../../../../components/ui/DateTimePicker';
+import { TodoTimeField } from './TodoTimeField';
 import { Input, Textarea } from '../../../../components/ui/Input';
 import { t } from '../../../../lib/i18n';
 
@@ -50,24 +50,8 @@ export function TodoForm({
         {note && <ClearButton onClick={() => onNoteChange('')} />}
       </div>
       <div className="todo-time-grid">
-        <div className="todo-time-field">
-          <span>{t('settings.todos.remind')}</span>
-          <DateTimePicker
-            value={remind}
-            onChange={onRemindChange}
-            label={t('settings.todos.remind')}
-            placeholder={t('settings.todos.datePlaceholder')}
-          />
-        </div>
-        <div className="todo-time-field">
-          <span>{t('settings.todos.due')}</span>
-          <DateTimePicker
-            value={due}
-            onChange={onDueChange}
-            label={t('settings.todos.due')}
-            placeholder={t('settings.todos.datePlaceholder')}
-          />
-        </div>
+        <TodoTimeField kind="remind" value={remind} onChange={onRemindChange} />
+        <TodoTimeField kind="due" value={due} onChange={onDueChange} />
       </div>
       {error && <p className="form-error">{error}</p>}
     </div>

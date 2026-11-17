@@ -1,6 +1,7 @@
 import type { TimerPhase, TimerSnapshot, TimerStartRequest } from '../../../types';
 import { IpcError } from '../errors';
 import { readMockSettings } from './settings';
+import { startTimerPatch } from './timer-start';
 
 let mockTimer: TimerSnapshot = {
   kind: 'pomodoro',
@@ -28,63 +29,7 @@ function mockStartTimer(request: TimerStartRequest): TimerSnapshot {
   if (mockTimer.status !== 'idle' || mockTimer.phase !== null) {
     throw new IpcError('TIMER_CONFLICT', 'A timer is already active');
   }
-  const settings = readMockSettings();
-  if (request.kind === 'pomodoro') {
-    const total = settings.pomodoro.focusMin * 60;
-    return setMockTimer({
-      kind: 'pomodoro',
-      phase: 'focus',
-      status: 'running',
-      totalSec: total,
-      remainingSec: total,
-      startedAt: new Date().toISOString(),
-      endsAt: new Date(Date.now() + total * 1000).toISOString(),
-      roundsCompleted: 0,
-      roundsTotal: settings.pomodoro.rounds,
-      sessionId: null,
-    });
-  }
-  if (request.kind === 'focus') {
-    const total = request.minutes * 60;
-    return setMockTimer({
-      kind: 'pomodoro',
-      phase: 'focus',
-      status: 'running',
-      totalSec: total,
-      remainingSec: total,
-      startedAt: new Date().toISOString(),
-      endsAt: new Date(Date.now() + total * 1000).toISOString(),
-      roundsCompleted: 0,
-      roundsTotal: settings.pomodoro.rounds,
-      sessionId: null,
-    });
-  }
-  if (request.kind === 'countdown') {
-    return setMockTimer({
-      kind: 'countdown',
-      phase: null,
-      status: 'running',
-      totalSec: request.seconds,
-      remainingSec: request.seconds,
-      startedAt: new Date().toISOString(),
-      endsAt: new Date(Date.now() + request.seconds * 1000).toISOString(),
-      roundsCompleted: 0,
-      roundsTotal: 0,
-      sessionId: null,
-    });
-  }
-  return setMockTimer({
-    kind: 'countup',
-    phase: null,
-    status: 'running',
-    totalSec: 0,
-    remainingSec: 0,
-    startedAt: new Date().toISOString(),
-    endsAt: null,
-    roundsCompleted: 0,
-    roundsTotal: 0,
-    sessionId: null,
-  });
+  return setMockTimer(startTimerPatch(request, readMockSettings()));
 }
 
 function mockNextPhase(phase: TimerPhase | null): TimerPhase | null {
@@ -93,10 +38,7 @@ function mockNextPhase(phase: TimerPhase | null): TimerPhase | null {
   return null;
 }
 
-export function handleTimer<T>(
-  cmd: string,
-  args?: Record<string, unknown>,
-): Promise<T> | null {
+export function handleTimer<T>(cmd: string, args?: Record<string, unknown>): Promise<T> | null {
   switch (cmd) {
     case 'timer_snapshot':
       return Promise.resolve(mockTimer as T);

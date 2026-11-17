@@ -19,3 +19,5 @@ export interface TodoInput {
   dueAt?: string | null;
   remindAt?: string | null;
 }
+
+export type TodoTimeKind = 'remind' | 'due';

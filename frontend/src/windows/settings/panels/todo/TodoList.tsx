@@ -13,7 +13,13 @@ interface TodoListProps {
   onDelete: (todo: Todo) => void;
 }
 
-export const TodoList = memo(function TodoList({ todos, language, onToggle, onEdit, onDelete }: TodoListProps) {
+export const TodoList = memo(function TodoList({
+  todos,
+  language,
+  onToggle,
+  onEdit,
+  onDelete,
+}: TodoListProps) {
   if (todos.length === 0) {
     return <div className="empty">{t('settings.todos.empty')}</div>;
   }
@@ -31,15 +37,15 @@ export const TodoList = memo(function TodoList({ todos, language, onToggle, onEd
             <strong>{todo.title}</strong>
             {todo.note && <small>{todo.note}</small>}
             <div className="todo-meta">
-              {todo.dueAt && (
-                <span>
-                  {t('settings.todos.due')}: {new Date(todo.dueAt).toLocaleString()}
-                </span>
-              )}
               {todo.remindAt && (
                 <span className="inline-flex items-center gap-1">
                   <Clock size={11} aria-hidden="true" />
-                  {new Date(todo.remindAt).toLocaleString()}
+                  {t('settings.todos.remind')}: {new Date(todo.remindAt).toLocaleString()}
+                </span>
+              )}
+              {todo.dueAt && (
+                <span>
+                  {t('settings.todos.due')}: {new Date(todo.dueAt).toLocaleString()}
                 </span>
               )}
             </div>

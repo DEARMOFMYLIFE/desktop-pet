@@ -26,7 +26,7 @@ export type {
   TimerStartRequest,
   TimerStatus,
 } from './timer';
-export type { Todo, TodoFilter, TodoInput } from './todo';
+export type { Todo, TodoFilter, TodoInput, TodoTimeKind } from './todo';
 export type { ReminderPayload, ReminderRow } from './reminder';
 export type { DailyStat, StatsRange, StatsResult } from './stats';
 export type { DatePickerMode, DatePickerPosition } from './datePicker';
