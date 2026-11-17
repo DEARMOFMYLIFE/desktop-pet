@@ -11,15 +11,38 @@ export function usePetWindow() {
   const [showHint, setShowHint] = useState(true);
   const reactTimerRef = useRef<number | null>(null);
   const hintTimerRef = useRef<number | null>(null);
+  const hintVisibleRef = useRef(true);
 
-  const resetHint = useCallback(() => setHint(t('pet.hint')), []);
-
-  const showTransientHint = useCallback((message: string, duration: number) => {
-    setHint(message);
-    setShowHint(true);
-    if (hintTimerRef.current !== null) window.clearTimeout(hintTimerRef.current);
-    hintTimerRef.current = window.setTimeout(() => setShowHint(false), duration);
+  const hideHint = useCallback(() => {
+    hintVisibleRef.current = false;
+    setShowHint(false);
   }, []);
+
+  const resetHint = useCallback(() => {
+    // Replacing text while the hint is visible leaves stale WebKit glyphs on
+    // transparent windows. Only refresh the text for the next display.
+    if (!hintVisibleRef.current) setHint(t('pet.hint'));
+  }, []);
+
+  const showTransientHint = useCallback(
+    (message: string, duration: number) => {
+      // Keep one hint at a time: changing its text while visible causes the old
+      // and new strings to overlap on transparent WebKitGTK windows.
+      if (hintVisibleRef.current) return;
+      if (hintTimerRef.current !== null) {
+        window.clearTimeout(hintTimerRef.current);
+        hintTimerRef.current = null;
+      }
+      hintVisibleRef.current = true;
+      setHint(message);
+      setShowHint(true);
+      hintTimerRef.current = window.setTimeout(() => {
+        hintTimerRef.current = null;
+        hideHint();
+      }, duration);
+    },
+    [hideHint],
+  );
 
   const { settings, petState, loadError, setPetState } = usePetWindowEvents({
     resetHint,
@@ -27,12 +50,16 @@ export function usePetWindow() {
   });
 
   useEffect(() => {
-    hintTimerRef.current = window.setTimeout(() => setShowHint(false), 3600);
+    hintVisibleRef.current = true;
+    hintTimerRef.current = window.setTimeout(() => {
+      hintTimerRef.current = null;
+      hideHint();
+    }, 3600);
     return () => {
       if (hintTimerRef.current !== null) window.clearTimeout(hintTimerRef.current);
       if (reactTimerRef.current !== null) window.clearTimeout(reactTimerRef.current);
     };
-  }, []);
+  }, [hideHint]);
 
   const reduceMotion =
     settings?.reduceMotion === 'on' ||

@@ -16,7 +16,22 @@ use surface::restore_click_through_after_show;
 #[cfg(target_os = "linux")]
 pub use surface::refresh_pet_surface;
 
+#[allow(unreachable_code)]
 pub fn setup_pet_window(app: &AppHandle) -> Result<(), AppError> {
+    #[cfg(target_os = "linux")]
+    {
+        match crate::native_pet::setup(app) {
+            Ok(()) => {
+                if let Some(webview) = app.get_webview_window(PET) {
+                    let _ = webview.hide();
+                }
+                return Ok(());
+            }
+            Err(error) => tracing::error!(?error, "native pet setup failed; falling back"),
+        }
+    }
+
+    #[cfg(not(target_os = "linux"))]
     if !super::dev_frontend_ready() {
         tracing::warn!("dev frontend unavailable; pet window suppressed");
         if let Some(pet) = app.get_webview_window(PET) {
@@ -48,6 +63,9 @@ pub fn setup_pet_window(app: &AppHandle) -> Result<(), AppError> {
 }
 
 pub fn apply_settings(app: &AppHandle, settings: &Settings) -> Result<(), AppError> {
+    #[cfg(target_os = "linux")]
+    crate::native_pet::apply_settings(app, settings);
+    #[cfg(not(target_os = "linux"))]
     if let Some(pet) = app.get_webview_window(PET) {
         apply_pet_attributes(&pet, settings, true)?;
     }
@@ -62,7 +80,15 @@ pub fn apply_settings(app: &AppHandle, settings: &Settings) -> Result<(), AppErr
     Ok(())
 }
 
+#[allow(unreachable_code)]
 pub fn show_pet(app: &AppHandle) {
+    #[cfg(target_os = "linux")]
+    {
+        crate::native_pet::show(app);
+        return;
+    }
+
+    #[cfg(not(target_os = "linux"))]
     if !super::dev_frontend_ready() {
         tracing::warn!("dev frontend unavailable; pet window suppressed");
         return;
@@ -75,13 +101,27 @@ pub fn show_pet(app: &AppHandle) {
     }
 }
 
+#[allow(unreachable_code)]
 pub fn hide_pet(app: &AppHandle) {
+    #[cfg(target_os = "linux")]
+    {
+        crate::native_pet::hide(app);
+        return;
+    }
+
     if let Some(pet) = app.get_webview_window(PET) {
         let _ = pet.hide();
     }
 }
 
+#[allow(unreachable_code)]
 pub fn toggle_pet_visibility(app: &AppHandle) {
+    #[cfg(target_os = "linux")]
+    {
+        crate::native_pet::toggle(app);
+        return;
+    }
+
     let Some(pet) = app.get_webview_window(PET) else {
         return;
     };

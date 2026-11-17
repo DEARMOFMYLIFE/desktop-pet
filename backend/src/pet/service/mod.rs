@@ -109,6 +109,7 @@ impl PetService {
         self.dirty = true;
     }
 
+    #[cfg_attr(target_os = "linux", allow(dead_code))]
     pub fn set_walk_task(&mut self, handle: AbortHandle) {
         self.walk_task = Some(handle);
     }

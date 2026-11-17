@@ -1,15 +1,35 @@
+#[cfg(not(target_os = "linux"))]
 use std::time::Duration;
 
-use tauri::{AppHandle, Emitter, Manager, PhysicalPosition};
-
-use crate::error::AppError;
+#[cfg(not(target_os = "linux"))]
+use super::position::save_position;
+#[cfg(not(target_os = "linux"))]
+use super::PET;
+#[cfg(not(target_os = "linux"))]
 use crate::state::AppState;
+use tauri::AppHandle;
+#[cfg(not(target_os = "linux"))]
+use tauri::Manager;
+#[cfg(not(target_os = "linux"))]
+use tauri::{Emitter, PhysicalPosition};
+
+#[cfg(not(target_os = "linux"))]
+use crate::error::AppError;
 use crate::types::WalkDirection;
 
-use super::position::save_position;
-use super::PET;
-
 pub fn spawn_walk(app: AppHandle, direction: WalkDirection) {
+    #[cfg(target_os = "linux")]
+    {
+        crate::native_pet::spawn_walk(&app, direction);
+        #[allow(unreachable_code)]
+        return;
+    }
+    #[cfg(not(target_os = "linux"))]
+    spawn_walk_webview(app, direction);
+}
+
+#[cfg(not(target_os = "linux"))]
+fn spawn_walk_webview(app: AppHandle, direction: WalkDirection) {
     let task_app = app.clone();
     let handle = tokio::spawn(async move {
         if let Err(error) = walk_pet(&task_app, direction).await {
@@ -32,6 +52,7 @@ pub fn spawn_walk(app: AppHandle, direction: WalkDirection) {
     }
 }
 
+#[cfg(not(target_os = "linux"))]
 async fn walk_pet(app: &AppHandle, direction: WalkDirection) -> Result<(), AppError> {
     let Some(window) = app.get_webview_window(PET) else {
         return Ok(());

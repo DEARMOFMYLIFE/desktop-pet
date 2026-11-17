@@ -83,6 +83,10 @@ pub struct ClickThroughPayload {
 }
 
 pub fn close_window(app: &tauri::AppHandle, label: &str) -> Result<(), AppError> {
+    if label == PET {
+        hide_pet(app);
+        return Ok(());
+    }
     if let Some(window) = app.get_webview_window(label) {
         if label == ONBOARDING {
             window.close()?;

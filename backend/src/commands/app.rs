@@ -57,9 +57,7 @@ pub fn window_open(app: AppHandle, label: String) -> Result<(), AppError> {
         "bubble" => windows::open_bubble(&app),
         "onboarding" => windows::open_onboarding(&app),
         "pet" => {
-            if let Some(window) = app.get_webview_window(windows::PET) {
-                window.show()?;
-            }
+            windows::show_pet(&app);
             Ok(())
         }
         other => Err(AppError::InvalidInput(format!("unknown window: {other}"))),

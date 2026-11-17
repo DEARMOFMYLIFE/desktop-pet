@@ -46,57 +46,5 @@ pub(super) fn restore_click_through_after_show(window: &WebviewWindow) {
 
 #[cfg(target_os = "linux")]
 pub fn refresh_pet_surface(app: &tauri::AppHandle) {
-    use tauri::Manager;
-
-    let Some(pet) = app.get_webview_window(crate::windows::PET) else {
-        return;
-    };
-    let app = app.clone();
-    tauri::async_runtime::spawn(async move {
-        tokio::time::sleep(std::time::Duration::from_millis(350)).await;
-        let _ = app.run_on_main_thread(move || {
-            use gdkx11::X11Window;
-            use gtk::glib::Cast;
-            use gtk::prelude::*;
-            use x11rb::connection::Connection;
-            if let Ok(window) = pet.gtk_window() {
-                if let Some(gdk_window) = window.window() {
-                    let Ok(x11_window) = gdk_window.clone().downcast::<X11Window>() else {
-                        return;
-                    };
-                    let xid = x11_window.xid() as u32;
-                    let (x, y) = gdk_window.position();
-                    let nudge = if x > 0 { x - 1 } else { x + 1 };
-                    // xdotool asks the window manager to move the window, which
-                    // reliably produces the compositor damage that a raw
-                    // XConfigureWindow request sometimes skips.
-                    let moved = std::process::Command::new("xdotool")
-                        .args([
-                            "windowmove",
-                            &xid.to_string(),
-                            &x.to_string(),
-                            &y.to_string(),
-                        ])
-                        .status()
-                        .map(|status| status.success())
-                        .unwrap_or(false);
-                    if !moved {
-                        if let Ok((conn, _)) = x11rb::connect(None) {
-                            let _ = x11rb::protocol::xproto::configure_window(
-                                &conn,
-                                xid,
-                                &x11rb::protocol::xproto::ConfigureWindowAux::new().x(nudge),
-                            );
-                            let _ = x11rb::protocol::xproto::configure_window(
-                                &conn,
-                                xid,
-                                &x11rb::protocol::xproto::ConfigureWindowAux::new().x(x).y(y),
-                            );
-                            let _ = conn.flush();
-                        }
-                    }
-                }
-            }
-        });
-    });
+    crate::native_pet::refresh(app);
 }

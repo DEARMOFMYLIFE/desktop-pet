@@ -10,6 +10,8 @@ mod desktop_icon;
 mod error;
 mod legacy;
 mod menu;
+#[cfg(target_os = "linux")]
+mod native_pet;
 mod pet;
 mod reminders;
 mod shortcuts;
