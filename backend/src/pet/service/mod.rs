@@ -2,7 +2,12 @@ use std::time::{Duration, Instant};
 
 use tokio::task::AbortHandle;
 
-use crate::types::{PetSnapshot, PetState, WalkDirection};
+use crate::types::{PetSnapshot, PetState};
+
+mod drag;
+mod random;
+
+use random::{random_delay, random_direction};
 
 pub struct PetService {
     state: PetState,
@@ -104,30 +109,6 @@ impl PetService {
         self.dirty = true;
     }
 
-    pub fn begin_drag(&mut self, offset: (f64, f64)) -> PetSnapshot {
-        self.abort_walk();
-        self.drag_offset = Some(offset);
-        self.state = PetState::Drag;
-        self.base_state = PetState::Drag;
-        self.one_shot_until = None;
-        self.last_interaction = Instant::now();
-        self.snapshot()
-    }
-
-    pub fn drag_offset(&self) -> Option<(f64, f64)> {
-        self.drag_offset
-    }
-
-    pub fn end_drag(&mut self) -> PetSnapshot {
-        self.drag_offset = None;
-        self.state = PetState::Idle;
-        self.base_state = PetState::Idle;
-        self.one_shot_until = None;
-        self.last_interaction = Instant::now();
-        self.next_autonomy = Instant::now() + random_delay();
-        self.snapshot()
-    }
-
     pub fn set_walk_task(&mut self, handle: AbortHandle) {
         self.walk_task = Some(handle);
     }
@@ -151,19 +132,6 @@ impl PetService {
             self.base_state = PetState::Idle;
             self.next_autonomy = Instant::now() + random_delay();
         }
-    }
-}
-
-fn random_delay() -> Duration {
-    Duration::from_secs(fastrand::u64(20..=60))
-}
-
-fn random_direction() -> WalkDirection {
-    match fastrand::u8(0..4) {
-        0 => WalkDirection::Left,
-        1 => WalkDirection::Right,
-        2 => WalkDirection::Up,
-        _ => WalkDirection::Down,
     }
 }
 

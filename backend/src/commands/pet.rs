@@ -117,10 +117,6 @@ pub fn pet_menu(app: AppHandle, window: WebviewWindow) -> Result<(), AppError> {
         ],
     )?;
 
-    let position = window.cursor_position()?;
-    menu.popup_at(
-        window.as_ref().window(),
-        PhysicalPosition::new(position.x.round() as i32, position.y.round() as i32),
-    )?;
+    menu.popup(window.as_ref().window())?;
     Ok(())
 }

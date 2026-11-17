@@ -2,7 +2,8 @@
 @import './base.css';
 @import './layout.css';
 @import './buttons.css';
-@import './forms.css';
+@import './forms/inputs.css';
+@import './forms/controls.css';
 @import './date.css';
 @import './widgets.css';
 @import './overlays.css';

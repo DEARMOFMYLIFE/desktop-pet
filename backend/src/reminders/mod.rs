@@ -7,6 +7,7 @@ use crate::storage::Db;
 use crate::types::{ReminderRow, ReminderSettings};
 
 mod runtime;
+mod schedule;
 
 pub fn load(db: &Db, settings: &ReminderSettings) -> Result<Vec<ReminderRow>, AppError> {
     let mut rows = db.load_reminders()?;

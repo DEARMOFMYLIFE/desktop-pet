@@ -1,12 +1,10 @@
-import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
-import { firstYearOfGrid, monthLabel, pad, parseDate, startOfMonth, ymd } from '../../lib/datePicker';
+import { firstYearOfGrid, pad, parseDate, startOfMonth, ymd } from '../../lib/datePicker';
 import { getLocale, t } from '../../lib/i18n';
 import type { DatePickerMode, DatePickerPosition } from '../../types';
-import { Button } from './Button';
 import { DatePickerCalendar } from './DatePickerCalendar';
-import { IconButton } from './IconButton';
-import { NumberInput } from './NumberInput';
+import { DatePickerHeader } from './DatePickerHeader';
+import { DatePickerTimeFooter } from './DatePickerTimeFooter';
 
 interface DatePickerPopoverProps {
   value: string;
@@ -73,49 +71,14 @@ export function DatePickerPopover({ value, position, onChange, onClose }: DatePi
       role="dialog"
       aria-label={t('settings.todos.datePlaceholder')}
     >
-      <div className="date-head">
-        <IconButton
-          label={mode === 'days' ? t('settings.todos.prevMonth') : t('settings.todos.prevYear')}
-          className="date-nav"
-          onClick={() => move(-1)}
-        >
-          <ChevronLeft size={15} aria-hidden="true" />
-        </IconButton>
-        {mode === 'days' && (
-          <button
-            type="button"
-            className="date-month date-month-button"
-            aria-label={t('settings.todos.chooseMonth')}
-            onClick={() => setMode('months')}
-          >
-            {monthLabel(locale, view)}
-            <ChevronDown size={12} aria-hidden="true" />
-          </button>
-        )}
-        {mode === 'months' && (
-          <button
-            type="button"
-            className="date-month date-month-button"
-            aria-label={t('settings.todos.chooseYear')}
-            onClick={() => setMode('years')}
-          >
-            {view.getFullYear()}
-            <ChevronDown size={12} aria-hidden="true" />
-          </button>
-        )}
-        {mode === 'years' && (
-          <span className="date-month">
-            {firstYear}–{firstYear + 11}
-          </span>
-        )}
-        <IconButton
-          label={mode === 'days' ? t('settings.todos.nextMonth') : t('settings.todos.nextYear')}
-          className="date-nav"
-          onClick={() => move(1)}
-        >
-          <ChevronRight size={15} aria-hidden="true" />
-        </IconButton>
-      </div>
+      <DatePickerHeader
+        mode={mode}
+        view={view}
+        firstYear={firstYear}
+        locale={locale}
+        onMove={move}
+        onModeChange={setMode}
+      />
 
       <DatePickerCalendar
         value={value}
@@ -126,46 +89,15 @@ export function DatePickerPopover({ value, position, onChange, onClose }: DatePi
         onSelectYear={selectYear}
       />
 
-      <div className="date-time">
-        <span className="date-time-label">{t('settings.todos.time')}</span>
-        <div className="date-time-parts">
-          <NumberInput
-            compact
-            min={0}
-            max={23}
-            value={hour}
-            label={t('settings.todos.hour')}
-            unit={t('settings.todos.hourUnit')}
-            onChange={(next) => updateTime(next, minute)}
-          />
-          <span className="date-time-colon">:</span>
-          <NumberInput
-            compact
-            min={0}
-            max={59}
-            value={minute}
-            label={t('settings.todos.minute')}
-            unit={t('settings.todos.minuteUnit')}
-            onChange={(next) => updateTime(hour, next)}
-          />
-        </div>
-      </div>
-
-      <div className="date-foot">
-        <div className="date-foot-left">
-          <Button variant="ghost" size="sm" onClick={selectToday}>
-            {t('settings.todos.dateToday')}
-          </Button>
-          {value && (
-            <Button variant="ghost" size="sm" onClick={clear}>
-              {t('settings.todos.dateClear')}
-            </Button>
-          )}
-        </div>
-        <Button variant="primary" size="sm" onClick={onClose}>
-          {t('settings.todos.dateDone')}
-        </Button>
-      </div>
+      <DatePickerTimeFooter
+        hour={hour}
+        minute={minute}
+        hasValue={Boolean(value)}
+        onTimeChange={updateTime}
+        onToday={selectToday}
+        onClear={clear}
+        onClose={onClose}
+      />
     </div>
   );
 }

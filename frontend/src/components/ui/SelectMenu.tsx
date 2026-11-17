@@ -2,13 +2,7 @@ import { Check } from 'lucide-react';
 import type { RefObject } from 'react';
 import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
-
-export interface SelectMenuPosition {
-  left: number;
-  top: number;
-  width: number;
-  maxHeight: number;
-}
+import type { SelectMenuPosition } from './select/types';
 
 interface SelectMenuProps<T extends string> {
   id: string;

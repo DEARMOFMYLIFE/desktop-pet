@@ -1,47 +1,16 @@
 use chrono::{DateTime, Utc};
-use serde::{Deserialize, Serialize};
 
-use crate::types::{PomodoroSettings, TimerKind, TimerPhase, TimerSnapshot, TimerStatus};
+use crate::types::{PomodoroSettings, TimerKind, TimerPhase, TimerStatus};
 
 mod accessors;
+mod control;
+mod snapshot;
+mod transitions;
+mod types;
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-struct PersistedTimer {
-    kind: TimerKind,
-    phase: Option<TimerPhase>,
-    status: TimerStatus,
-    total_sec: i64,
-    remaining_sec: i64,
-    started_at: Option<String>,
-    ends_at: Option<String>,
-    rounds_completed: u32,
-    rounds_total: u32,
-    session_id: Option<i64>,
-    countup_base: i64,
-}
+use types::{parse_date, PersistedTimer};
+pub use types::{CompletedTimer, SkipResult, TimerTick};
 
-#[derive(Clone, Debug)]
-pub struct CompletedTimer {
-    pub session_id: Option<i64>,
-    pub completed_phase: Option<TimerPhase>,
-    pub next_phase: Option<TimerPhase>,
-    pub next_total: i64,
-}
-
-#[derive(Clone, Debug)]
-pub enum TimerTick {
-    None,
-    Changed,
-    Completed(CompletedTimer),
-}
-
-#[derive(Clone, Debug)]
-pub struct SkipResult {
-    pub session_id: Option<i64>,
-    pub actual_sec: i64,
-    pub next_phase: Option<TimerPhase>,
-}
 pub struct TimerService {
     kind: TimerKind,
     phase: Option<TimerPhase>,
@@ -125,21 +94,6 @@ impl TimerService {
         (timer, expired)
     }
 
-    pub fn snapshot(&self) -> TimerSnapshot {
-        TimerSnapshot {
-            kind: self.kind,
-            phase: self.phase,
-            status: self.status,
-            total_sec: self.total_sec,
-            remaining_sec: self.remaining_sec,
-            started_at: self.started_at.map(|date| date.to_rfc3339()),
-            ends_at: self.ends_at.map(|date| date.to_rfc3339()),
-            rounds_completed: self.rounds_completed,
-            rounds_total: self.rounds_total,
-            session_id: self.session_id,
-        }
-    }
-
     fn apply_settings(&mut self, settings: &PomodoroSettings) {
         self.focus_sec = i64::from(settings.focus_min.clamp(1, 120)) * 60;
         self.short_break_sec = i64::from(settings.short_break_min.clamp(1, 60)) * 60;
@@ -172,23 +126,6 @@ impl TimerService {
         }
     }
 }
-fn parse_date(value: String) -> Option<DateTime<Utc>> {
-    DateTime::parse_from_rfc3339(&value)
-        .ok()
-        .map(|date| date.with_timezone(&Utc))
-}
-impl TimerSnapshot {
-    pub(crate) fn kind_label(&self) -> &'static str {
-        match (self.kind, self.phase) {
-            (TimerKind::Pomodoro, Some(TimerPhase::Focus)) => "pomodoro_focus",
-            (TimerKind::Pomodoro, _) => "pomodoro_break",
-            (TimerKind::Countdown, _) => "timer_countdown",
-            (TimerKind::CountUp, _) => "timer_countup",
-        }
-    }
-}
-mod control;
-mod transitions;
 
 #[cfg(test)]
 mod tests;

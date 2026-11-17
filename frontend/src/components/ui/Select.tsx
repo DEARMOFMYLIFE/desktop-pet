@@ -1,13 +1,11 @@
 import { ChevronDown } from 'lucide-react';
-import { useEffect, useId, useRef, useState } from 'react';
-import type { KeyboardEvent as ReactKeyboardEvent } from 'react';
+import { useCallback, useId, useRef, useState } from 'react';
 import { SelectMenu } from './SelectMenu';
-import type { SelectMenuPosition } from './SelectMenu';
+import type { SelectOption } from './select/types';
+import { selectKeyDown } from './select/useSelectKeyboard';
+import { useSelectPosition } from './select/useSelectPosition';
 
-export interface SelectOption<T extends string> {
-  value: T;
-  label: string;
-}
+export type { SelectOption } from './select/types';
 
 interface SelectProps<T extends string> {
   value: T;
@@ -32,12 +30,11 @@ export function Select<T extends string>({
   const labelId = `${id}-label`;
   const [open, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [position, setPosition] = useState<SelectMenuPosition | null>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const selectedIndex = options.findIndex((option) => option.value === value);
 
-  const close = () => setOpen(false);
+  const close = useCallback(() => setOpen(false), []);
 
   const openMenu = () => {
     if (disabled) return;
@@ -53,82 +50,16 @@ export function Select<T extends string>({
     triggerRef.current?.focus();
   };
 
-  useEffect(() => {
-    if (!open) return;
-
-    const updatePosition = () => {
-      const trigger = triggerRef.current;
-      if (!trigger) return;
-      const rect = trigger.getBoundingClientRect();
-      const estimatedHeight = Math.min(380, options.length * 36 + 8);
-      const openUp = window.innerHeight - rect.bottom < estimatedHeight + 12 && rect.top > estimatedHeight;
-      setPosition({
-        left: rect.left,
-        top: Math.max(8, openUp ? rect.top - estimatedHeight - 6 : rect.bottom + 6),
-        width: rect.width,
-        maxHeight: Math.min(380, window.innerHeight - 16),
-      });
-    };
-
-    const onPointerDown = (event: MouseEvent) => {
-      const target = event.target as Node;
-      if (triggerRef.current?.contains(target) || menuRef.current?.contains(target)) return;
-      close();
-    };
-
-    updatePosition();
-    window.addEventListener('resize', updatePosition);
-    window.addEventListener('scroll', updatePosition, true);
-    document.addEventListener('mousedown', onPointerDown);
-    return () => {
-      window.removeEventListener('resize', updatePosition);
-      window.removeEventListener('scroll', updatePosition, true);
-      document.removeEventListener('mousedown', onPointerDown);
-    };
-  }, [open, options.length]);
-
-  const onKeyDown = (event: ReactKeyboardEvent<HTMLButtonElement>) => {
-    if (!open) {
-      if (['ArrowDown', 'ArrowUp', 'Enter', ' '].includes(event.key)) {
-        event.preventDefault();
-        openMenu();
-      }
-      return;
-    }
-
-    switch (event.key) {
-      case 'ArrowDown':
-        event.preventDefault();
-        setActiveIndex((index) => Math.min(options.length - 1, index + 1));
-        break;
-      case 'ArrowUp':
-        event.preventDefault();
-        setActiveIndex((index) => Math.max(0, index - 1));
-        break;
-      case 'Home':
-        event.preventDefault();
-        setActiveIndex(0);
-        break;
-      case 'End':
-        event.preventDefault();
-        setActiveIndex(options.length - 1);
-        break;
-      case 'Enter':
-      case ' ':
-        event.preventDefault();
-        selectAt(activeIndex);
-        break;
-      case 'Escape':
-        event.preventDefault();
-        close();
-        break;
-      case 'Tab':
-        close();
-        break;
-      default:
-        break;
-    }
-  };
+  const position = useSelectPosition(open, close, triggerRef, menuRef, options.length);
+  const onKeyDown = selectKeyDown({
+    open,
+    options,
+    activeIndex,
+    setActiveIndex,
+    openMenu,
+    selectAt,
+    close,
+  });
 
   const selected = options.find((option) => option.value === value);
 
@@ -150,7 +81,9 @@ export function Select<T extends string>({
         onClick={() => (open ? close() : openMenu())}
         onKeyDown={onKeyDown}
       >
-        <span className={`select-label${selected ? '' : ' text-muted'}`}>{selected?.label ?? placeholder ?? ''}</span>
+        <span className={`select-label${selected ? '' : ' text-muted'}`}>
+          {selected?.label ?? placeholder ?? ''}
+        </span>
         <ChevronDown
           size={14}
           className={`shrink-0 text-muted transition-transform ${open ? 'rotate-180' : ''}`}

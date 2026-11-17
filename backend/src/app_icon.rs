@@ -1,13 +1,13 @@
-use std::fs;
-#[cfg(target_os = "linux")]
-use std::path::{Path, PathBuf};
-
 use tauri::image::Image;
 use tauri::{AppHandle, Manager, WebviewWindow};
 
 use crate::custom_icons;
 use crate::state::AppState;
 use crate::windows::{BUBBLE, ONBOARDING, PET, SETTINGS};
+
+pub const BUILTIN_ICONS: [&str; 10] = [
+    "clock", "star", "moon", "coffee", "sun", "leaf", "heart", "cloud", "book", "flower",
+];
 
 pub fn builtin_bytes(value: &str) -> Option<&'static [u8]> {
     match value {
@@ -54,7 +54,7 @@ pub fn apply(app: &AppHandle, value: &str) {
     apply_icons(app, &data);
 
     #[cfg(target_os = "linux")]
-    if let Err(error) = update_linux_desktop(value, &data) {
+    if let Err(error) = crate::desktop_icon::apply(app, value, &data) {
         tracing::warn!(?error, "desktop icon update failed");
     }
 
@@ -65,6 +65,8 @@ pub fn apply(app: &AppHandle, value: &str) {
     tauri::async_runtime::spawn(async move {
         tokio::time::sleep(std::time::Duration::from_millis(350)).await;
         apply_icons(&delayed_app, &delayed_data);
+        #[cfg(target_os = "linux")]
+        crate::desktop_icon::refresh();
     });
 }
 
@@ -90,27 +92,12 @@ fn apply_icons(app: &AppHandle, data: &[u8]) {
 }
 
 #[cfg(target_os = "linux")]
-pub fn notification_icon(app: &AppHandle) -> Option<PathBuf> {
-    let home = std::env::var_os("HOME").map(PathBuf::from)?;
-    let data_home = std::env::var_os("XDG_DATA_HOME")
-        .map(PathBuf::from)
-        .unwrap_or_else(|| home.join(".local/share"));
-    let value = app
-        .state::<AppState>()
-        .snapshot()
-        .ok()
-        .map(|settings| settings.app_icon)
-        .unwrap_or_else(|| "clock".into());
-    let themed = data_home.join("yuzu").join(icon_file_name(&value));
-    if themed.exists() {
-        return Some(themed);
-    }
-    let fallback = data_home.join("yuzu/app-icon.png");
-    fallback.exists().then_some(fallback)
+pub fn notification_icon(app: &AppHandle) -> Option<std::path::PathBuf> {
+    crate::desktop_icon::notification_icon(app)
 }
 
 #[cfg(not(target_os = "linux"))]
-pub fn notification_icon(_app: &AppHandle) -> Option<PathBuf> {
+pub fn notification_icon(_app: &AppHandle) -> Option<std::path::PathBuf> {
     None
 }
 
@@ -126,75 +113,4 @@ pub fn apply_window(app: &AppHandle, window: &WebviewWindow) {
             let _ = window.set_icon(image);
         }
     }
-}
-
-#[cfg(target_os = "linux")]
-fn update_linux_desktop(value: &str, data: &[u8]) -> std::io::Result<()> {
-    let home = std::env::var_os("HOME")
-        .map(PathBuf::from)
-        .ok_or_else(|| std::io::Error::new(std::io::ErrorKind::NotFound, "HOME"))?;
-    let data_home = std::env::var_os("XDG_DATA_HOME")
-        .map(PathBuf::from)
-        .unwrap_or_else(|| home.join(".local/share"));
-    let icon_dir = data_home.join("yuzu");
-    fs::create_dir_all(&icon_dir)?;
-
-    // A fresh path avoids desktop-shell icon caches keyed by the old file.
-    let themed_icon = icon_dir.join(icon_file_name(value));
-    fs::write(&themed_icon, data)?;
-    // Keep a stable path for notification daemons.
-    fs::write(icon_dir.join("app-icon.png"), data)?;
-
-    let entries = crate::desktop_brand::desktop_entries();
-
-    for path in entries {
-        if path.exists() {
-            if let Err(error) = update_desktop_entry(&path, &themed_icon) {
-                tracing::warn!(?error, path = %path.display(), "desktop entry update failed");
-            }
-        }
-    }
-
-    let applications = data_home.join("applications");
-    let _ = std::process::Command::new("update-desktop-database")
-        .arg(applications)
-        .status();
-    Ok(())
-}
-
-#[cfg(target_os = "linux")]
-fn icon_file_name(value: &str) -> String {
-    let safe: String = value
-        .chars()
-        .map(|character| {
-            if character.is_ascii_alphanumeric() || matches!(character, '-' | '_') {
-                character
-            } else {
-                '_'
-            }
-        })
-        .collect();
-    format!("app-icon-{safe}.png")
-}
-
-#[cfg(target_os = "linux")]
-fn update_desktop_entry(path: &Path, icon_path: &Path) -> std::io::Result<()> {
-    let text = fs::read_to_string(path)?;
-    let icon_line = format!("Icon={}", icon_path.display());
-    let mut found = false;
-    let mut output = String::new();
-    for line in text.lines() {
-        if line.starts_with("Icon=") {
-            output.push_str(&icon_line);
-            found = true;
-        } else {
-            output.push_str(line);
-        }
-        output.push('\n');
-    }
-    if !found {
-        output.push_str(&icon_line);
-        output.push('\n');
-    }
-    fs::write(path, output)
 }

@@ -3,6 +3,7 @@ mod icons;
 mod pet;
 mod reminder;
 mod settings;
+mod settings_validation;
 mod shortcut;
 mod stats;
 mod timer;

@@ -16,6 +16,32 @@ pub const BUBBLE: &str = "bubble";
 pub const SETTINGS: &str = "settings";
 pub const ONBOARDING: &str = "onboarding";
 
+/// A development build points its WebView at the Vite dev server. If that
+/// server is gone, opening a window produces a permanent "Connection refused"
+/// page that cannot be closed. Keep windows hidden in that state.
+pub fn dev_frontend_ready() -> bool {
+    if !tauri::is_dev() {
+        return true;
+    }
+    use std::net::{TcpStream, ToSocketAddrs};
+    use std::time::Duration;
+    for _ in 0..8 {
+        let ready = ("127.0.0.1", 1420)
+            .to_socket_addrs()
+            .map(|mut addrs| {
+                addrs.any(|addr| {
+                    TcpStream::connect_timeout(&addr, Duration::from_millis(250)).is_ok()
+                })
+            })
+            .unwrap_or(false);
+        if ready {
+            return true;
+        }
+        std::thread::sleep(Duration::from_millis(250));
+    }
+    false
+}
+
 fn clean_name(pet_name: &str) -> String {
     let name = pet_name.replace(['\n', '\r'], " ");
     let name = name.trim();
@@ -68,9 +94,11 @@ pub fn close_window(app: &tauri::AppHandle, label: &str) -> Result<(), AppError>
 }
 
 pub use bubble::open_bubble;
+#[cfg(target_os = "linux")]
+pub use pet::refresh_pet_surface;
 pub use pet::{
-    apply_settings, hide_pet, refresh_pet_surface, setup_pet_window, show_pet,
-    toggle_click_through, toggle_pet_visibility,
+    apply_settings, hide_pet, setup_pet_window, show_pet, toggle_click_through,
+    toggle_pet_visibility,
 };
 pub use position::snap_and_save;
 pub use settings::{open_onboarding, open_settings};

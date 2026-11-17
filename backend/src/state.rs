@@ -9,32 +9,9 @@ use crate::storage::Db;
 use crate::timer::TimerService;
 use crate::types::{PetSnapshot, ReminderRow, Settings, TimerSnapshot};
 
-/// Map legacy skin ids to the new 16-skin catalog so existing installs
-/// keep working after the character pack was replaced.
-fn normalize_pet_name(name: &mut String) {
-    let trimmed = name.trim();
-    let legacy_ascii = trimmed.eq_ignore_ascii_case("yuzu")
-        || trimmed.eq_ignore_ascii_case("nagi")
-        || trimmed.eq_ignore_ascii_case("xiaozhu");
-    if trimmed == "小驻" || trimmed == "凪" || legacy_ascii || trimmed.is_empty() {
-        *name = "小柚".into();
-    }
-}
+mod normalize;
 
-fn normalize_pet_skin(skin: &mut String) {
-    let next = match skin.as_str() {
-        "female-person" => "coral",
-        "male-person" => "mint",
-        "female-adventurer" => "peach",
-        "male-adventurer" => "night",
-        "honey" | "cream" | "mint" | "peach" | "night" | "rose" | "sky" | "lavender" | "jade"
-        | "coral" | "silver" | "ocean" | "berry" | "cocoa" | "snow" | "sunny" => {
-            return;
-        }
-        _ => "coral",
-    };
-    *skin = next.to_string();
-}
+use normalize::{normalize_pet_name, normalize_pet_skin};
 
 pub struct AppState {
     db: Db,

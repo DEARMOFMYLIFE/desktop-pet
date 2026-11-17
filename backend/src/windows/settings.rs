@@ -4,6 +4,11 @@ use crate::error::AppError;
 
 use super::{ONBOARDING, SETTINGS};
 pub fn open_settings(app: &AppHandle) -> Result<(), AppError> {
+    if !super::dev_frontend_ready() {
+        return Err(AppError::InvalidInput(
+            "development frontend is unavailable".into(),
+        ));
+    }
     let name = super::display_name(app);
     if let Some(window) = app.get_webview_window(SETTINGS) {
         let _ = window.set_title(&format!("{name} 设置"));
@@ -24,6 +29,11 @@ pub fn open_settings(app: &AppHandle) -> Result<(), AppError> {
 }
 
 pub fn open_onboarding(app: &AppHandle) -> Result<(), AppError> {
+    if !super::dev_frontend_ready() {
+        return Err(AppError::InvalidInput(
+            "development frontend is unavailable".into(),
+        ));
+    }
     let name = super::display_name(app);
     if let Some(window) = app.get_webview_window(ONBOARDING) {
         let _ = window.set_title(&format!("欢迎来到{name}"));

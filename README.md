@@ -155,7 +155,7 @@ cargo test --manifest-path backend/Cargo.toml --lib
 | 图标 | Lucide React + 项目原创图标资源 |
 | 测试 | Vitest + Rust 单元测试 |
 
-前端页面、组件、hooks、API 和类型都按职责拆分；后端按 `commands`、`windows`、`storage`、`timer`、`reminders`、`pet` 等领域组织。所有前后端源文件均不超过 200 行。
+前端页面、组件、hooks、API 和类型都按职责拆分；后端按 `commands`、`windows`、`storage`、`timer`、`reminders`、`pet` 等领域组织。所有前后端源文件均不超过 150 行。
 
 ## 项目结构
 

@@ -26,4 +26,10 @@ if [[ -x "$ROOT/backend/target/debug/yuzu" ]]; then
   exec "$ROOT/backend/target/debug/yuzu"
 fi
 
-exec "$ROOT/scripts/launch-dev.sh"
+echo "未找到已构建的小柚程序。请先运行: npm run tauri -- build" >&2
+if command -v zenity >/dev/null 2>&1; then
+  zenity --error --title="小柚" --text="未找到已构建的小柚程序。请先运行: npm run tauri -- build" --width=420 2>/dev/null || true
+elif command -v notify-send >/dev/null 2>&1; then
+  notify-send "小柚" "未找到已构建的小柚程序，请先运行 npm run tauri -- build" 2>/dev/null || true
+fi
+exit 1

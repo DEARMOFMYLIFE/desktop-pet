@@ -6,6 +6,11 @@ use crate::error::AppError;
 
 use super::{BUBBLE, PET};
 pub fn open_bubble(app: &AppHandle) -> Result<(), AppError> {
+    if !super::dev_frontend_ready() {
+        return Err(AppError::InvalidInput(
+            "development frontend is unavailable".into(),
+        ));
+    }
     let name = super::display_name(app);
     if let Some(window) = app.get_webview_window(BUBBLE) {
         let _ = window.set_title(&name);
