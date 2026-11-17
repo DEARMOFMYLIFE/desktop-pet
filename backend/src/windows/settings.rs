@@ -1,6 +1,7 @@
 use tauri::{AppHandle, Manager, WebviewUrl, WebviewWindowBuilder};
 
 use crate::error::AppError;
+use crate::menu_text;
 
 use super::{ONBOARDING, SETTINGS};
 pub fn open_settings(app: &AppHandle) -> Result<(), AppError> {
@@ -10,15 +11,17 @@ pub fn open_settings(app: &AppHandle) -> Result<(), AppError> {
         ));
     }
     let name = super::display_name(app);
+    let language = super::current_language(app);
+    let title = menu_text::settings_title(&language, &name);
     if let Some(window) = app.get_webview_window(SETTINGS) {
-        let _ = window.set_title(&format!("{name} 设置"));
+        let _ = window.set_title(&title);
         window.show()?;
         window.set_focus()?;
         return Ok(());
     }
 
     let window = WebviewWindowBuilder::new(app, SETTINGS, WebviewUrl::App("settings.html".into()))
-        .title(format!("{name} 设置"))
+        .title(title)
         .inner_size(940.0, 700.0)
         .min_inner_size(800.0, 600.0)
         .resizable(true)
@@ -35,8 +38,10 @@ pub fn open_onboarding(app: &AppHandle) -> Result<(), AppError> {
         ));
     }
     let name = super::display_name(app);
+    let language = super::current_language(app);
+    let title = menu_text::onboarding_title(&language, &name);
     if let Some(window) = app.get_webview_window(ONBOARDING) {
-        let _ = window.set_title(&format!("欢迎来到{name}"));
+        let _ = window.set_title(&title);
         window.show()?;
         window.set_focus()?;
         return Ok(());
@@ -44,7 +49,7 @@ pub fn open_onboarding(app: &AppHandle) -> Result<(), AppError> {
 
     let window =
         WebviewWindowBuilder::new(app, ONBOARDING, WebviewUrl::App("onboarding.html".into()))
-            .title(format!("欢迎来到{name}"))
+            .title(title)
             .inner_size(640.0, 520.0)
             .resizable(false)
             .center()

@@ -2,6 +2,7 @@ use tauri::menu::{CheckMenuItem, ContextMenu, Menu, MenuItem, PredefinedMenuItem
 use tauri::{AppHandle, Emitter, Manager, PhysicalPosition, State, WebviewWindow};
 
 use crate::error::AppError;
+use crate::menu_text;
 use crate::pet::PetSnapshot;
 use crate::state::AppState;
 use crate::windows;
@@ -88,19 +89,21 @@ pub fn pet_drag_end(
 #[tauri::command]
 pub fn pet_menu(app: AppHandle, window: WebviewWindow) -> Result<(), AppError> {
     let settings = app.state::<AppState>().snapshot()?;
+    let labels = menu_text::pet(&settings.language);
 
-    let focus = MenuItem::with_id(&app, "pet_focus", "开始专注 25 分钟", true, None::<&str>)?;
+    let focus = MenuItem::with_id(&app, "pet_focus", labels.start_focus, true, None::<&str>)?;
     let ghost = CheckMenuItem::with_id(
         &app,
         "pet_ghost",
-        "点击穿透",
+        labels.click_through,
         true,
         settings.click_through,
         None::<&str>,
     )?;
-    let settings_item = MenuItem::with_id(&app, "pet_settings", "设置…", true, None::<&str>)?;
-    let hide = MenuItem::with_id(&app, "pet_hide", "隐藏角色", true, None::<&str>)?;
-    let quit = MenuItem::with_id(&app, "pet_quit", "退出应用", true, None::<&str>)?;
+    let settings_item =
+        MenuItem::with_id(&app, "pet_settings", labels.settings, true, None::<&str>)?;
+    let hide = MenuItem::with_id(&app, "pet_hide", labels.hide, true, None::<&str>)?;
+    let quit = MenuItem::with_id(&app, "pet_quit", labels.quit, true, None::<&str>)?;
     let separator_one = PredefinedMenuItem::separator(&app)?;
     let separator_two = PredefinedMenuItem::separator(&app)?;
 

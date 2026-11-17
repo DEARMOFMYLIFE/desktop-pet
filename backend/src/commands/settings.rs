@@ -37,8 +37,14 @@ pub fn settings_update(
     let icon_changed = incoming.app_icon != current.app_icon;
     let name_changed = incoming.pet_name != current.pet_name;
     let click_through_changed = incoming.click_through != current.click_through;
+    let language_changed = incoming.language != current.language;
     let next = state.update(|current| *current = incoming)?;
     windows::apply_settings(&app, &next)?;
+    if language_changed {
+        if let Err(error) = crate::tray::update_menu(&app) {
+            tracing::warn!(?error, "tray menu language update failed");
+        }
+    }
     #[cfg(target_os = "linux")]
     if click_through_changed {
         windows::refresh_pet_surface(&app);

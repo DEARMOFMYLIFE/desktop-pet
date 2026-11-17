@@ -1,9 +1,15 @@
+pub(super) const HINT_SPACE: i32 = 30;
+
 pub(super) fn size_for(size: &str) -> i32 {
     match size {
         "S" => 160,
         "L" => 256,
         _ => 208,
     }
+}
+
+pub(super) fn window_height(size: &str) -> i32 {
+    size_for(size) + HINT_SPACE
 }
 
 pub(super) fn default_hint(language: &str) -> &'static str {

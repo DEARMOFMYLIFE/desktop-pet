@@ -6,7 +6,7 @@ use crate::error::AppError;
 use crate::types::Settings;
 
 use super::assets;
-use super::ui::{default_hint, ghost_hint, size_for};
+use super::ui::{default_hint, ghost_hint, size_for, window_height};
 use super::NativePet;
 
 impl NativePet {
@@ -32,9 +32,10 @@ impl NativePet {
         let always_changed = next.always_on_top != self.settings.always_on_top;
         self.settings = next.clone();
         if size_changed {
-            let size = size_for(&next.pet_size);
-            self.window.resize(size, size);
-            self.area.set_size_request(size, size);
+            let width = size_for(&next.pet_size);
+            let height = window_height(&next.pet_size);
+            self.window.resize(width, height);
+            self.area.set_size_request(width, height);
             self.input_click_through = None;
         }
         if always_changed {

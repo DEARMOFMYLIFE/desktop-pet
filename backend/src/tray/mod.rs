@@ -81,6 +81,15 @@ fn tray_temp_dir(value: &str) -> PathBuf {
     root.join("yuzu-tray").join(safe)
 }
 
+pub fn update_menu(app: &AppHandle) -> Result<(), AppError> {
+    let tray = app
+        .tray_by_id("main")
+        .ok_or_else(|| AppError::Internal("tray is not available".into()))?;
+    let menu = menu::build(app)?;
+    tray.set_menu(Some(menu))?;
+    Ok(())
+}
+
 /// Linux panels often cache the first AppIndicator icon. Keep the indicator
 /// registered, but move it to a per-icon temp directory before swapping the
 /// image; this makes AppIndicator load a new path instead of a cached frame.

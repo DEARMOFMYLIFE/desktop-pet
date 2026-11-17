@@ -85,14 +85,29 @@ fn position_native_bubble(
     let pet_x = pet.x as f64 * scale;
     let pet_y = pet.y as f64 * scale;
     let pet_width = pet.width as f64 * scale;
-    let mut x = pet_x + (pet_width - bubble_width) / 2.0;
-    let mut y = pet_y - bubble_height - 8.0 * scale;
+    let pet_height = pet.height as f64 * scale;
     let origin_x = pet.screen_x as f64 * scale;
     let origin_y = pet.screen_y as f64 * scale;
-    let max_x = origin_x + pet.screen_width as f64 * scale - bubble_width;
-    let max_y = origin_y + pet.screen_height as f64 * scale - bubble_height;
-    x = x.clamp(origin_x, max_x.max(origin_x));
-    y = y.clamp(origin_y, max_y.max(origin_y));
+    let max_x = (origin_x + pet.screen_width as f64 * scale - bubble_width).max(origin_x);
+    let max_y = (origin_y + pet.screen_height as f64 * scale - bubble_height).max(origin_y);
+    let center_x = (pet_x + (pet_width - bubble_width) / 2.0).clamp(origin_x, max_x);
+    let center_y = (pet_y + (pet_height - bubble_height) / 2.0).clamp(origin_y, max_y);
+    let gap = 8.0 * scale;
+    let above = pet_y - bubble_height - gap;
+    let below = pet_y + pet_height + gap;
+    let right = pet_x + pet_width + gap;
+    let left = pet_x - bubble_width - gap;
+    let (x, y) = if above >= origin_y {
+        (center_x, above)
+    } else if below <= max_y {
+        (center_x, below)
+    } else if right <= max_x {
+        (right, center_y)
+    } else if left >= origin_x {
+        (left, center_y)
+    } else {
+        (center_x, above.clamp(origin_y, max_y))
+    };
     bubble.set_position(PhysicalPosition::new(x.round() as i32, y.round() as i32))?;
     Ok(())
 }

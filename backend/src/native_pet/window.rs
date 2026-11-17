@@ -7,7 +7,7 @@ use tauri::AppHandle;
 use crate::error::AppError;
 use crate::types::Settings;
 
-use super::ui::size_for;
+use super::ui::{size_for, window_height};
 use super::{with_pet, NativePet};
 
 const HINT_CSS: &str = r#"
@@ -25,9 +25,11 @@ pub(super) fn create(
     app: &AppHandle,
     settings: &Settings,
 ) -> Result<(gtk::Window, gtk::DrawingArea, gtk::Label), AppError> {
+    let width = size_for(&settings.pet_size);
+    let height = window_height(&settings.pet_size);
     let window = gtk::Window::new(gtk::WindowType::Toplevel);
     window.set_title(&settings.pet_name);
-    window.set_default_size(size_for(&settings.pet_size), size_for(&settings.pet_size));
+    window.set_default_size(width, height);
     window.set_decorated(false);
     window.set_resizable(false);
     window.set_skip_taskbar_hint(true);
@@ -52,7 +54,7 @@ pub(super) fn create(
 
     let overlay = gtk::Overlay::new();
     let area = gtk::DrawingArea::new();
-    area.set_size_request(size_for(&settings.pet_size), size_for(&settings.pet_size));
+    area.set_size_request(width, height);
     area.set_can_focus(false);
     area.add_events(
         gtk::gdk::EventMask::BUTTON_PRESS_MASK

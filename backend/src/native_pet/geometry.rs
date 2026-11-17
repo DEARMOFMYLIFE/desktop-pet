@@ -9,6 +9,7 @@ pub struct PetGeometry {
     pub x: i32,
     pub y: i32,
     pub width: i32,
+    pub height: i32,
     pub screen_x: i32,
     pub screen_y: i32,
     pub screen_width: i32,
@@ -23,7 +24,7 @@ pub(super) fn capture(pet: &NativePet) {
         return;
     };
     let (x, y) = pet.window.position();
-    let (width, _height) = pet.window.size();
+    let (width, height) = pet.window.size();
     let scale = pet.window.scale_factor() as f64;
     let screen = gtk::gdk::Display::default()
         .and_then(|display| display.monitor_at_window(&gdk_window))
@@ -44,6 +45,7 @@ pub(super) fn capture(pet: &NativePet) {
         x,
         y,
         width,
+        height,
         screen_x: screen.0,
         screen_y: screen.1,
         screen_width: screen.2,

@@ -4,7 +4,7 @@ use tauri::{AppHandle, Emitter, Manager};
 use crate::state::AppState;
 use crate::types::PetPosition;
 
-use super::ui::size_for;
+use super::ui::{size_for, window_height};
 use super::NativePet;
 
 pub(super) fn restore_position(pet: &mut NativePet) {
@@ -16,9 +16,10 @@ pub(super) fn restore_position(pet: &mut NativePet) {
         return;
     };
     let work = monitor.workarea();
-    let size = size_for(&pet.settings.pet_size);
-    let max_x = (work.width() - size).max(0) as f64;
-    let max_y = (work.height() - size).max(0) as f64;
+    let width = size_for(&pet.settings.pet_size);
+    let height = window_height(&pet.settings.pet_size);
+    let max_x = (work.width() - width).max(0) as f64;
+    let max_y = (work.height() - height).max(0) as f64;
     let (x, y) = if let Some(position) = stored {
         (
             work.x() as f64 + position.x.clamp(0.0, 1.0) * max_x,

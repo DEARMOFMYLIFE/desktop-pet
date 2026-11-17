@@ -2,6 +2,7 @@ use serde::Serialize;
 use tauri::{AppHandle, Manager};
 
 use crate::error::AppError;
+use crate::menu_text;
 use crate::state::AppState;
 
 pub mod bubble;
@@ -59,13 +60,21 @@ pub fn display_name(app: &AppHandle) -> String {
         .unwrap_or_else(|_| "小柚".into())
 }
 
+pub(crate) fn current_language(app: &AppHandle) -> String {
+    app.state::<AppState>()
+        .snapshot()
+        .map(|settings| settings.language)
+        .unwrap_or_else(|_| "zh-CN".into())
+}
+
 pub fn apply_brand_name(app: &AppHandle, pet_name: &str) {
     let name = clean_name(pet_name);
+    let language = current_language(app);
     for (label, title) in [
         (PET, name.clone()),
         (BUBBLE, name.clone()),
-        (SETTINGS, format!("{name} 设置")),
-        (ONBOARDING, format!("欢迎来到{name}")),
+        (SETTINGS, menu_text::settings_title(&language, &name)),
+        (ONBOARDING, menu_text::onboarding_title(&language, &name)),
     ] {
         if let Some(window) = app.get_webview_window(label) {
             let _ = window.set_title(&title);
