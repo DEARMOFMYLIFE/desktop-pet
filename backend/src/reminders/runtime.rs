@@ -82,7 +82,7 @@ async fn tick(app: &AppHandle) -> Result<(), AppError> {
             continue;
         }
 
-        let (title, body) = text_for(&row.kind, settings.language == "en-US");
+        let (title, body) = text_for(&row.kind, crate::language::is_english(&settings.language));
         let _ = windows::open_bubble(app);
         tokio::time::sleep(Duration::from_millis(250)).await;
         timer::notify(app, &title, &body);

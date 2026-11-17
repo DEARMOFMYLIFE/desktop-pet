@@ -51,20 +51,20 @@ export function TodoForm({
       </div>
       <div className="todo-time-grid">
         <div className="todo-time-field">
-          <span>{t('settings.todos.due')}</span>
-          <DateTimePicker
-            value={due}
-            onChange={onDueChange}
-            label={t('settings.todos.due')}
-            placeholder={t('settings.todos.datePlaceholder')}
-          />
-        </div>
-        <div className="todo-time-field">
           <span>{t('settings.todos.remind')}</span>
           <DateTimePicker
             value={remind}
             onChange={onRemindChange}
             label={t('settings.todos.remind')}
+            placeholder={t('settings.todos.datePlaceholder')}
+          />
+        </div>
+        <div className="todo-time-field">
+          <span>{t('settings.todos.due')}</span>
+          <DateTimePicker
+            value={due}
+            onChange={onDueChange}
+            label={t('settings.todos.due')}
             placeholder={t('settings.todos.datePlaceholder')}
           />
         </div>

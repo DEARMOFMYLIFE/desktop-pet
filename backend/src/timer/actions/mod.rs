@@ -62,7 +62,7 @@ pub fn startup(app: &AppHandle) -> Result<(), AppError> {
     emit_pet_state(app, PetState::Celebrate);
     let english = state
         .snapshot()
-        .map(|settings| settings.language == "en-US")
+        .map(|settings| crate::language::is_english(&settings.language))
         .unwrap_or(false);
     if english {
         notify(

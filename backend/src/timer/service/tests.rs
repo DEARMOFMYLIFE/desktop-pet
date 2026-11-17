@@ -43,6 +43,20 @@ fn custom_focus_uses_selected_minutes() {
 }
 
 #[test]
+fn skip_returns_to_focus_setup() {
+    let mut timer = TimerService::new();
+    timer
+        .start(TimerStartRequest::Focus { minutes: 15 }, &settings())
+        .expect("start");
+    let skipped = timer.skip(Utc::now()).expect("skip");
+    assert!(skipped.next_phase.is_none());
+    let snapshot = timer.snapshot();
+    assert_eq!(snapshot.status, TimerStatus::Idle);
+    assert_eq!(snapshot.phase, None);
+    assert_eq!(snapshot.remaining_sec, i64::from(settings().focus_min) * 60);
+}
+
+#[test]
 fn countdown_completes_without_next_phase() {
     let mut timer = TimerService::new();
     timer

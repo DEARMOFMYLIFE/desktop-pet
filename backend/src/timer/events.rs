@@ -46,7 +46,7 @@ pub(crate) fn notification_text(
     settings: &Settings,
     completed: &CompletedTimer,
 ) -> (String, String) {
-    let english = settings.language == "en-US";
+    let english = crate::language::is_english(&settings.language);
     match completed.completed_phase {
         Some(TimerPhase::Focus) => {
             let minutes = (completed.next_total / 60).max(1);

@@ -77,39 +77,21 @@ impl TimerService {
         }
         let session_id = self.session_id.take();
         let actual_sec = self.elapsed_sec();
-        let completed_phase = self.phase;
-        let (next_phase, next_total) = match completed_phase {
-            Some(TimerPhase::Focus) => {
-                if self.rounds_setting > 0
-                    && self.rounds_completed > 0
-                    && self.rounds_completed % self.rounds_setting == 0
-                {
-                    (Some(TimerPhase::LongBreak), self.long_break_sec)
-                } else {
-                    (Some(TimerPhase::ShortBreak), self.short_break_sec)
-                }
-            }
-            Some(TimerPhase::LongBreak) => {
-                self.rounds_completed = 0;
-                (Some(TimerPhase::Focus), self.focus_sec)
-            }
-            Some(TimerPhase::ShortBreak) => (Some(TimerPhase::Focus), self.focus_sec),
-            None => (None, 0),
-        };
+        // Skip returns to the focus setup bubble instead of preparing another
+        // phase that would immediately look like a different timer.
+        self.kind = TimerKind::Pomodoro;
         self.status = TimerStatus::Idle;
+        self.phase = None;
+        self.total_sec = self.focus_sec;
+        self.remaining_sec = self.focus_sec;
         self.started_at = None;
         self.ends_at = None;
-        self.remaining_sec = 0;
-        if let Some(next) = next_phase {
-            self.prepare_next(next, next_total);
-        } else {
-            self.phase = None;
-        }
+        self.countup_base = 0;
 
         Some(SkipResult {
             session_id,
             actual_sec,
-            next_phase,
+            next_phase: None,
         })
     }
 

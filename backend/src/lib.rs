@@ -8,6 +8,7 @@ mod desktop_brand;
 #[cfg(target_os = "linux")]
 mod desktop_icon;
 mod error;
+mod language;
 mod legacy;
 mod menu;
 mod menu_text;

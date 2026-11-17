@@ -19,7 +19,7 @@ pub struct PetLabels {
 }
 
 pub fn tray(language: &str) -> TrayLabels {
-    if language == "en-US" {
+    if crate::language::is_english(language) {
         TrayLabels {
             toggle_pet: "Show / Hide Pet",
             start_focus: "Start Focus (25 min)",
@@ -47,7 +47,7 @@ pub fn tray(language: &str) -> TrayLabels {
 }
 
 pub fn pet(language: &str) -> PetLabels {
-    if language == "en-US" {
+    if crate::language::is_english(language) {
         PetLabels {
             start_focus: "Start Focus (25 min)",
             click_through: "Click-through",
@@ -67,7 +67,7 @@ pub fn pet(language: &str) -> PetLabels {
 }
 
 pub fn settings_title(language: &str, name: &str) -> String {
-    if language == "en-US" {
+    if crate::language::is_english(language) {
         format!("{name} Settings")
     } else {
         format!("{name} 设置")
@@ -75,7 +75,7 @@ pub fn settings_title(language: &str, name: &str) -> String {
 }
 
 pub fn onboarding_title(language: &str, name: &str) -> String {
-    if language == "en-US" {
+    if crate::language::is_english(language) {
         format!("Welcome to {name}")
     } else {
         format!("欢迎来到{name}")

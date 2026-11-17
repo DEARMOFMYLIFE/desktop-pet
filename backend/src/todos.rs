@@ -41,7 +41,7 @@ async fn tick(app: &AppHandle) -> Result<(), AppError> {
     }
 
     for todo in due {
-        let title = if settings.language == "en-US" {
+        let title = if crate::language::is_english(&settings.language) {
             "Task reminder"
         } else {
             "待办提醒"
