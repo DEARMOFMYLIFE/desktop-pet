@@ -106,7 +106,7 @@ pub fn close_window(app: &tauri::AppHandle, label: &str) -> Result<(), AppError>
     Ok(())
 }
 
-pub use bubble::open_bubble;
+pub use bubble::{open_bubble, open_focus_bubble};
 #[cfg(target_os = "linux")]
 pub use pet::refresh_pet_surface;
 pub use pet::{

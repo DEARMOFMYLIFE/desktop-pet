@@ -31,6 +31,18 @@ fn pomodoro_focus_completes_into_short_break() {
 }
 
 #[test]
+fn custom_focus_uses_selected_minutes() {
+    let mut timer = TimerService::new();
+    timer
+        .start(TimerStartRequest::Focus { minutes: 15 }, &settings())
+        .expect("start");
+    let snapshot = timer.snapshot();
+    assert_eq!(snapshot.phase, Some(TimerPhase::Focus));
+    assert_eq!(snapshot.status, TimerStatus::Running);
+    assert_eq!(snapshot.total_sec, 15 * 60);
+}
+
+#[test]
 fn countdown_completes_without_next_phase() {
     let mut timer = TimerService::new();
     timer

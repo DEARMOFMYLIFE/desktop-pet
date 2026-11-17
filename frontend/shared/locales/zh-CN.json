@@ -30,6 +30,23 @@
     "ghostOff": "点击穿透已关闭。",
     "clickThroughOn": "点击穿透已开启"
   },
+  "reminder": {
+    "water": {
+      "title": "该喝水啦",
+      "body": "顺手接一杯吧。"
+    },
+    "sedentary": {
+      "title": "坐太久啦",
+      "body": "起来走两步，伸个懒腰。"
+    },
+    "eyes": {
+      "title": "让眼睛歇一下",
+      "body": "看看 6 米外，休息 20 秒。"
+    },
+    "todo": {
+      "title": "待办提醒"
+    }
+  },
   "bubble": {
     "title": "专注中",
     "focus": "专注中",

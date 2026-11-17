@@ -1,5 +1,5 @@
 use tauri::{
-    AppHandle, Manager, PhysicalPosition, WebviewUrl, WebviewWindow, WebviewWindowBuilder,
+    AppHandle, Emitter, Manager, PhysicalPosition, WebviewUrl, WebviewWindow, WebviewWindowBuilder,
 };
 
 use crate::error::AppError;
@@ -38,6 +38,15 @@ pub fn open_bubble(app: &AppHandle) -> Result<(), AppError> {
     position_bubble(app, &window)?;
     window.show()?;
     window.set_focus()?;
+    Ok(())
+}
+
+pub fn open_focus_bubble(app: &AppHandle) -> Result<(), AppError> {
+    let existed = app.get_webview_window(BUBBLE).is_some();
+    open_bubble(app)?;
+    if existed {
+        let _ = app.emit("bubble:preset", 25u32);
+    }
     Ok(())
 }
 

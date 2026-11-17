@@ -43,6 +43,7 @@ pub struct TimerSnapshot {
 #[serde(tag = "kind", rename_all = "lowercase")]
 pub enum TimerStartRequest {
     Pomodoro,
+    Focus { minutes: u32 },
     Countdown { seconds: i64 },
     CountUp,
 }

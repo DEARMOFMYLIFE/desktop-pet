@@ -18,7 +18,7 @@ pub fn setup(app: &AppHandle) -> Result<(), AppError> {
         .state::<AppState>()
         .snapshot()
         .map(|settings| settings.app_icon)
-        .unwrap_or_else(|_| "clock".into());
+        .unwrap_or_else(|_| "heart".into());
 
     #[cfg(target_os = "macos")]
     let icon = Image::from_bytes(include_bytes!("../../icons/tray-template.png"))
@@ -101,7 +101,7 @@ pub fn refresh(app: &AppHandle) -> Result<(), AppError> {
         .state::<AppState>()
         .snapshot()
         .map(|settings| settings.app_icon)
-        .unwrap_or_else(|_| "clock".into());
+        .unwrap_or_else(|_| "heart".into());
     let data = crate::app_icon::load_bytes(app, &app_icon)
         .ok_or_else(|| AppError::Internal("tray icon data is missing".into()))?;
     let image = Image::from_bytes(&data)

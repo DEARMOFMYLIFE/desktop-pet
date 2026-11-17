@@ -15,13 +15,13 @@ import { AppIconDialog } from './appearance/AppIconDialog';
 
 const SKINS = PET_SKIN_OPTIONS;
 const BUILTIN_ICON_OPTIONS: Array<{ value: AppIcon; labelKey: string }> = [
+  { value: 'heart', labelKey: 'settings.appearance.iconHeart' },
   { value: 'clock', labelKey: 'settings.appearance.iconClock' },
   { value: 'star', labelKey: 'settings.appearance.iconStar' },
   { value: 'moon', labelKey: 'settings.appearance.iconMoon' },
   { value: 'coffee', labelKey: 'settings.appearance.iconCoffee' },
   { value: 'sun', labelKey: 'settings.appearance.iconSun' },
   { value: 'leaf', labelKey: 'settings.appearance.iconLeaf' },
-  { value: 'heart', labelKey: 'settings.appearance.iconHeart' },
   { value: 'cloud', labelKey: 'settings.appearance.iconCloud' },
   { value: 'book', labelKey: 'settings.appearance.iconBook' },
   { value: 'flower', labelKey: 'settings.appearance.iconFlower' },

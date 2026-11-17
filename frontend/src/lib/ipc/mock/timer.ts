@@ -44,6 +44,21 @@ function mockStartTimer(request: TimerStartRequest): TimerSnapshot {
       sessionId: null,
     });
   }
+  if (request.kind === 'focus') {
+    const total = request.minutes * 60;
+    return setMockTimer({
+      kind: 'pomodoro',
+      phase: 'focus',
+      status: 'running',
+      totalSec: total,
+      remainingSec: total,
+      startedAt: new Date().toISOString(),
+      endsAt: new Date(Date.now() + total * 1000).toISOString(),
+      roundsCompleted: 0,
+      roundsTotal: settings.pomodoro.rounds,
+      sessionId: null,
+    });
+  }
   if (request.kind === 'countdown') {
     return setMockTimer({
       kind: 'countdown',

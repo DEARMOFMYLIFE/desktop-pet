@@ -77,7 +77,7 @@ fn current_icon(app: &AppHandle) -> String {
     app.state::<AppState>()
         .snapshot()
         .map(|settings| settings.app_icon)
-        .unwrap_or_else(|_| "clock".into())
+        .unwrap_or_else(|_| "heart".into())
 }
 
 fn icon_values(app: &AppHandle) -> Vec<String> {

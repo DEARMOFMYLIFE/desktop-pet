@@ -31,6 +31,23 @@ impl TimerService {
                 self.session_id = None;
                 self.countup_base = 0;
             }
+            TimerStartRequest::Focus { minutes } => {
+                if !(1..=120).contains(&minutes) {
+                    return Err(AppError::InvalidInput("focus minutes must be 1-120".into()));
+                }
+                let seconds = i64::from(minutes) * 60;
+                self.kind = TimerKind::Pomodoro;
+                self.phase = Some(TimerPhase::Focus);
+                self.status = TimerStatus::Running;
+                self.total_sec = seconds;
+                self.remaining_sec = seconds;
+                self.started_at = Some(now);
+                self.ends_at = Some(now + chrono::Duration::seconds(seconds));
+                self.rounds_completed = 0;
+                self.rounds_total = self.rounds_setting;
+                self.session_id = None;
+                self.countup_base = 0;
+            }
             TimerStartRequest::Countdown { seconds } => {
                 if !(1..=86_400).contains(&seconds) {
                     return Err(AppError::InvalidInput(

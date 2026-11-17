@@ -84,6 +84,7 @@ export function useBubbleWindow() {
     ...timerApi,
     ...reminderApi,
     closeBubble: () => {
+      timerApi.resetSelection();
       void api.closeWindow('bubble');
     },
   };

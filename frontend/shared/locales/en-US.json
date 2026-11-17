@@ -30,6 +30,23 @@
     "ghostOff": "Click-through is off.",
     "clickThroughOn": "Click-through is on"
   },
+  "reminder": {
+    "water": {
+      "title": "Time for water",
+      "body": "Grab a glass of water."
+    },
+    "sedentary": {
+      "title": "You've been sitting a while",
+      "body": "Stand up and stretch a little."
+    },
+    "eyes": {
+      "title": "Give your eyes a break",
+      "body": "Look 6 meters away for 20 seconds."
+    },
+    "todo": {
+      "title": "Task reminder"
+    }
+  },
   "bubble": {
     "title": "Focusing",
     "focus": "Focusing",

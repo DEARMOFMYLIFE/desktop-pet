@@ -109,7 +109,7 @@ impl Default for Settings {
             pet_name: "小柚".into(),
             pet_size: "M".into(),
             pet_skin: "coral".into(),
-            app_icon: "clock".into(),
+            app_icon: "heart".into(),
             pet_opacity: 1.0,
             click_through: false,
             always_on_top: true,
@@ -126,5 +126,5 @@ impl Default for Settings {
 }
 
 fn default_app_icon() -> String {
-    "clock".into()
+    "heart".into()
 }

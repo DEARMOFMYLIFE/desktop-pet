@@ -1,10 +1,10 @@
 """Generate Yuzu's app icon themes (original flat art, MIT).
 
-Themes: clock (default), star, moon, coffee, sun, leaf, heart, cloud, book, flower.
+Themes: heart (default), clock, star, moon, coffee, sun, leaf, cloud, book, flower.
 Outputs:
 - backend/icons/themes/<theme>.png (1024)
 - frontend/public/brand/icon-<theme>.png (128)
-- backend/icons/icon.png + sizes/ico/icns/tray from the clock theme
+- backend/icons/icon.png + sizes/ico/icns/tray from the heart theme
 """
 from __future__ import annotations
 import io, math, struct
@@ -328,26 +328,26 @@ def main():
         im.resize((128, 128), Image.Resampling.LANCZOS).save(BRAND / f'icon-{name}.png')
         icons[name] = im
         print('theme', name)
-    clock_icon = icons['clock']
-    clock_icon.save(ICON / 'icon.png')
-    clock_icon.resize((512, 512), Image.Resampling.LANCZOS).save(ICON / '512x512.png')
-    clock_icon.resize((256, 256), Image.Resampling.LANCZOS).save(ICON / '128x128@2x.png')
-    clock_icon.resize((256, 256), Image.Resampling.LANCZOS).save(ICON / 'icon_256.png')
-    clock_icon.resize((128, 128), Image.Resampling.LANCZOS).save(ICON / '128x128.png')
-    clock_icon.resize((32, 32), Image.Resampling.LANCZOS).save(ICON / '32x32.png')
-    clock_icon.save(ICON / 'icon.ico', format='ICO',
-                    sizes=[(256, 256), (128, 128), (64, 64), (48, 48), (32, 32), (16, 16)])
+    default_icon = icons['heart']
+    default_icon.save(ICON / 'icon.png')
+    default_icon.resize((512, 512), Image.Resampling.LANCZOS).save(ICON / '512x512.png')
+    default_icon.resize((256, 256), Image.Resampling.LANCZOS).save(ICON / '128x128@2x.png')
+    default_icon.resize((256, 256), Image.Resampling.LANCZOS).save(ICON / 'icon_256.png')
+    default_icon.resize((128, 128), Image.Resampling.LANCZOS).save(ICON / '128x128.png')
+    default_icon.resize((32, 32), Image.Resampling.LANCZOS).save(ICON / '32x32.png')
+    default_icon.save(ICON / 'icon.ico', format='ICO',
+                      sizes=[(256, 256), (128, 128), (64, 64), (48, 48), (32, 32), (16, 16)])
     save_icns({
-        'ic07': clock_icon.resize((128, 128), Image.Resampling.LANCZOS),
-        'ic08': clock_icon.resize((256, 256), Image.Resampling.LANCZOS),
-        'ic09': clock_icon.resize((512, 512), Image.Resampling.LANCZOS),
-        'ic10': clock_icon.resize((1024, 1024), Image.Resampling.LANCZOS),
-        'ic11': clock_icon.resize((32, 32), Image.Resampling.LANCZOS),
-        'ic12': clock_icon.resize((64, 64), Image.Resampling.LANCZOS),
-        'ic13': clock_icon.resize((256, 256), Image.Resampling.LANCZOS),
-        'ic14': clock_icon.resize((512, 512), Image.Resampling.LANCZOS),
+        'ic07': default_icon.resize((128, 128), Image.Resampling.LANCZOS),
+        'ic08': default_icon.resize((256, 256), Image.Resampling.LANCZOS),
+        'ic09': default_icon.resize((512, 512), Image.Resampling.LANCZOS),
+        'ic10': default_icon.resize((1024, 1024), Image.Resampling.LANCZOS),
+        'ic11': default_icon.resize((32, 32), Image.Resampling.LANCZOS),
+        'ic12': default_icon.resize((64, 64), Image.Resampling.LANCZOS),
+        'ic13': default_icon.resize((256, 256), Image.Resampling.LANCZOS),
+        'ic14': default_icon.resize((512, 512), Image.Resampling.LANCZOS),
     }, ICON / 'icon.icns')
-    tray = clock_icon.resize((64, 64), Image.Resampling.LANCZOS)
+    tray = default_icon.resize((64, 64), Image.Resampling.LANCZOS)
     tray.save(ICON / 'tray.png')
     tray.save(ICON / 'tray-template.png')
     print('defaults + tray saved')

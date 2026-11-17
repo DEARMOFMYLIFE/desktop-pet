@@ -6,7 +6,7 @@ use crate::windows;
 pub fn handle(app: &AppHandle, event: MenuEvent) {
     match event.id().as_ref() {
         "pet_focus" => {
-            if let Err(error) = windows::open_bubble(app) {
+            if let Err(error) = windows::open_focus_bubble(app) {
                 tracing::warn!(?error, "failed to open bubble from pet menu");
             }
         }

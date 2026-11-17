@@ -7,7 +7,7 @@ pub(super) fn handle(app: &AppHandle, id: &str) {
     match id {
         "toggle_pet" => windows::toggle_pet_visibility(app),
         "start_focus" => {
-            if let Err(error) = windows::open_bubble(app) {
+            if let Err(error) = windows::open_focus_bubble(app) {
                 tracing::warn!(?error, "failed to open bubble from tray");
             }
         }
@@ -22,7 +22,7 @@ pub(super) fn handle(app: &AppHandle, id: &str) {
             }
         }
         "bubble" => {
-            if let Err(error) = windows::open_bubble(app) {
+            if let Err(error) = windows::open_focus_bubble(app) {
                 tracing::warn!(?error, "failed to open bubble");
             }
         }

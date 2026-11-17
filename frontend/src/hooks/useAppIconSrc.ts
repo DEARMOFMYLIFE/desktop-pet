@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { isBuiltinAppIcon } from '../lib/appIcons';
 import { api } from '../lib/ipc';
 
-const FALLBACK = '/brand/icon-clock.png';
+const FALLBACK = '/brand/icon-heart.png';
 const cache = new Map<string, string>();
 
 export function useAppIconSrc(icon: string): string {

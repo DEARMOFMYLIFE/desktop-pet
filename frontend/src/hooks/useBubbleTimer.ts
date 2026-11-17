@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { api } from '../lib/ipc';
 import { t } from '../lib/i18n';
 import type { TimerSnapshot } from '../types';
@@ -28,6 +28,31 @@ export function useBubbleTimer(timer: TimerSnapshot | null, setTimer: SetTimer) 
   }, [timer]);
 
   const active = timer ? timer.status !== 'idle' || timer.phase !== null : false;
+  const [selectedMinutes, setSelectedMinutes] = useState(25);
+  const wasActive = useRef(false);
+
+  useEffect(() => {
+    if (wasActive.current && !active) setSelectedMinutes(25);
+    wasActive.current = active;
+  }, [active]);
+
+  useEffect(() => {
+    let disposed = false;
+    let unlisten: (() => void) | undefined;
+    api
+      .on<number>('bubble:preset', (minutes) => {
+        if (!disposed) setSelectedMinutes(minutes);
+      })
+      .then((stop) => {
+        if (disposed) stop();
+        else unlisten = stop;
+      });
+    return () => {
+      disposed = true;
+      unlisten?.();
+    };
+  }, []);
+
   const isRunning = timer?.status === 'running';
   const isPaused = timer?.status === 'paused';
   const canStartPending = timer?.status === 'idle' && timer.phase !== null;
@@ -50,7 +75,10 @@ export function useBubbleTimer(timer: TimerSnapshot | null, setTimer: SetTimer) 
     } else if (isPaused || canStartPending) {
       void api.timerResume().then(setTimer).catch(console.error);
     } else {
-      void api.timerStart({ kind: 'pomodoro' }).then(setTimer).catch(console.error);
+      void api
+        .timerStart({ kind: 'focus', minutes: selectedMinutes })
+        .then(setTimer)
+        .catch(console.error);
     }
   };
 
@@ -60,13 +88,6 @@ export function useBubbleTimer(timer: TimerSnapshot | null, setTimer: SetTimer) 
 
   const reset = () => {
     void api.timerReset().then(setTimer).catch(console.error);
-  };
-
-  const startPreset = (minutes: number) => {
-    void api
-      .timerStart({ kind: 'countdown', seconds: minutes * 60 })
-      .then(setTimer)
-      .catch(console.error);
   };
 
   const startCountUp = () => {
@@ -81,7 +102,9 @@ export function useBubbleTimer(timer: TimerSnapshot | null, setTimer: SetTimer) 
     handlePrimary,
     skip,
     reset,
-    startPreset,
+    selectedMinutes,
+    selectPreset: setSelectedMinutes,
+    resetSelection: () => setSelectedMinutes(25),
     startCountUp,
   };
 }

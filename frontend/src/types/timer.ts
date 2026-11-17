@@ -4,6 +4,7 @@ export type TimerStatus = 'idle' | 'running' | 'paused';
 
 export type TimerStartRequest =
   | { kind: 'pomodoro' }
+  | { kind: 'focus'; minutes: number }
   | { kind: 'countdown'; seconds: number }
   | { kind: 'countup' };
 

@@ -11,6 +11,21 @@ interface ReminderCardProps {
   onClose: () => void;
 }
 
+function localizedReminder(reminder: ReminderPayload): { title: string; body: string } {
+  switch (reminder.kind) {
+    case 'water':
+      return { title: t('reminder.water.title'), body: t('reminder.water.body') };
+    case 'sedentary':
+      return { title: t('reminder.sedentary.title'), body: t('reminder.sedentary.body') };
+    case 'eyes':
+      return { title: t('reminder.eyes.title'), body: t('reminder.eyes.body') };
+    case 'todo':
+      return { title: t('reminder.todo.title'), body: reminder.body };
+    default:
+      return { title: reminder.title, body: reminder.body };
+  }
+}
+
 export function ReminderCard({
   reminder,
   snoozeMin,
@@ -18,9 +33,10 @@ export function ReminderCard({
   onSnooze,
   onClose,
 }: ReminderCardProps) {
+  const text = localizedReminder(reminder);
   return (
-    <BubbleShell label={reminder.title} onClose={onClose} className="reminder-card">
-      <div className="reminder-body">{reminder.body}</div>
+    <BubbleShell label={text.title} onClose={onClose} className="reminder-card">
+      <div className="reminder-body">{text.body}</div>
       <div className="bubble-actions">
         <Button variant="primary" onClick={onAcknowledge}>
           {reminder.kind === 'todo' ? t('bubble.todoDone') : t('bubble.ack')}

@@ -47,7 +47,8 @@ export function BubbleWindow() {
       onPrimary={bubble.handlePrimary}
       onSkip={bubble.skip}
       onReset={bubble.reset}
-      onStartPreset={bubble.startPreset}
+      selectedMinutes={bubble.selectedMinutes}
+      onSelectPreset={bubble.selectPreset}
       onStartCountUp={bubble.startCountUp}
       onClose={bubble.closeBubble}
     />

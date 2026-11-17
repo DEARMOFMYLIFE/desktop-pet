@@ -5,7 +5,7 @@ export const DEFAULT_SETTINGS: Settings = {
   petName: '小柚',
   petSize: 'M',
   petSkin: 'coral',
-  appIcon: 'clock',
+  appIcon: 'heart',
   petOpacity: 1,
   clickThrough: false,
   alwaysOnTop: true,

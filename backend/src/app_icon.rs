@@ -39,7 +39,7 @@ fn resolved<'a>(app: &AppHandle, value: &'a str) -> &'a str {
     if is_valid(app, value) {
         value
     } else {
-        "clock"
+        "heart"
     }
 }
 
@@ -106,8 +106,8 @@ pub fn apply_window(app: &AppHandle, window: &WebviewWindow) {
         .state::<AppState>()
         .snapshot()
         .map(|settings| settings.app_icon)
-        .unwrap_or_else(|_| "clock".into());
-    let data = load_bytes(app, &value).or_else(|| load_bytes(app, "clock"));
+        .unwrap_or_else(|_| "heart".into());
+    let data = load_bytes(app, &value).or_else(|| load_bytes(app, "heart"));
     if let Some(data) = data {
         if let Ok(image) = Image::from_bytes(&data) {
             let _ = window.set_icon(image);

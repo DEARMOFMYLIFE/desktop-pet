@@ -16,7 +16,7 @@ const HINT_CSS: &str = r#"
   background-color: rgba(40, 40, 40, 0.82);
   color: #ffffff;
   border-radius: 999px;
-  padding: 1px 8px;
+  padding: 3px 9px;
   font-size: 10px;
 }
 "#;
@@ -67,6 +67,8 @@ pub(super) fn create(
     let hint = gtk::Label::new(None);
     hint.set_halign(gtk::Align::Center);
     hint.set_valign(gtk::Align::End);
+    hint.set_xalign(0.5);
+    hint.set_justify(gtk::Justification::Center);
     hint.set_margin_bottom(4);
     hint.set_max_width_chars(34);
     hint.set_ellipsize(gtk::pango::EllipsizeMode::End);
