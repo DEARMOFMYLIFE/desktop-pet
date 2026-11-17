@@ -14,6 +14,7 @@ mod timer;
 mod todos;
 
 const SCHEMA: &str = include_str!("../schema.sql");
+const DEFAULT_DB: &[u8] = include_bytes!("../../resources/default-data/yuzu.db");
 
 pub struct Db {
     conn: Mutex<Connection>,
@@ -24,7 +25,10 @@ impl Db {
         let data_dir = app.path().app_data_dir()?;
         std::fs::create_dir_all(&data_dir)?;
         let db_path = data_dir.join("yuzu.db");
-        migrate_legacy_db(&data_dir, &db_path)?;
+        if !db_path.exists() && !migrate_legacy_db(&data_dir, &db_path)? {
+            fs::write(&db_path, DEFAULT_DB)?;
+            tracing::info!("default database data seeded");
+        }
 
         let conn = Connection::open(&db_path)?;
         conn.pragma_update(None, "journal_mode", "WAL")?;
@@ -64,9 +68,9 @@ impl Db {
     }
 }
 
-fn migrate_legacy_db(data_dir: &Path, db_path: &Path) -> Result<(), AppError> {
+fn migrate_legacy_db(data_dir: &Path, db_path: &Path) -> Result<bool, AppError> {
     if db_path.exists() {
-        return Ok(());
+        return Ok(false);
     }
     let mut candidates = vec![data_dir.join("xiaozhu.db")];
     if let Some(base) = dirs::data_local_dir() {
@@ -88,7 +92,7 @@ fn migrate_legacy_db(data_dir: &Path, db_path: &Path) -> Result<(), AppError> {
                 fs::copy(from, to)?;
             }
         }
-        return Ok(());
+        return Ok(true);
     }
-    Ok(())
+    Ok(false)
 }
