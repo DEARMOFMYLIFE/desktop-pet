@@ -266,11 +266,31 @@
       "iconBook": "Book",
       "iconFlower": "Flower",
       "iconUploadHint": "PNG · square image recommended, up to 5 MB",
-      "characters": {
-        "girl": "Girl",
-        "boy": "Boy",
-        "robot": "Robot",
-        "cat": "Cat"
+      "styleCharacters": {
+        "lighthero": {
+          "girl": "Light heroine",
+          "boy": "Light hero"
+        },
+        "webguard": {
+          "boy": "Web youth",
+          "cat": "Web cat"
+        },
+        "ironarmor": {
+          "robot": "Red-gold armor",
+          "boy": "Red-gold pilot"
+        },
+        "titanguard": {
+          "robot": "Heavy armor",
+          "cat": "Heavy cat guard"
+        },
+        "starcaptain": {
+          "girl": "Star girl",
+          "robot": "Star mech"
+        },
+        "capesentinel": {
+          "girl": "Cape girl",
+          "cat": "Cape cat guard"
+        }
       }
     },
     "shortcuts": {

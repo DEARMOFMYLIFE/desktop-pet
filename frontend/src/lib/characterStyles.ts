@@ -8,20 +8,42 @@ export interface CharacterStyleOption {
 }
 
 const HERO_PALETTES = ['coral', 'honey', 'mint', 'sky', 'lavender', 'rose', 'night', 'silver'];
-const HERO_CHARACTERS: Partial<Record<CharacterStyle, ReadonlyArray<string>>> = {
-  lighthero: ['girl', 'boy'],
-  webguard: ['boy', 'cat'],
-  ironarmor: ['robot', 'boy'],
-  titanguard: ['robot', 'cat'],
-  starcaptain: ['girl', 'robot'],
-  capesentinel: ['girl', 'cat'],
+interface HeroCharacter {
+  id: string;
+  labelKey: string;
+}
+const HERO_CHARACTERS: Partial<Record<CharacterStyle, ReadonlyArray<HeroCharacter>>> = {
+  lighthero: [
+    { id: 'girl', labelKey: 'settings.appearance.styleCharacters.lighthero.girl' },
+    { id: 'boy', labelKey: 'settings.appearance.styleCharacters.lighthero.boy' },
+  ],
+  webguard: [
+    { id: 'boy', labelKey: 'settings.appearance.styleCharacters.webguard.boy' },
+    { id: 'cat', labelKey: 'settings.appearance.styleCharacters.webguard.cat' },
+  ],
+  ironarmor: [
+    { id: 'robot', labelKey: 'settings.appearance.styleCharacters.ironarmor.robot' },
+    { id: 'boy', labelKey: 'settings.appearance.styleCharacters.ironarmor.boy' },
+  ],
+  titanguard: [
+    { id: 'robot', labelKey: 'settings.appearance.styleCharacters.titanguard.robot' },
+    { id: 'cat', labelKey: 'settings.appearance.styleCharacters.titanguard.cat' },
+  ],
+  starcaptain: [
+    { id: 'girl', labelKey: 'settings.appearance.styleCharacters.starcaptain.girl' },
+    { id: 'robot', labelKey: 'settings.appearance.styleCharacters.starcaptain.robot' },
+  ],
+  capesentinel: [
+    { id: 'girl', labelKey: 'settings.appearance.styleCharacters.capesentinel.girl' },
+    { id: 'cat', labelKey: 'settings.appearance.styleCharacters.capesentinel.cat' },
+  ],
 };
 
 function heroSkins(style: CharacterStyle): PetSkinOption[] {
   return (HERO_CHARACTERS[style] ?? []).flatMap((character) =>
     HERO_PALETTES.map((palette) => ({
-      id: `${character}-${palette}`,
-      nameKey: `settings.appearance.characters.${character}`,
+      id: `${character.id}-${palette}`,
+      nameKey: character.labelKey,
       paletteKey: `settings.appearance.skins.${palette}`,
     })),
   );

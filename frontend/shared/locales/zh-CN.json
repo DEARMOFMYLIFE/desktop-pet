@@ -266,11 +266,31 @@
       "iconBook": "书本",
       "iconFlower": "花朵",
       "iconUploadHint": "PNG · 建议使用正方形图片，最大 5 MB",
-      "characters": {
-        "girl": "女孩",
-        "boy": "男孩",
-        "robot": "机器人",
-        "cat": "猫咪"
+      "styleCharacters": {
+        "lighthero": {
+          "girl": "光之少女",
+          "boy": "光之少年"
+        },
+        "webguard": {
+          "boy": "蛛网少年",
+          "cat": "蛛网猫侠"
+        },
+        "ironarmor": {
+          "robot": "红金机甲",
+          "boy": "红金机师"
+        },
+        "titanguard": {
+          "robot": "重装机甲",
+          "cat": "重装猫卫"
+        },
+        "starcaptain": {
+          "girl": "星盾少女",
+          "robot": "星盾机兵"
+        },
+        "capesentinel": {
+          "girl": "披风少女",
+          "cat": "披风猫卫"
+        }
       }
     },
     "shortcuts": {
