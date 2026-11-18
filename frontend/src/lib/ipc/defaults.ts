@@ -4,6 +4,7 @@ export const DEFAULT_SETTINGS: Settings = {
   language: 'system',
   petName: '小柚',
   petSize: 'M',
+  characterStyle: 'cutegirl',
   petSkin: 'coral',
   appIcon: 'heart',
   petOpacity: 1,

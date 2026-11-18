@@ -7,7 +7,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 SRC = Path(os.environ.get('SRC_DIR', ROOT / 'scripts/cutegirl/source/png'))
-OUT = Path(os.environ.get('OUT_DIR', ROOT / 'frontend/public/assets/character'))
+OUT = Path(os.environ.get('OUT_DIR', ROOT / 'frontend/public/assets/character/cutegirl'))
 FRAME = 200
 WIN = 480
 WIN_Y0 = -26

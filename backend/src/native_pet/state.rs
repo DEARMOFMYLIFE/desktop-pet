@@ -12,18 +12,26 @@ use super::NativePet;
 impl NativePet {
     pub(super) fn reload_sheet(&mut self) -> Result<(), AppError> {
         if self.manifest.is_none() {
-            self.manifest = Some(assets::load_manifest(&self.app, &self.settings.pet_skin)?);
+            self.manifest = Some(assets::load_manifest(
+                &self.app,
+                &self.settings.character_style,
+                &self.settings.pet_skin,
+            )?);
         }
         let manifest = self.manifest.as_ref().expect("manifest loaded");
+        let style = self.settings.character_style.clone();
         let skin = self.settings.pet_skin.clone();
         let state = self.state.clone();
-        self.sheet = Some(assets::load_sheet(&self.app, &skin, &state, manifest)?);
+        self.sheet = Some(assets::load_sheet(
+            &self.app, &style, &skin, &state, manifest,
+        )?);
         self.started = Instant::now();
         self.last_frame = 0;
         Ok(())
     }
 
     pub(super) fn apply_settings(&mut self, next: &Settings) {
+        let style_changed = next.character_style != self.settings.character_style;
         let skin_changed = next.pet_skin != self.settings.pet_skin;
         let size_changed = next.pet_size != self.settings.pet_size;
         let click_changed = next.click_through != self.settings.click_through;
@@ -53,7 +61,7 @@ impl NativePet {
         if language_changed && self.hint_until.is_none() {
             self.hint.set_text(default_hint(&next.language));
         }
-        if skin_changed {
+        if style_changed || skin_changed {
             self.manifest = None;
             if let Err(error) = self.reload_sheet() {
                 tracing::warn!(?error, "native pet sprite reload failed");

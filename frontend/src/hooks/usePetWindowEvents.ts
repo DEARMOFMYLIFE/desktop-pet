@@ -27,7 +27,7 @@ export function usePetWindowEvents({ resetHint, showTransientHint }: PetWindowEv
 
   useEffect(() => {
     if (!settings) return;
-    preloadSkinStates(settings.petSkin);
+    preloadSkinStates(settings.characterStyle, settings.petSkin);
   }, [settings]);
 
   useEffect(() => {

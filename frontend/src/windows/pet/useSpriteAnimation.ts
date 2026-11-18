@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import type { RefObject } from 'react';
-import type { PetSkin, PetState } from '../../types';
+import type { CharacterStyle, PetSkin, PetState } from '../../types';
 import type { SpriteManifest, SpriteStateConfig } from '../../lib/animation/manifest';
 import { characterAssetUrl } from '../../lib/character/api';
 import {
@@ -12,17 +12,18 @@ import {
 } from '../../lib/character/preload';
 
 export function useSpriteAnimation(
+  style: CharacterStyle,
   skin: PetSkin,
   state: PetState,
   reduceMotion: boolean,
 ): { canvasRef: RefObject<HTMLCanvasElement> } {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [manifest, setManifest] = useState<SpriteManifest | null>(
-    () => getCachedManifest(skin),
+    () => getCachedManifest(style, skin),
   );
 
   useEffect(() => {
-    const cached = getCachedManifest(skin);
+    const cached = getCachedManifest(style, skin);
     if (cached) {
       // Keep the current state as the trigger; the animation effect reads the
       // manifest for the *current* skin from the cache. Re-setting it here
@@ -34,7 +35,7 @@ export function useSpriteAnimation(
     const ctx = canvas?.getContext('2d');
     if (canvas && ctx) ctx.clearRect(0, 0, canvas.width, canvas.height);
     let cancelled = false;
-    void loadManifest(skin)
+    void loadManifest(style, skin)
       .then((next) => {
         if (!cancelled) setManifest(next);
       })
@@ -42,13 +43,13 @@ export function useSpriteAnimation(
     return () => {
       cancelled = true;
     };
-  }, [skin]);
+  }, [style, skin]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     // Read the manifest for the *current* skin: after a switch the state may
     // still hold the previous skin's manifest for one render.
-    const active = getCachedManifest(skin);
+    const active = getCachedManifest(style, skin);
     const config = active?.states[state];
     if (!canvas || !config || !active) return;
     const ctx = canvas.getContext('2d', { alpha: true });
@@ -62,8 +63,8 @@ export function useSpriteAnimation(
     ctx.imageSmoothingEnabled = true;
     ctx.imageSmoothingQuality = 'high';
 
-    const primaryUrl = characterAssetUrl(skin, config.file);
-    const fallbackUrl = config.fallback ? characterAssetUrl(skin, config.fallback) : null;
+    const primaryUrl = characterAssetUrl(style, skin, config.file);
+    const fallbackUrl = config.fallback ? characterAssetUrl(style, skin, config.fallback) : null;
     let cancelled = false;
     let rafId = 0;
 
@@ -118,7 +119,7 @@ export function useSpriteAnimation(
       // started
     } else {
       const idleConfig = active.states.idle;
-      const idleUrl = idleConfig ? characterAssetUrl(skin, idleConfig.file) : null;
+      const idleUrl = idleConfig ? characterAssetUrl(style, skin, idleConfig.file) : null;
       if (state !== 'idle' && idleConfig && idleUrl && isImageLoaded(idleUrl)) {
         start(idleConfig, idleUrl);
       }
@@ -132,7 +133,7 @@ export function useSpriteAnimation(
       cancelled = true;
       cancelAnimationFrame(rafId);
     };
-  }, [manifest, skin, state, reduceMotion]);
+  }, [manifest, style, skin, state, reduceMotion]);
 
   return { canvasRef };
 }

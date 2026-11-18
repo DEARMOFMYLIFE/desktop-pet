@@ -1,5 +1,5 @@
 import type { PetState } from './pet';
-import type { PetSkin } from './settings';
+import type { CharacterStyle, PetSkin } from './settings';
 
 export interface PetPoint {
   x: number;
@@ -11,6 +11,7 @@ export interface PetStageProps {
   opacity: number;
   reduceMotion: boolean;
   state: PetState;
+  characterStyle: CharacterStyle;
   skin: PetSkin;
   onClick: () => void;
   onDoubleClick: () => void;

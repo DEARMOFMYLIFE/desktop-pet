@@ -16,7 +16,7 @@ Assets are derived from **Cute Girl - Free Sprites** by **pzUH** (CC0 1.0):
 ```bash
 # 1. Download CuteGirlFiles.zip from the OpenGameArt page and unzip:
 #    scripts/cutegirl/source/png/*.png
-python3 scripts/cutegirl/generate.py   # 16 palette skins -> frontend/public/assets/character/
+python3 scripts/cutegirl/generate.py   # 16 palette skins -> frontend/public/assets/character/cutegirl/
 python3 scripts/icon-themes.py         # app icon themes + tray + brand logos
 ```
 

@@ -15,7 +15,18 @@
 - 16 palette variants, each with 11 action sheets, 200×200 frames
 - Modifications: hair / dress / skin / eye HSV recolors; custom sit, focus,
   sleep and droop poses; composed app icons and brand mascot
-- Generation: `scripts/cutegirl/generate.py`, `scripts/cutegirl/icons.py`
+- Generation: `scripts/cutegirl/generate.py`, `scripts/icon-themes.py`
+- Details: `docs/13-角色与图标资源.md`
+
+### The Boy - Free Sprites
+
+- Author: pzUH
+- Source: https://opengameart.org/content/the-boy-free-sprites
+- License: CC0 1.0 Universal (public domain)
+- 16 palette variants, each with 11 action sheets, 200×200 frames
+- Modifications: hair / shirt / cap / shorts / skin / eye HSV recolors;
+  custom sit, focus, sleep and droop poses; composed Cute Boy variants
+- Generation: `scripts/cuteboy/generate.py`
 - Details: `docs/13-角色与图标资源.md`
 
 ### App icon themes and brand logos

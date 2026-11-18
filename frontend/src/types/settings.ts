@@ -1,5 +1,6 @@
 export type Language = 'system' | 'zh-CN' | 'en-US';
 export type PetSize = 'S' | 'M' | 'L';
+export type CharacterStyle = 'cutegirl' | 'cuteboy';
 export type AppIcon = string;
 
 export interface CustomIcon {
@@ -65,6 +66,7 @@ export interface Settings {
   language: Language;
   petName: string;
   petSize: PetSize;
+  characterStyle: CharacterStyle;
   petSkin: PetSkin;
   appIcon: AppIcon;
   petOpacity: number;

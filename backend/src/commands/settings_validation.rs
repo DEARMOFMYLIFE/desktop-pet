@@ -10,6 +10,9 @@ pub(super) fn validate_settings(app: &AppHandle, settings: &Settings) -> Result<
     if !matches!(settings.pet_size.as_str(), "S" | "M" | "L") {
         return Err(AppError::InvalidInput("unsupported pet size".into()));
     }
+    if !matches!(settings.character_style.as_str(), "cutegirl" | "cuteboy") {
+        return Err(AppError::InvalidInput("unsupported character style".into()));
+    }
     if !matches!(
         settings.pet_skin.as_str(),
         "honey"

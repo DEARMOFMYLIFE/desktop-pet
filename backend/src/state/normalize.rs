@@ -8,6 +8,12 @@ pub(super) fn normalize_pet_name(name: &mut String) {
     }
 }
 
+pub(super) fn normalize_character_style(style: &mut String) {
+    if !matches!(style.as_str(), "cutegirl" | "cuteboy") {
+        *style = "cutegirl".into();
+    }
+}
+
 pub(super) fn normalize_pet_skin(skin: &mut String) {
     let next = match skin.as_str() {
         "female-person" => "coral",

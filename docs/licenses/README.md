@@ -12,7 +12,7 @@ Required fields per asset:
 | Source | `https://example.com/...` |
 | License | `CC0-1.0` |
 | Modifications | `resized to 256x256, recolored outline` |
-| Used in | `frontend/public/assets/character/<skin>` |
+| Used in | `frontend/public/assets/character/<style>/<skin>` |
 
 ## Assets currently used
 

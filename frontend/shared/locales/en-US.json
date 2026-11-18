@@ -207,9 +207,15 @@
       "reduceSystem": "Follow system",
       "reduceOn": "On",
       "reduceOff": "Off",
+      "style": "Character style",
+      "styleHint": "Switch the overall character artwork",
       "skin": "Character skin",
       "defaultSkin": "Default character",
       "skinHint": "Choose a character skin; all action sheets switch together.",
+      "styles": {
+        "cutegirl": "Cute girl",
+        "cuteboy": "Cute boy"
+      },
       "skins": {
         "honey": "Honey",
         "cream": "Cream",

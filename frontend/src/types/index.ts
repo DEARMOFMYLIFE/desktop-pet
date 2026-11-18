@@ -1,6 +1,7 @@
 export type { AppInfo, Bootstrap } from './app';
 export type {
   AppIcon,
+  CharacterStyle,
   CustomIcon,
   FocusBehavior,
   Language,

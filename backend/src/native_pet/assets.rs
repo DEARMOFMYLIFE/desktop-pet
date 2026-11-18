@@ -30,14 +30,15 @@ pub struct SpriteSheet {
     pub frame_height: u32,
 }
 
-pub fn load_manifest(app: &AppHandle, skin: &str) -> Result<Manifest, AppError> {
-    let path = format!("assets/character/{skin}/manifest.json");
+pub fn load_manifest(app: &AppHandle, style: &str, skin: &str) -> Result<Manifest, AppError> {
+    let path = format!("assets/character/{style}/{skin}/manifest.json");
     let bytes = asset_bytes(app, &path)?;
     serde_json::from_slice(&bytes).map_err(|error| AppError::Internal(error.to_string()))
 }
 
 pub fn load_sheet(
     app: &AppHandle,
+    style: &str,
     skin: &str,
     state: &str,
     manifest: &Manifest,
@@ -46,7 +47,7 @@ pub fn load_sheet(
         .states
         .get(state)
         .ok_or_else(|| AppError::Internal(format!("sprite state missing: {state}")))?;
-    let path = format!("assets/character/{skin}/{}", config.file);
+    let path = format!("assets/character/{style}/{skin}/{}", config.file);
     let bytes = asset_bytes(app, &path)?;
     let image = image::load_from_memory(&bytes)
         .map_err(|error| AppError::Internal(format!("sprite decode: {error}")))?

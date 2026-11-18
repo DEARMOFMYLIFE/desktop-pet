@@ -2,15 +2,16 @@ import { ClearButton } from '../../../components/ui/ClearButton';
 import { Input } from '../../../components/ui/Input';
 import { PetStage } from '../../pet/PetStage';
 import { t } from '../../../lib/i18n';
-import type { PetSkin } from '../../../types';
+import type { CharacterStyle, PetSkin } from '../../../types';
 
 interface StepWelcomeProps {
   petName: string;
+  characterStyle: CharacterStyle;
   skin: PetSkin;
   onNameChange: (value: string) => void;
 }
 
-export function StepWelcome({ petName, skin, onNameChange }: StepWelcomeProps) {
+export function StepWelcome({ petName, characterStyle, skin, onNameChange }: StepWelcomeProps) {
   return (
     <>
       <div className="onboarding-mascot">
@@ -19,6 +20,7 @@ export function StepWelcome({ petName, skin, onNameChange }: StepWelcomeProps) {
           opacity={1}
           reduceMotion={false}
           state="idle"
+          characterStyle={characterStyle}
           skin={skin}
           onClick={() => undefined}
           onDoubleClick={() => undefined}

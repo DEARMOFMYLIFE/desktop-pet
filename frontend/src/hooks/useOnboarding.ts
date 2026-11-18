@@ -17,7 +17,7 @@ export function useOnboarding() {
 
   useEffect(() => {
     if (!settings) return;
-    preloadSkinStates(settings.petSkin);
+    preloadSkinStates(settings.characterStyle, settings.petSkin);
   }, [settings]);
 
   useEffect(() => {

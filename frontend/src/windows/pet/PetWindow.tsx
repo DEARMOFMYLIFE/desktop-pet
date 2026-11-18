@@ -47,6 +47,7 @@ export function PetWindow() {
         opacity={opacity}
         reduceMotion={reduceMotion}
         state={petState}
+        characterStyle={settings.characterStyle}
         skin={settings.petSkin}
         onClick={handleClick}
         onDoubleClick={handleDoubleClick}

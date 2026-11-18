@@ -9,6 +9,7 @@ export const PetStage = memo(function PetStage({
   opacity,
   reduceMotion,
   state,
+  characterStyle,
   skin,
   onClick,
   onDoubleClick,
@@ -17,7 +18,7 @@ export const PetStage = memo(function PetStage({
   onDragMove,
   onDragEnd,
 }: PetStageProps) {
-  const { canvasRef } = useSpriteAnimation(skin, state, reduceMotion);
+  const { canvasRef } = useSpriteAnimation(characterStyle, skin, state, reduceMotion);
   const clickTimerRef = useRef<number | null>(null);
   const startPointRef = useRef<PetPoint | null>(null);
   const draggingRef = useRef(false);

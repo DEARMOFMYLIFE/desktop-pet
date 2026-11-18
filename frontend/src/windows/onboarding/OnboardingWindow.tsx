@@ -32,6 +32,7 @@ export function OnboardingWindow() {
         {onboarding.step === 0 && (
           <StepWelcome
             petName={onboarding.settings.petName}
+            characterStyle={onboarding.settings.characterStyle}
             skin={onboarding.settings.petSkin}
             onNameChange={(petName) => onboarding.patchSettings({ petName })}
           />

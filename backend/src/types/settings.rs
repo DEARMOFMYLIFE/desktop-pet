@@ -86,6 +86,7 @@ pub struct Settings {
     pub language: String,
     pub pet_name: String,
     pub pet_size: String,
+    pub character_style: String,
     pub pet_skin: String,
     #[serde(default = "default_app_icon")]
     pub app_icon: String,
@@ -108,6 +109,7 @@ impl Default for Settings {
             language: "system".into(),
             pet_name: "小柚".into(),
             pet_size: "M".into(),
+            character_style: "cutegirl".into(),
             pet_skin: "coral".into(),
             app_icon: "heart".into(),
             pet_opacity: 1.0,

@@ -8,6 +8,8 @@ import { Select } from '../../../components/ui/Select';
 import { useAppearancePanel } from '../../../hooks/useAppearancePanel';
 import { useAppIconSrc } from '../../../hooks/useAppIconSrc';
 import { useCustomIcons } from '../../../hooks/useCustomIcons';
+import { CHARACTER_STYLE_OPTIONS } from '../../../lib/characterStyles';
+import { characterPreviewUrl } from '../../../lib/character/api';
 import { PET_SKIN_OPTIONS } from '../../../lib/petSkins';
 import { t } from '../../../lib/i18n';
 import type { SettingsPanelProps } from '../settingsTypes';
@@ -46,6 +48,20 @@ export function AppearancePanel({ settings, update }: SettingsPanelProps) {
   return (
     <>
       <SettingsCard title={t('settings.appearance.skin')}>
+        <SettingRow
+          title={t('settings.appearance.style')}
+          hint={t('settings.appearance.styleHint')}
+        >
+          <Select
+            value={settings.characterStyle}
+            options={CHARACTER_STYLE_OPTIONS.map((option) => ({
+              value: option.value,
+              label: t(option.labelKey),
+            }))}
+            label={t('settings.appearance.style')}
+            onChange={(value) => void update({ characterStyle: value })}
+          />
+        </SettingRow>
         <p className="card-description">{t('settings.appearance.skinHint')}</p>
         <div className="skin-grid">
           {SKINS.map((skin) => (
@@ -57,7 +73,7 @@ export function AppearancePanel({ settings, update }: SettingsPanelProps) {
               onClick={() => void update({ petSkin: skin.id })}
             >
               <img
-                src={`/assets/character/${skin.id}/preview.png`}
+                src={characterPreviewUrl(settings.characterStyle, skin.id)}
                 alt=""
                 loading="lazy"
                 decoding="async"
