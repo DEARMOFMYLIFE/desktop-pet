@@ -215,12 +215,12 @@
       "styles": {
         "cutegirl": "可爱女孩",
         "cuteboy": "可爱男孩",
-        "lighthero": "光之英雄",
-        "webguard": "蛛网义警",
-        "ironarmor": "红金机甲",
-        "titanguard": "重装铠甲",
-        "starcaptain": "星盾队长",
-        "capesentinel": "披风守护者"
+        "lighthero": "晨光守护",
+        "webguard": "迅影游侠",
+        "ironarmor": "赤金战甲",
+        "titanguard": "岩甲守卫",
+        "starcaptain": "星环领航",
+        "capesentinel": "风语守望"
       },
       "skins": {
         "honey": "蜂蜜",
@@ -268,28 +268,28 @@
       "iconUploadHint": "PNG · 建议使用正方形图片，最大 5 MB",
       "styleCharacters": {
         "lighthero": {
-          "girl": "光之少女",
-          "boy": "光之少年"
+          "girl": "晨光少女",
+          "boy": "晨光少年"
         },
         "webguard": {
-          "boy": "蛛网少年",
-          "cat": "蛛网猫侠"
+          "boy": "迅影少年",
+          "cat": "迅影猫灵"
         },
         "ironarmor": {
-          "robot": "红金机甲",
-          "boy": "红金机师"
+          "robot": "赤金机甲",
+          "boy": "赤金机师"
         },
         "titanguard": {
-          "robot": "重装机甲",
-          "cat": "重装猫卫"
+          "robot": "岩甲机兵",
+          "cat": "岩甲猫卫"
         },
         "starcaptain": {
-          "girl": "星盾少女",
-          "robot": "星盾机兵"
+          "girl": "星环少女",
+          "robot": "星环机兵"
         },
         "capesentinel": {
-          "girl": "披风少女",
-          "cat": "披风猫卫"
+          "girl": "风语少女",
+          "cat": "风语猫灵"
         }
       }
     },

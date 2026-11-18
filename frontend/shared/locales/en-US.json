@@ -215,12 +215,12 @@
       "styles": {
         "cutegirl": "Cute girl",
         "cuteboy": "Cute boy",
-        "lighthero": "Light hero",
-        "webguard": "Web guardian",
-        "ironarmor": "Red-gold armor",
-        "titanguard": "Heavy armor",
-        "starcaptain": "Star captain",
-        "capesentinel": "Cape sentinel"
+        "lighthero": "Dawn Guard",
+        "webguard": "Swift Ranger",
+        "ironarmor": "Crimson Gold",
+        "titanguard": "Bedrock Guard",
+        "starcaptain": "Star Ring",
+        "capesentinel": "Windwhisper"
       },
       "skins": {
         "honey": "Honey",
@@ -268,28 +268,28 @@
       "iconUploadHint": "PNG · square image recommended, up to 5 MB",
       "styleCharacters": {
         "lighthero": {
-          "girl": "Light heroine",
-          "boy": "Light hero"
+          "girl": "Dawn girl",
+          "boy": "Dawn boy"
         },
         "webguard": {
-          "boy": "Web youth",
-          "cat": "Web cat"
+          "boy": "Swift youth",
+          "cat": "Swift cat"
         },
         "ironarmor": {
-          "robot": "Red-gold armor",
-          "boy": "Red-gold pilot"
+          "robot": "Crimson mech",
+          "boy": "Crimson pilot"
         },
         "titanguard": {
-          "robot": "Heavy armor",
-          "cat": "Heavy cat guard"
+          "robot": "Bedrock mech",
+          "cat": "Bedrock cat guard"
         },
         "starcaptain": {
-          "girl": "Star girl",
-          "robot": "Star mech"
+          "girl": "Star-ring girl",
+          "robot": "Star-ring mech"
         },
         "capesentinel": {
-          "girl": "Cape girl",
-          "cat": "Cape cat guard"
+          "girl": "Windwhisper girl",
+          "cat": "Windwhisper cat"
         }
       }
     },
