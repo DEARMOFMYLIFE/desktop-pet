@@ -2,6 +2,7 @@ import { SettingsCard } from '../../../components/settings/SettingsCard';
 import { useAppIconSrc } from '../../../hooks/useAppIconSrc';
 import { Button } from '../../../components/ui/Button';
 import { ConfirmDialog } from '../../../components/ui/ConfirmDialog';
+import { AppIconImage } from '../../../components/ui/AppIconImage';
 import { useAboutPanel } from '../../../hooks/useAboutPanel';
 import { t } from '../../../lib/i18n';
 import type { SettingsPanelProps } from '../settingsTypes';
@@ -23,7 +24,7 @@ export function AboutPanel({ appInfo, settings }: SettingsPanelProps) {
       <SettingsCard className="about-card">
         <div className="about-head">
           <div className="about-mark">
-            <img src={iconSrc} alt="" decoding="async" />
+            <AppIconImage src={iconSrc} />
           </div>
           <div>
             <h2>{settings.petName || t('app.name')}</h2>
@@ -52,9 +53,7 @@ export function AboutPanel({ appInfo, settings }: SettingsPanelProps) {
       </SettingsCard>
       <SettingsCard>
         <div className="button-row">
-          <Button onClick={previewOnboarding}>
-            {t('settings.about.previewOnboarding')}
-          </Button>
+          <Button onClick={previewOnboarding}>{t('settings.about.previewOnboarding')}</Button>
           <Button variant="danger-outline" onClick={quit}>
             {t('settings.about.quit')}
           </Button>

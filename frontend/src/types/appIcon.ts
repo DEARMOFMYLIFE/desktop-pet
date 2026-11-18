@@ -7,3 +7,8 @@ export interface AppIconDialogProps {
   onImported: (icon: CustomIcon) => void;
   onImport: (name: string, bytes: number[]) => Promise<CustomIcon>;
 }
+
+export interface AppIconImageProps {
+  src: string;
+  className?: string;
+}

@@ -1,5 +1,6 @@
 import { ImagePlus } from 'lucide-react';
 import { useRef } from 'react';
+import { AppIconImage } from '../../../../components/ui/AppIconImage';
 import { Button } from '../../../../components/ui/Button';
 import { t } from '../../../../lib/i18n';
 
@@ -22,18 +23,12 @@ export function AppIconFilePicker({ preview, fileName, onChoose }: AppIconFilePi
         aria-label={t('settings.appearance.choosePng')}
         onClick={choose}
       >
-        {preview ? (
-          <img src={preview} alt="" />
-        ) : (
-          <ImagePlus size={26} aria-hidden="true" />
-        )}
+        {preview ? <AppIconImage src={preview} /> : <ImagePlus size={26} aria-hidden="true" />}
       </button>
       <div className="icon-upload-info">
         <p>{t('settings.appearance.iconUploadHint')}</p>
         <Button onClick={choose}>{t('settings.appearance.choosePng')}</Button>
-        <span className="icon-upload-name">
-          {fileName || t('settings.appearance.iconNoFile')}
-        </span>
+        <span className="icon-upload-name">{fileName || t('settings.appearance.iconNoFile')}</span>
       </div>
       <input
         ref={inputRef}

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { SettingsCard } from '../../../components/settings/SettingsCard';
 import { SettingRow } from '../../../components/settings/SettingRow';
+import { AppIconImage } from '../../../components/ui/AppIconImage';
 import { Button } from '../../../components/ui/Button';
 import { Segmented } from '../../../components/ui/Segmented';
 import { Select } from '../../../components/ui/Select';
@@ -69,7 +70,7 @@ export function AppearancePanel({ settings, update }: SettingsPanelProps) {
       <SettingsCard title={t('settings.appearance.appIcon')}>
         <p className="card-description">{t('settings.appearance.appIconHint')}</p>
         <div className="app-icon-row">
-          <img className="app-icon-preview" src={iconSrc} alt="" decoding="async" />
+          <AppIconImage className="app-icon-preview" src={iconSrc} />
           <Select
             value={settings.appIcon}
             options={iconOptions}

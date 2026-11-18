@@ -1,4 +1,5 @@
 import { memo } from 'react';
+import { AppIconImage } from '../ui/AppIconImage';
 import { useAppIconSrc } from '../../hooks/useAppIconSrc';
 import { t } from '../../lib/i18n';
 import type { AppIcon, SettingsTab, TabId } from '../../types';
@@ -26,7 +27,7 @@ export const SettingsSidebar = memo(function SettingsSidebar({
     <aside className="settings-sidebar" data-language={language}>
       <div className="brand">
         <div className="brand-mark">
-          <img src={iconSrc} alt="" decoding="async" />
+          <AppIconImage src={iconSrc} />
         </div>
         <div className="brand-text">
           <strong>{petName || t('app.name')}</strong>
