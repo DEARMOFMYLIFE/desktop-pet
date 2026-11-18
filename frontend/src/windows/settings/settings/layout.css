@@ -1,11 +1,12 @@
-  .settings-shell {
-    @apply grid h-screen grid-cols-[210px_minmax(0,1fr)] overflow-hidden;
+  html:has(.settings-page),
+  body.settings-page,
+  body.settings-page #root {
+    @apply h-screen overflow-hidden;
   }
 
-  /* `app-shell` is scrollable for onboarding; the settings window owns its
-     viewport and must never scroll the sidebar/header with the panel. */
-  .settings-shell.app-shell {
-    @apply h-screen overflow-hidden;
+  .settings-shell {
+    @apply grid h-screen grid-cols-[210px_minmax(0,1fr)] overflow-hidden bg-bg text-ink select-text;
+    background-image: radial-gradient(circle at 92% 0%, var(--accent-soft) 0, transparent 42%);
   }
 
   .settings-sidebar {
@@ -38,6 +39,23 @@
     @apply text-[11px] text-muted;
   }
 
+  .settings-shell button,
+  .settings-shell .segmented,
+  .settings-shell .select-trigger,
+  .settings-shell .switch,
+  .settings-shell .skin-card {
+    @apply select-none;
+  }
+
+  .settings-shell input,
+  .settings-shell textarea {
+    @apply select-text;
+  }
+
+  .settings-nav-scroll {
+    @apply min-h-0 flex-1;
+  }
+
   .settings-nav {
     @apply flex flex-col gap-1;
   }
@@ -60,8 +78,11 @@
   }
 
   .settings-main {
-    @apply min-h-0 overflow-x-hidden overflow-y-auto px-6 pb-8 pt-6;
-    scrollbar-gutter: stable;
+    @apply flex min-h-0 flex-col overflow-hidden px-6 pb-8 pt-6;
+  }
+
+  .settings-content-scroll {
+    @apply min-h-0 flex-1;
   }
 
   .settings-header h1 {

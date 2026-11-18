@@ -111,9 +111,12 @@ def make_focus_frames(sit_frames, style, skin):
                 fill=(224, 206, 186, 255),
                 width=1,
             )
-        for hand_x in (x0 + 5, x1 - 5):
+        # Put the hands exactly on the arm endpoints, then let them overlap
+        # the book edge. This makes the grip explicit rather than a separate
+        # pair of floating mitts at the bottom of the cover.
+        for _, _, (hand_x, hand_y) in config["arms"]:
             draw.ellipse(
-                (hand_x - 7, y1 - 14, hand_x + 7, y1 + 2),
+                (hand_x - 7, hand_y - 7, hand_x + 7, hand_y + 7),
                 fill=skin_color,
             )
         frames.append(frame)

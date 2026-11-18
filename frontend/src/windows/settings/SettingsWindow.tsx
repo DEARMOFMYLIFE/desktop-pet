@@ -2,6 +2,7 @@ import { SettingsHeader } from '../../components/layout/SettingsHeader';
 import { SettingsSidebar } from '../../components/layout/SettingsSidebar';
 import { ErrorPane } from '../../components/ui/ErrorPane';
 import { LoadingPane } from '../../components/ui/LoadingPane';
+import { ScrollArea } from '../../components/ui/ScrollArea';
 import { Toast } from '../../components/ui/Toast';
 import { useSettingsWindow } from '../../hooks/useSettingsWindow';
 import { t } from '../../lib/i18n';
@@ -31,7 +32,7 @@ export function SettingsWindow() {
   const panelProps = { settings, appInfo, update, notify };
 
   return (
-    <div className="settings-shell app-shell">
+    <div className="settings-shell">
       <SettingsSidebar
         tabs={TABS}
         activeTab={activeTab}
@@ -47,16 +48,18 @@ export function SettingsWindow() {
           description={t(`settings.${activeTab}.description`)}
         />
 
-        <div className="settings-content">
-          {activeTab === 'general' && <GeneralPanel {...panelProps} />}
-          {activeTab === 'timer' && <TimerPanel {...panelProps} />}
-          {activeTab === 'reminders' && <ReminderPanel {...panelProps} />}
-          {activeTab === 'todos' && <TodoPanel {...panelProps} />}
-          {activeTab === 'stats' && <StatsPanel {...panelProps} />}
-          {activeTab === 'appearance' && <AppearancePanel {...panelProps} />}
-          {activeTab === 'shortcuts' && <ShortcutsPanel {...panelProps} />}
-          {activeTab === 'about' && <AboutPanel {...panelProps} />}
-        </div>
+        <ScrollArea className="settings-content-scroll" label={t(`settings.${activeTab}.title`)}>
+          <div className="settings-content">
+            {activeTab === 'general' && <GeneralPanel {...panelProps} />}
+            {activeTab === 'timer' && <TimerPanel {...panelProps} />}
+            {activeTab === 'reminders' && <ReminderPanel {...panelProps} />}
+            {activeTab === 'todos' && <TodoPanel {...panelProps} />}
+            {activeTab === 'stats' && <StatsPanel {...panelProps} />}
+            {activeTab === 'appearance' && <AppearancePanel {...panelProps} />}
+            {activeTab === 'shortcuts' && <ShortcutsPanel {...panelProps} />}
+            {activeTab === 'about' && <AboutPanel {...panelProps} />}
+          </div>
+        </ScrollArea>
       </main>
 
       {toast && <Toast message={toast} />}

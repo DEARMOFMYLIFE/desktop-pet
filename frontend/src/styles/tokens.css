@@ -24,6 +24,8 @@
   --shadow-danger: 0 1px 2px rgba(194, 91, 82, 0.24);
   --overlay-surface: rgba(255, 253, 249, 0.9);
   --overlay-text: rgba(43, 38, 34, 0.74);
+  --scrollbar-thumb: #d19a83;
+  --scrollbar-thumb-hover: #bd7458;
 
   --space-1: 4px;
   --space-2: 8px;
@@ -68,5 +70,7 @@
     --shadow-danger: 0 1px 2px rgba(224, 122, 118, 0.28);
     --overlay-surface: rgba(33, 30, 27, 0.92);
     --overlay-text: rgba(0, 0, 0, 0.72);
+    --scrollbar-thumb: #7d594a;
+    --scrollbar-thumb-hover: #b7765d;
   }
 }

@@ -1,5 +1,6 @@
 import { memo } from 'react';
 import { AppIconImage } from '../ui/AppIconImage';
+import { ScrollArea } from '../ui/ScrollArea';
 import { useAppIconSrc } from '../../hooks/useAppIconSrc';
 import { t } from '../../lib/i18n';
 import type { AppIcon, SettingsTab, TabId } from '../../types';
@@ -35,19 +36,21 @@ export const SettingsSidebar = memo(function SettingsSidebar({
         </div>
       </div>
 
-      <nav className="settings-nav" aria-label={t('settings.title')}>
-        {tabs.map((tab) => (
-          <button
-            key={tab.id}
-            type="button"
-            className={activeTab === tab.id ? 'is-active' : ''}
-            aria-current={activeTab === tab.id ? 'page' : undefined}
-            onClick={() => onTabChange(tab.id)}
-          >
-            {t(tab.labelKey)}
-          </button>
-        ))}
-      </nav>
+      <ScrollArea className="settings-nav-scroll" label={t('settings.title')} compact>
+        <nav className="settings-nav">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              type="button"
+              className={activeTab === tab.id ? 'is-active' : ''}
+              aria-current={activeTab === tab.id ? 'page' : undefined}
+              onClick={() => onTabChange(tab.id)}
+            >
+              {t(tab.labelKey)}
+            </button>
+          ))}
+        </nav>
+      </ScrollArea>
 
       <div className="sidebar-foot">{t('settings.p1Notice')}</div>
     </aside>
