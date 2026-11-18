@@ -1,6 +1,16 @@
 export type Language = 'system' | 'zh-CN' | 'en-US';
 export type PetSize = 'S' | 'M' | 'L';
-export type CharacterStyle = 'cutegirl' | 'cuteboy';
+export type CharacterStyle =
+  | 'cutegirl'
+  | 'cuteboy'
+  | 'lighthero'
+  | 'webguard'
+  | 'ironarmor'
+  | 'titanguard'
+  | 'starcaptain'
+  | 'capesentinel'
+  | 'catmouse'
+  | 'pighero';
 export type AppIcon = string;
 
 export interface CustomIcon {
@@ -24,7 +34,9 @@ export type PetSkin =
   | 'berry'
   | 'cocoa'
   | 'snow'
-  | 'sunny';
+  | 'sunny'
+  | 'default'
+  | 'alt';
 export type ReduceMotion = 'system' | 'on' | 'off';
 export type FocusBehavior = 'notify_only' | 'pause';
 export type ShortcutAction = 'focus' | 'click_through' | 'toggle_visible';

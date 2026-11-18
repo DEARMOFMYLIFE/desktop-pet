@@ -8,15 +8,18 @@ import { Select } from '../../../components/ui/Select';
 import { useAppearancePanel } from '../../../hooks/useAppearancePanel';
 import { useAppIconSrc } from '../../../hooks/useAppIconSrc';
 import { useCustomIcons } from '../../../hooks/useCustomIcons';
-import { CHARACTER_STYLE_OPTIONS } from '../../../lib/characterStyles';
+import {
+  CHARACTER_STYLE_OPTIONS,
+  defaultSkinForStyle,
+  isSkinForStyle,
+  skinsForStyle,
+} from '../../../lib/characterStyles';
 import { characterPreviewUrl } from '../../../lib/character/api';
-import { PET_SKIN_OPTIONS } from '../../../lib/petSkins';
 import { t } from '../../../lib/i18n';
 import type { SettingsPanelProps } from '../settingsTypes';
 import type { AppIcon, CustomIcon } from '../../../types';
 import { AppIconDialog } from './appearance/AppIconDialog';
 
-const SKINS = PET_SKIN_OPTIONS;
 const BUILTIN_ICON_OPTIONS: Array<{ value: AppIcon; labelKey: string }> = [
   { value: 'heart', labelKey: 'settings.appearance.iconHeart' },
   { value: 'clock', labelKey: 'settings.appearance.iconClock' },
@@ -35,6 +38,7 @@ export function AppearancePanel({ settings, update }: SettingsPanelProps) {
   const { icons: customIcons, importIcon } = useCustomIcons();
   const [dialogOpen, setDialogOpen] = useState(false);
   const iconSrc = useAppIconSrc(settings.appIcon);
+  const skins = skinsForStyle(settings.characterStyle);
 
   const iconOptions = [
     ...BUILTIN_ICON_OPTIONS.map(({ value, labelKey }) => ({ value, label: t(labelKey) })),
@@ -59,7 +63,12 @@ export function AppearancePanel({ settings, update }: SettingsPanelProps) {
             label: t(option.labelKey),
           }))}
           label={t('settings.appearance.style')}
-          onChange={(value) => void update({ characterStyle: value })}
+          onChange={(value) => {
+            const petSkin = isSkinForStyle(value, settings.petSkin)
+              ? settings.petSkin
+              : defaultSkinForStyle(value);
+            void update({ characterStyle: value, petSkin });
+          }}
         />
       </SettingsCard>
       <SettingsCard
@@ -67,7 +76,7 @@ export function AppearancePanel({ settings, update }: SettingsPanelProps) {
         description={t('settings.appearance.skinHint')}
       >
         <div className="skin-grid">
-          {SKINS.map((skin) => (
+          {skins.map((skin) => (
             <button
               key={skin.id}
               type="button"

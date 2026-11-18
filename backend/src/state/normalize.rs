@@ -9,24 +9,27 @@ pub(super) fn normalize_pet_name(name: &mut String) {
 }
 
 pub(super) fn normalize_character_style(style: &mut String) {
-    if !matches!(style.as_str(), "cutegirl" | "cuteboy") {
+    use crate::types::character;
+    if !character::is_style(style) {
         *style = "cutegirl".into();
     }
 }
 
-pub(super) fn normalize_pet_skin(skin: &mut String) {
-    let next = match skin.as_str() {
-        "female-person" => "coral",
-        "male-person" => "mint",
-        "female-adventurer" => "peach",
-        "male-adventurer" => "night",
-        "honey" | "cream" | "mint" | "peach" | "night" | "rose" | "sky" | "lavender" | "jade"
-        | "coral" | "silver" | "ocean" | "berry" | "cocoa" | "snow" | "sunny" => {
-            return;
-        }
-        _ => "coral",
+pub(super) fn normalize_pet_skin(style: &str, skin: &mut String) {
+    use crate::types::character;
+    let legacy = match skin.as_str() {
+        "female-person" => Some("coral"),
+        "male-person" => Some("mint"),
+        "female-adventurer" => Some("peach"),
+        "male-adventurer" => Some("night"),
+        _ => None,
     };
-    *skin = next.to_string();
+    if let Some(value) = legacy {
+        *skin = value.into();
+    }
+    if !character::is_skin_for_style(style, skin) {
+        *skin = character::default_skin(style).into();
+    }
 }
 
 pub(super) fn normalize_timer_presets(presets: &mut Vec<u32>) {

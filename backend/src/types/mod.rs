@@ -1,4 +1,5 @@
 mod app;
+pub(crate) mod character;
 mod pet;
 mod reminder;
 mod settings;

@@ -40,13 +40,15 @@ impl AppState {
             .unwrap_or_default();
         let previous_style = settings.character_style.clone();
         normalize_character_style(&mut settings.character_style);
-        normalize_pet_skin(&mut settings.pet_skin);
+        let previous_skin = settings.pet_skin.clone();
+        normalize_pet_skin(&settings.character_style, &mut settings.pet_skin);
         let previous_name = settings.pet_name.clone();
         normalize_pet_name(&mut settings.pet_name);
         let previous_presets = settings.timer_presets.clone();
         normalize_timer_presets(&mut settings.timer_presets);
         if settings.pet_name != previous_name
             || settings.character_style != previous_style
+            || settings.pet_skin != previous_skin
             || settings.timer_presets != previous_presets
         {
             db.set_setting("settings", &serde_json::to_string(&settings)?)?;

@@ -10,28 +10,11 @@ pub(super) fn validate_settings(app: &AppHandle, settings: &Settings) -> Result<
     if !matches!(settings.pet_size.as_str(), "S" | "M" | "L") {
         return Err(AppError::InvalidInput("unsupported pet size".into()));
     }
-    if !matches!(settings.character_style.as_str(), "cutegirl" | "cuteboy") {
+    use crate::types::character;
+    if !character::is_style(&settings.character_style) {
         return Err(AppError::InvalidInput("unsupported character style".into()));
     }
-    if !matches!(
-        settings.pet_skin.as_str(),
-        "honey"
-            | "cream"
-            | "mint"
-            | "peach"
-            | "night"
-            | "rose"
-            | "sky"
-            | "lavender"
-            | "jade"
-            | "coral"
-            | "silver"
-            | "ocean"
-            | "berry"
-            | "cocoa"
-            | "snow"
-            | "sunny"
-    ) {
+    if !character::is_skin_for_style(&settings.character_style, &settings.pet_skin) {
         return Err(AppError::InvalidInput("unsupported pet skin".into()));
     }
     if !crate::app_icon::is_valid(app, &settings.app_icon) {

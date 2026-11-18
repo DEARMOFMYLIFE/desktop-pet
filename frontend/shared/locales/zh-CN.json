@@ -214,7 +214,15 @@
       "skinHint": "选择一个角色皮肤；所有动作会同步切换。",
       "styles": {
         "cutegirl": "可爱女孩",
-        "cuteboy": "可爱男孩"
+        "cuteboy": "可爱男孩",
+        "lighthero": "光之英雄",
+        "webguard": "蛛网义警",
+        "ironarmor": "红金机甲",
+        "titanguard": "重装铠甲",
+        "starcaptain": "星盾队长",
+        "capesentinel": "披风守护者",
+        "catmouse": "猫鼠搭档",
+        "pighero": "小猪英雄"
       },
       "skins": {
         "honey": "蜂蜜",
@@ -232,7 +240,9 @@
         "berry": "莓果",
         "cocoa": "可可",
         "snow": "雪花",
-        "sunny": "阳光"
+        "sunny": "阳光",
+        "heroDefault": "标准",
+        "heroAlt": "暗影"
       },
       "appIcon": "应用图标",
       "appIconHint": "选择桌面、托盘和窗口使用的图标",

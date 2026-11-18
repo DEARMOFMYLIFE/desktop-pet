@@ -214,7 +214,15 @@
       "skinHint": "Choose a character skin; all action sheets switch together.",
       "styles": {
         "cutegirl": "Cute girl",
-        "cuteboy": "Cute boy"
+        "cuteboy": "Cute boy",
+        "lighthero": "Light hero",
+        "webguard": "Web guardian",
+        "ironarmor": "Red-gold armor",
+        "titanguard": "Heavy armor",
+        "starcaptain": "Star captain",
+        "capesentinel": "Cape sentinel",
+        "catmouse": "Cat & mouse",
+        "pighero": "Pig hero"
       },
       "skins": {
         "honey": "Honey",
@@ -232,7 +240,9 @@
         "berry": "Berry",
         "cocoa": "Cocoa",
         "snow": "Snow",
-        "sunny": "Sunny"
+        "sunny": "Sunny",
+        "heroDefault": "Standard",
+        "heroAlt": "Shadow"
       },
       "appIcon": "App icon",
       "appIconHint": "Choose the icon used on the desktop, tray and windows",
