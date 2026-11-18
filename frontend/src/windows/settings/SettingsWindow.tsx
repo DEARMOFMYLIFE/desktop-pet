@@ -43,21 +43,22 @@ export function SettingsWindow() {
       />
 
       <main className="settings-main">
-        <SettingsHeader
-          title={t(`settings.${activeTab}.title`)}
-          description={t(`settings.${activeTab}.description`)}
-        />
-
-        <ScrollArea className="settings-content-scroll" label={t(`settings.${activeTab}.title`)}>
-          <div className="settings-content">
-            {activeTab === 'general' && <GeneralPanel {...panelProps} />}
-            {activeTab === 'timer' && <TimerPanel {...panelProps} />}
-            {activeTab === 'reminders' && <ReminderPanel {...panelProps} />}
-            {activeTab === 'todos' && <TodoPanel {...panelProps} />}
-            {activeTab === 'stats' && <StatsPanel {...panelProps} />}
-            {activeTab === 'appearance' && <AppearancePanel {...panelProps} />}
-            {activeTab === 'shortcuts' && <ShortcutsPanel {...panelProps} />}
-            {activeTab === 'about' && <AboutPanel {...panelProps} />}
+        <ScrollArea className="settings-main-scroll" label={t(`settings.${activeTab}.title`)}>
+          <div className="settings-main-inner">
+            <SettingsHeader
+              title={t(`settings.${activeTab}.title`)}
+              description={t(`settings.${activeTab}.description`)}
+            />
+            <div className="settings-content">
+              {activeTab === 'general' && <GeneralPanel {...panelProps} />}
+              {activeTab === 'timer' && <TimerPanel {...panelProps} />}
+              {activeTab === 'reminders' && <ReminderPanel {...panelProps} />}
+              {activeTab === 'todos' && <TodoPanel {...panelProps} />}
+              {activeTab === 'stats' && <StatsPanel {...panelProps} />}
+              {activeTab === 'appearance' && <AppearancePanel {...panelProps} />}
+              {activeTab === 'shortcuts' && <ShortcutsPanel {...panelProps} />}
+              {activeTab === 'about' && <AboutPanel {...panelProps} />}
+            </div>
           </div>
         </ScrollArea>
       </main>

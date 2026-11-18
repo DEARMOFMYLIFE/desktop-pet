@@ -78,11 +78,15 @@
   }
 
   .settings-main {
-    @apply flex min-h-0 flex-col overflow-hidden px-6 pb-8 pt-6;
+    @apply min-h-0 overflow-hidden;
   }
 
-  .settings-content-scroll {
-    @apply min-h-0 flex-1;
+  .settings-main-scroll {
+    @apply h-full;
+  }
+
+  .settings-main-inner {
+    @apply px-6 pb-8 pt-6;
   }
 
   .settings-header h1 {

@@ -41,16 +41,12 @@
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16);
   cursor: grab;
   pointer-events: auto;
-  transition:
-    width 150ms ease,
-    right 150ms ease,
-    background-color 150ms ease;
+  transition: background-color 150ms ease;
 }
 
+.scroll-area:focus-within .scroll-thumb,
 .scroll-thumb:hover,
 .scroll-thumb:active {
-  right: 1px;
-  width: 10px;
   background: var(--scrollbar-thumb-hover);
 }
 
@@ -62,10 +58,4 @@
 
 .scroll-area.is-compact .scroll-thumb {
   width: 4px;
-}
-
-.scroll-area.is-compact .scroll-thumb:hover,
-.scroll-area.is-compact .scroll-thumb:active {
-  right: 1px;
-  width: 6px;
 }
