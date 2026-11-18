@@ -14,6 +14,7 @@ mod menu;
 mod menu_text;
 #[cfg(target_os = "linux")]
 mod native_pet;
+mod paths;
 mod pet;
 mod reminders;
 mod shortcuts;
@@ -106,10 +107,7 @@ pub fn run() {
 }
 
 fn init_logging() {
-    let log_dir = dirs::data_local_dir()
-        .unwrap_or_else(std::env::temp_dir)
-        .join("yuzu")
-        .join("logs");
+    let log_dir = paths::data_dir().join("logs");
     let _ = std::fs::create_dir_all(&log_dir);
 
     let appender = tracing_appender::rolling::daily(&log_dir, "yuzu.log");

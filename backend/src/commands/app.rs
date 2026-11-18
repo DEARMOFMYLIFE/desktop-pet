@@ -1,4 +1,4 @@
-use tauri::{AppHandle, Manager, State};
+use tauri::{AppHandle, State};
 
 use crate::error::AppError;
 use crate::state::AppState;
@@ -25,8 +25,8 @@ pub fn app_bootstrap(app: AppHandle, state: State<'_, AppState>) -> Result<Boots
 }
 
 #[tauri::command]
-pub fn data_open_folder(app: AppHandle) -> Result<(), AppError> {
-    let directory = app.path().app_data_dir()?;
+pub fn data_open_folder(_app: AppHandle) -> Result<(), AppError> {
+    let directory = crate::paths::data_dir();
     std::fs::create_dir_all(&directory)?;
 
     #[cfg(target_os = "windows")]

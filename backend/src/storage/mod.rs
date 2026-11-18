@@ -3,9 +3,9 @@ use std::path::Path;
 use std::sync::{Mutex, MutexGuard};
 
 use rusqlite::Connection;
-use tauri::{AppHandle, Manager};
 
 use crate::error::AppError;
+use crate::paths;
 
 mod reminders;
 mod settings;
@@ -21,8 +21,8 @@ pub struct Db {
 }
 
 impl Db {
-    pub fn open(app: &AppHandle) -> Result<Self, AppError> {
-        let data_dir = app.path().app_data_dir()?;
+    pub fn open() -> Result<Self, AppError> {
+        let data_dir = paths::data_dir();
         std::fs::create_dir_all(&data_dir)?;
         let db_path = data_dir.join("yuzu.db");
         if !db_path.exists() && !migrate_legacy_db(&data_dir, &db_path)? {
@@ -75,6 +75,8 @@ fn migrate_legacy_db(data_dir: &Path, db_path: &Path) -> Result<bool, AppError> 
     let mut candidates = vec![data_dir.join("xiaozhu.db")];
     if let Some(base) = dirs::data_local_dir() {
         candidates.push(base.join("com.xiaozhu.app/xiaozhu.db"));
+        candidates.push(base.join("com.yuzu.app/yuzu.db"));
+        candidates.push(base.join("yuzu/yuzu.db"));
     }
     for old in candidates {
         if !old.exists() {

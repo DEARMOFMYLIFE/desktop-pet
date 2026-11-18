@@ -28,6 +28,7 @@ func main() {
 		exe = resolved
 	}
 	root := findRoot(filepath.Dir(exe))
+	launcherRoot = root
 	loadEnvFile(filepath.Join(root, "desktop", "launcher.env"))
 
 	if hasArg("--help") || hasArg("-h") {

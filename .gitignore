@@ -68,3 +68,6 @@ desktop/resources/bin/*
 !desktop/resources/bin/.gitkeep
 desktop/resources/lib/*
 !desktop/resources/lib/.gitkeep
+
+# Local runtime data
+data/

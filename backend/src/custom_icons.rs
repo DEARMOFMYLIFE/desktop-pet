@@ -2,7 +2,7 @@ use std::fs;
 use std::path::PathBuf;
 
 use serde::{Deserialize, Serialize};
-use tauri::{AppHandle, Manager};
+use tauri::AppHandle;
 
 use crate::error::AppError;
 
@@ -34,8 +34,8 @@ impl StoredIcon {
     }
 }
 
-fn icons_dir(app: &AppHandle) -> Result<PathBuf, AppError> {
-    let dir = app.path().app_data_dir()?.join("icons");
+fn icons_dir(_app: &AppHandle) -> Result<PathBuf, AppError> {
+    let dir = crate::paths::data_dir().join("icons");
     fs::create_dir_all(&dir)?;
     Ok(dir)
 }

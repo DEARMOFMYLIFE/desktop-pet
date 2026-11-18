@@ -653,10 +653,10 @@
 
 #### FR-DATA-01 本地存储（MUST）
 
-- SQLite 文件位于系统应用数据目录：
-  - Windows：`%APPDATA%/com.yuzu.app/yuzu.db`
-  - macOS：`~/Library/Application Support/com.yuzu.app/yuzu.db`
-  - Linux：`~/.local/share/com.yuzu.app/yuzu.db`
+- SQLite 文件统一位于项目根目录：`data/yuzu.db`
+- 日志位于 `data/logs/`，自定义图标位于 `data/icons/`
+- 首次启动缺少数据库时导入 `backend/resources/default-data/yuzu.db`
+- 仅应用图标、桌面快捷方式和 WebView 系统缓存由操作系统管理
 - 启用 WAL；启动时执行迁移；迁移失败进入安全模式（只读 + 提示备份）。
 - 数据库损坏时保留原文件并创建新库，提示用户。
 

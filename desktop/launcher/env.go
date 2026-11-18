@@ -38,7 +38,12 @@ func loadEnvFile(path string) {
 	}
 }
 
+var launcherRoot string
+
 func logPath() string {
+	if launcherRoot != "" {
+		return filepath.Join(launcherRoot, "data", "logs", "launcher.log")
+	}
 	base := os.Getenv("XDG_DATA_HOME")
 	if base == "" {
 		home, err := os.UserHomeDir()

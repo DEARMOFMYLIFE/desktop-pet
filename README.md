@@ -83,7 +83,16 @@ Linux 使用静态 ELF 启动器；macOS 使用 `desktop/open-app-macos.command`
 3. `backend/target/debug/yuzu`
 4. `YUZU_NATIVE_BINARY`
 
-首次启动时，如果本机还没有数据库，会导入 `backend/resources/default-data/yuzu.db`，因此其他用户拉取项目后同样能看到内置的 5 条待办与默认设置；之后的应用数据只保存在本机，不会被后续拉取覆盖。
+首次启动时，如果 `data/yuzu.db` 还不存在，会优先迁移旧版数据库，否则导入 `backend/resources/default-data/yuzu.db`；因此其他用户拉取项目后同样能看到内置的 5 条待办与默认设置。
+
+运行时数据统一保存在项目根目录的 `data/`：
+
+- `data/yuzu.db`：设置、待办、专注记录、提醒与养成状态
+- `data/logs/`：应用与启动器日志
+- `data/icons/`：自定义图标文件
+- `data/legacy/`：从旧数据目录迁移过来的归档
+
+应用图标、桌面快捷方式和 WebView 系统缓存仍由操作系统按平台规范管理。
 
 首次使用需要先构建 Tauri 程序：
 
@@ -198,6 +207,7 @@ desktop-pet/
 │   ├── open-app-macos.command
 │   ├── open-app-windows.cmd
 │   └── resources/               # 本机 Tauri 程序与运行库（不提交）
+├── data/                        # 运行时数据（SQLite/日志/自定义图标，Git 忽略）
 ├── docs/                        # 设计、工程与发布文档
 ├── scripts/                     # 角色/图标生成、Tauri 开发启动
 ├── packaging/                   # 正式安装包桌面入口

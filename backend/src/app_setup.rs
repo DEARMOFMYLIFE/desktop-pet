@@ -6,7 +6,7 @@ use crate::{
 };
 
 pub fn run(app: &mut tauri::App) -> Result<(), Box<dyn std::error::Error>> {
-    let db = storage::Db::open(app.handle())?;
+    let db = storage::Db::open()?;
     let state = state::AppState::new(db)?;
     app.manage(state);
 
