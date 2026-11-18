@@ -49,7 +49,7 @@
   cursor: grabbing;
 }
 
-.scroll-area:focus-within .scroll-thumb,
+.scroll-viewport:focus-visible + .scroll-rail .scroll-thumb,
 .scroll-thumb:hover,
 .scroll-thumb:active {
   background: var(--scrollbar-thumb-hover);

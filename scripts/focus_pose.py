@@ -1,8 +1,8 @@
-"""Compose the shared 'focus' pose: sitting with an open book held by both hands.
+"""Turn the native sit animation into a calm reading pose.
 
-The source clips only have idle arms hanging at the sides. This helper rebuilds
-the focus sheet from the already-composed sit frames, removes the old lower
-arms, and adds two connected arms plus hands on the book edges.
+The character keeps its original, anti-aliased sprite frames. Only a smooth
+book and a soft contact shadow are composited on the lap; no arms or hands are
+painted over the sprite, so the result stays close to the source artwork.
 """
 from __future__ import annotations
 
@@ -14,18 +14,11 @@ from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[1]
 FRAME = 200
+SCALE = 4
 
-STYLE = {
-    "cutegirl": {
-        "erase": (),
-        "arms": (((56, 151), (60, 157), (64, 164)), ((144, 151), (140, 157), (136, 164))),
-        "book": (60, 152, 140, 184),
-    },
-    "cuteboy": {
-        "erase": (),
-        "arms": (((55, 148), (59, 154), (64, 161)), ((145, 148), (141, 154), (136, 161))),
-        "book": (60, 149, 140, 181),
-    },
+BOOK = {
+    "cutegirl": (60, 155, 140, 185),
+    "cuteboy": (60, 152, 140, 182),
 }
 
 
@@ -53,19 +46,6 @@ def hsv_rgb(h, s, v):
     return tuple(int(c * 255) for c in hsv_to_rgb(h % 1, min(1, s), min(1, v))) + (255,)
 
 
-def curve(draw, p0, p1, p2, fill, width):
-    points = []
-    for t in np.linspace(0, 1, 28):
-        x = (1 - t) ** 2 * p0[0] + 2 * (1 - t) * t * p1[0] + t * t * p2[0]
-        y = (1 - t) ** 2 * p0[1] + 2 * (1 - t) * t * p1[1] + t * t * p2[1]
-        points.append((float(x), float(y)))
-    draw.line(points, fill=fill, width=width, joint="curve")
-    for x, y in (points[0], points[-1]):
-        radius = width / 2
-        draw.ellipse((x - radius, y - radius, x + radius, y + radius), fill=fill)
-
-
-
 def sample_color(frames, hue, saturation=(0.2, 0.9), value=(0.5, 1.0)):
     samples = []
     for image in frames:
@@ -87,68 +67,41 @@ def sample_color(frames, hue, saturation=(0.2, 0.9), value=(0.5, 1.0)):
     return tuple(int(channel) for channel in np.median(pixels, axis=0)) + (255,)
 
 
-def make_focus_frames(sit_frames, style, skin):
-    config = STYLE[style]
-    skin_color = sample_color(sit_frames, skin["skin_h"], (0.2, 0.95), (0.6, 1.05))
-    if skin_color is None:
-        skin_color = hsv_rgb(skin["skin_h"], 0.43, skin["skin_v"])
-    clothing = sample_color(sit_frames, skin["dress_h"], (0.2, 0.95), (0.45, 1.05))
-    if clothing is None:
-        clothing = hsv_rgb(skin["dress_h"], 0.55, skin["dress_v"])
+def book_overlay(style, clothing):
+    x0, y0, x1, y1 = (value * SCALE for value in BOOK[style])
+    overlay = Image.new("RGBA", (FRAME * SCALE, FRAME * SCALE), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(overlay)
     cover = tuple(int(channel * 0.82) for channel in clothing[:3]) + (255,)
-    dark = tuple(max(0, int(channel * 0.62)) for channel in clothing[:3]) + (255,)
-    frames = []
-    for source in sit_frames:
-        frame = source.convert("RGBA").copy()
-        arr = np.asarray(frame).copy()
-        hsv, saturation, value = rgb_to_hsv(arr[..., :3].astype(np.float32) / 255.0)
-        skin_mask = (
-            (np.abs(hsv - skin["skin_h"]) < 0.045)
-            & (saturation > 0.3)
-            & (value > 0.45)
-            & (arr[..., 3] > 20)
-        )
-        yy, xx = np.indices(skin_mask.shape)
-        for x0, y0, x1, y1 in config["erase"]:
-            region = skin_mask & (xx >= x0) & (xx < x1) & (yy >= y0) & (yy < y1)
-            arr[..., 3][region] = 0
-        frame = Image.fromarray(arr, "RGBA")
-        draw = ImageDraw.Draw(frame)
-        for arm in config["arms"]:
-            curve(draw, *arm, skin_color, 9)
-        x0, y0, x1, y1 = config["book"]
-        draw.rounded_rectangle((x0, y0, x1, y1), radius=6, fill=cover)
-        draw.rounded_rectangle(
-            (x0 + 6, y0 + 6, x1 - 6, y1 - 6),
-            radius=4,
-            fill=(255, 252, 246, 255),
+    border = tuple(int(channel * 0.62) for channel in clothing[:3]) + (255,)
+
+    draw.rounded_rectangle(
+        (x0 + 4 * SCALE, y1 - 3 * SCALE, x1 - 4 * SCALE, y1 + 5 * SCALE),
+        radius=8 * SCALE,
+        fill=(80, 62, 52, 35),
+    )
+    draw.rounded_rectangle((x0, y0, x1, y1), radius=6 * SCALE, fill=cover)
+    draw.rounded_rectangle(
+        (x0 + 6 * SCALE, y0 + 6 * SCALE, x1 - 6 * SCALE, y1 - 6 * SCALE),
+        radius=4 * SCALE,
+        fill=(255, 252, 246, 255),
+    )
+    draw.line(
+        ((x0 + x1) // 2, y0 + 6 * SCALE, (x0 + x1) // 2, y1 - 6 * SCALE),
+        fill=border,
+        width=2 * SCALE,
+    )
+    for line_y in (y0 + 14 * SCALE, y0 + 23 * SCALE, y0 + 31 * SCALE):
+        draw.line(
+            (x0 + 12 * SCALE, line_y, (x0 + x1) // 2 - 5 * SCALE, line_y),
+            fill=(224, 206, 186, 255),
+            width=SCALE,
         )
         draw.line(
-            ((x0 + x1) // 2, y0 + 6, (x0 + x1) // 2, y1 - 6),
-            fill=dark,
-            width=2,
+            ((x0 + x1) // 2 + 5 * SCALE, line_y, x1 - 12 * SCALE, line_y),
+            fill=(224, 206, 186, 255),
+            width=SCALE,
         )
-        for line_y in (y0 + 14, y0 + 23, y0 + 31):
-            draw.line(
-                (x0 + 12, line_y, (x0 + x1) // 2 - 5, line_y),
-                fill=(224, 206, 186, 255),
-                width=1,
-            )
-            draw.line(
-                ((x0 + x1) // 2 + 5, line_y, x1 - 12, line_y),
-                fill=(224, 206, 186, 255),
-                width=1,
-            )
-        # Put the hands exactly on the arm endpoints, then let them overlap
-        # the book edge. This makes the grip explicit rather than a separate
-        # pair of floating mitts at the bottom of the cover.
-        for _, _, (hand_x, hand_y) in config["arms"]:
-            draw.ellipse(
-                (hand_x - 7, hand_y - 7, hand_x + 7, hand_y + 7),
-                fill=skin_color,
-            )
-        frames.append(frame)
-    return frames
+    return overlay.resize((FRAME, FRAME), Image.Resampling.LANCZOS)
 
 
 def palettes():
@@ -158,6 +111,19 @@ def palettes():
     assert spec.loader is not None
     spec.loader.exec_module(module)
     return {skin["id"]: skin for skin in module.SKINS}
+
+
+def make_focus_frames(sit_frames, style, skin):
+    clothing = sample_color(sit_frames, skin["dress_h"], (0.2, 0.95), (0.45, 1.05))
+    if clothing is None:
+        clothing = hsv_rgb(skin["dress_h"], 0.55, skin["dress_v"])
+    overlay = book_overlay(style, clothing)
+    frames = []
+    for source in sit_frames:
+        frame = source.convert("RGBA").copy()
+        frame.alpha_composite(overlay)
+        frames.append(frame)
+    return frames
 
 
 def main():
