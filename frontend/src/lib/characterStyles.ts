@@ -8,6 +8,10 @@ export interface CharacterStyleOption {
 }
 
 const HERO_PALETTES = ['coral', 'honey', 'mint', 'sky', 'lavender', 'rose', 'night', 'silver'];
+const CLASSIC_PREFIXES: Record<'cutegirl' | 'cuteboy', string> = {
+  cutegirl: 'settings.appearance.classicCharacters.yuzu',
+  cuteboy: 'settings.appearance.classicCharacters.breeze',
+};
 interface HeroCharacter {
   id: string;
   labelKey: string;
@@ -39,6 +43,14 @@ const HERO_CHARACTERS: Partial<Record<CharacterStyle, ReadonlyArray<HeroCharacte
   ],
 };
 
+function classicSkins(style: 'cutegirl' | 'cuteboy'): PetSkinOption[] {
+  return PET_SKIN_OPTIONS.map((option) => ({
+    id: option.id,
+    nameKey: CLASSIC_PREFIXES[style],
+    paletteKey: option.labelKey ?? '',
+  }));
+}
+
 function heroSkins(style: CharacterStyle): PetSkinOption[] {
   return (HERO_CHARACTERS[style] ?? []).flatMap((character) =>
     HERO_PALETTES.map((palette) => ({
@@ -50,8 +62,8 @@ function heroSkins(style: CharacterStyle): PetSkinOption[] {
 }
 
 export const CHARACTER_STYLE_OPTIONS: CharacterStyleOption[] = [
-  { value: 'cutegirl', labelKey: 'settings.appearance.styles.cutegirl', skins: PET_SKIN_OPTIONS },
-  { value: 'cuteboy', labelKey: 'settings.appearance.styles.cuteboy', skins: PET_SKIN_OPTIONS },
+  { value: 'cutegirl', labelKey: 'settings.appearance.styles.cutegirl', skins: classicSkins('cutegirl') },
+  { value: 'cuteboy', labelKey: 'settings.appearance.styles.cuteboy', skins: classicSkins('cuteboy') },
   { value: 'lighthero', labelKey: 'settings.appearance.styles.lighthero', skins: heroSkins('lighthero') },
   { value: 'webguard', labelKey: 'settings.appearance.styles.webguard', skins: heroSkins('webguard') },
   { value: 'ironarmor', labelKey: 'settings.appearance.styles.ironarmor', skins: heroSkins('ironarmor') },

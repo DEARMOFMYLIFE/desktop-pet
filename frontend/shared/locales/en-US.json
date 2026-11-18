@@ -208,7 +208,7 @@
       "reduceOn": "On",
       "reduceOff": "Off",
       "style": "Character style",
-      "styleHint": "Switch the overall character artwork",
+      "styleHint": "Choose a character style; the character art, animations and default palette switch together.",
       "skin": "Character skin",
       "defaultSkin": "Default character",
       "skinHint": "Choose a character skin; all action sheets switch together.",
@@ -291,6 +291,10 @@
           "girl": "Windwhisper girl",
           "cat": "Windwhisper cat"
         }
+      },
+      "classicCharacters": {
+        "yuzu": "Yuzu",
+        "breeze": "Breeze"
       }
     },
     "shortcuts": {

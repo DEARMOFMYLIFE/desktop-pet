@@ -22,7 +22,7 @@ pub fn open_settings(app: &AppHandle) -> Result<(), AppError> {
 
     let window = WebviewWindowBuilder::new(app, SETTINGS, WebviewUrl::App("settings.html".into()))
         .title(title)
-        .inner_size(940.0, 700.0)
+        .inner_size(940.0, 720.0)
         .min_inner_size(800.0, 600.0)
         .resizable(true)
         .center()

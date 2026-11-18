@@ -208,7 +208,7 @@
       "reduceOn": "开启",
       "reduceOff": "关闭",
       "style": "角色风格",
-      "styleHint": "切换角色整体造型",
+      "styleHint": "选择一个角色风格；角色造型、动作和默认配色会同步切换。",
       "skin": "角色皮肤",
       "defaultSkin": "默认角色",
       "skinHint": "选择一个角色皮肤；所有动作会同步切换。",
@@ -291,6 +291,10 @@
           "girl": "风语少女",
           "cat": "风语猫灵"
         }
+      },
+      "classicCharacters": {
+        "yuzu": "柚光",
+        "breeze": "清风"
       }
     },
     "shortcuts": {
