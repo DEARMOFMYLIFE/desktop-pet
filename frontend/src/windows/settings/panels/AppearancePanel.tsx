@@ -47,22 +47,25 @@ export function AppearancePanel({ settings, update }: SettingsPanelProps) {
 
   return (
     <>
-      <SettingsCard title={t('settings.appearance.skin')}>
-        <SettingRow
-          title={t('settings.appearance.style')}
-          hint={t('settings.appearance.styleHint')}
-        >
-          <Select
-            value={settings.characterStyle}
-            options={CHARACTER_STYLE_OPTIONS.map((option) => ({
-              value: option.value,
-              label: t(option.labelKey),
-            }))}
-            label={t('settings.appearance.style')}
-            onChange={(value) => void update({ characterStyle: value })}
-          />
-        </SettingRow>
-        <p className="card-description">{t('settings.appearance.skinHint')}</p>
+      <SettingsCard
+        title={t('settings.appearance.style')}
+        description={t('settings.appearance.styleHint')}
+      >
+        <Select
+          className="style-select"
+          value={settings.characterStyle}
+          options={CHARACTER_STYLE_OPTIONS.map((option) => ({
+            value: option.value,
+            label: t(option.labelKey),
+          }))}
+          label={t('settings.appearance.style')}
+          onChange={(value) => void update({ characterStyle: value })}
+        />
+      </SettingsCard>
+      <SettingsCard
+        title={t('settings.appearance.skin')}
+        description={t('settings.appearance.skinHint')}
+      >
         <div className="skin-grid">
           {SKINS.map((skin) => (
             <button

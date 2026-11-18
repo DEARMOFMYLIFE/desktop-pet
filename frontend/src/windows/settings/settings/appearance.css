@@ -38,6 +38,10 @@
     @apply whitespace-nowrap;
   }
 
+  .style-select {
+    @apply w-full max-w-[280px];
+  }
+
   .app-icon-row {
     @apply flex items-center gap-3;
   }

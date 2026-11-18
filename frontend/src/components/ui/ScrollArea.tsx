@@ -15,7 +15,7 @@ interface ThumbGeometry {
 }
 
 const INSET = 4;
-const MIN_THUMB = 44;
+const MIN_THUMB = 36;
 
 export function ScrollArea({ children, className = '', label, compact = false }: ScrollAreaProps) {
   const viewportRef = useRef<HTMLDivElement>(null);

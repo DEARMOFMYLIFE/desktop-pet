@@ -43,6 +43,7 @@ def rgb_to_hsv(rgb):
     h[mr] = ((g[mr] - b[mr]) / delta[mr]) % 6
     h[mg] = (b[mg] - r[mg]) / delta[mg] + 2
     h[mb] = (r[mb] - g[mb]) / delta[mb] + 4
+    s[mask] = delta[mask] / np.maximum(maxc[mask], 1e-6)
     return (h / 6) % 1, s, maxc
 
 
@@ -64,11 +65,38 @@ def curve(draw, p0, p1, p2, fill, width):
         draw.ellipse((x - radius, y - radius, x + radius, y + radius), fill=fill)
 
 
+
+def sample_color(frames, hue, saturation=(0.2, 0.9), value=(0.5, 1.0)):
+    samples = []
+    for image in frames:
+        rgba = np.asarray(image.convert("RGBA"))
+        hsv, s, v = rgb_to_hsv(rgba[..., :3].astype(np.float32) / 255.0)
+        mask = (
+            (np.abs(hsv - hue) < 0.04)
+            & (s > saturation[0])
+            & (s < saturation[1])
+            & (v > value[0])
+            & (v < value[1])
+            & (rgba[..., 3] > 80)
+        )
+        if mask.any():
+            samples.append(rgba[..., :3][mask])
+    if not samples:
+        return None
+    pixels = np.concatenate(samples, axis=0)
+    return tuple(int(channel) for channel in np.median(pixels, axis=0)) + (255,)
+
+
 def make_focus_frames(sit_frames, style, skin):
     config = STYLE[style]
-    skin_color = hsv_rgb(skin["skin_h"], skin["skin_s"], skin["skin_v"])
-    cover = hsv_rgb((skin["dress_h"] + 0.5) % 1, 0.45, 0.85)
-    dark = tuple(max(0, channel - 30) for channel in cover[:3]) + (255,)
+    skin_color = sample_color(sit_frames, skin["skin_h"], (0.2, 0.95), (0.6, 1.05))
+    if skin_color is None:
+        skin_color = hsv_rgb(skin["skin_h"], 0.43, skin["skin_v"])
+    clothing = sample_color(sit_frames, skin["dress_h"], (0.2, 0.95), (0.45, 1.05))
+    if clothing is None:
+        clothing = hsv_rgb(skin["dress_h"], 0.55, skin["dress_v"])
+    cover = tuple(int(channel * 0.82) for channel in clothing[:3]) + (255,)
+    dark = tuple(max(0, int(channel * 0.62)) for channel in clothing[:3]) + (255,)
     frames = []
     for source in sit_frames:
         frame = source.convert("RGBA").copy()
