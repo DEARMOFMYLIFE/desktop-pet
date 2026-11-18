@@ -6,7 +6,11 @@ import json
 import math
 import os
 import re
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from focus_pose import make_focus_frames
 
 import numpy as np
 from PIL import Image, ImageDraw, ImageFilter
@@ -277,7 +281,6 @@ def build_skin(skin, sources):
     jump_frames = [recolor(frame, skin) for frame in sources["jump"]]
     dead_frames = [recolor(frame, skin, dead=True) for frame in sources["dead"][7:15]]
     sit_frames = build_sit(idle_frames[0], skin)
-    focus_frames = build_sit(idle_frames[0], skin, book=True)
     droop_frames = build_droop(idle_frames[0])
     states = {}
 
@@ -294,8 +297,9 @@ def build_skin(skin, sources):
     add("idle", idle_frames, 10, True)
     add("walk", walk_frames, 14, True)
     add("sit", sit_frames, 4, True)
-    add("sleep", dead_frames, 4, True, dead=True, wide=True, deco=draw_zzz)
+    focus_frames = make_focus_frames(states["sit"]["frames"], "cuteboy", skin)
     add("focus", focus_frames, 4, True)
+    add("sleep", dead_frames, 4, True, dead=True, wide=True, deco=draw_zzz)
     add("break", jump_frames, 8, True)
     add("celebrate", jump_frames, 12, False, deco=draw_stars)
     add("drag", jump_frames[3:13], 10, True, shift=lambda index: (int(3 * math.sin(index * 0.9)), 0))

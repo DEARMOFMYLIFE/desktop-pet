@@ -71,3 +71,7 @@ desktop/resources/lib/*
 
 # Local runtime data
 data/
+
+# Python caches
+__pycache__/
+*.pyc

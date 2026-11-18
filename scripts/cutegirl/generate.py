@@ -3,7 +3,11 @@ from __future__ import annotations
 from PIL import Image, ImageDraw, ImageFilter
 import numpy as np
 import glob, json, math, os, re
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from focus_pose import make_focus_frames
 
 ROOT = Path(__file__).resolve().parents[2]
 SRC = Path(os.environ.get('SRC_DIR', ROOT / 'scripts/cutegirl/source/png'))
@@ -287,7 +291,6 @@ def build_skin(skin: dict, sources: dict):
     jump_frames = [recolor(f, skin) for f in sample(jump_src, 16, loop=False)]
     dead_frames = [recolor(f, skin) for f in sample(dead_src[22:30], 8, loop=True)]
     sit_frames = build_sit(idle0, blink0, skin, book=False)
-    focus_frames = build_sit(idle0, blink0, skin, book=True)
     droop_frames = build_droop(idle0, blink0)
 
     states = {}
@@ -304,8 +307,9 @@ def build_skin(skin: dict, sources: dict):
     add('idle', idle_frames, 10, True)
     add('walk', walk_frames, 14, True)
     add('sit', sit_frames, 4, True)
-    add('sleep', dead_frames, 4, True, dead=True, wide=True, deco=lambda im, i: draw_zzz(im, i))
+    focus_frames = make_focus_frames(states['sit']['frames'], 'cutegirl', skin)
     add('focus', focus_frames, 4, True)
+    add('sleep', dead_frames, 4, True, dead=True, wide=True, deco=lambda im, i: draw_zzz(im, i))
     add('break', jump_frames, 8, True)
     add('celebrate', jump_frames, 12, False, deco=lambda im, i: draw_stars(im, i))
     add('drag', jump_frames[3:13], 10, True, shift=lambda i: (int(3 * math.sin(i * 0.9)), 0))

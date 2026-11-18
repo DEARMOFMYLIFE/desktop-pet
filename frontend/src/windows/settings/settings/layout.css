@@ -2,8 +2,14 @@
     @apply grid h-screen grid-cols-[210px_minmax(0,1fr)] overflow-hidden;
   }
 
+  /* `app-shell` is scrollable for onboarding; the settings window owns its
+     viewport and must never scroll the sidebar/header with the panel. */
+  .settings-shell.app-shell {
+    @apply h-screen overflow-hidden;
+  }
+
   .settings-sidebar {
-    @apply flex flex-col gap-4 border-r border-line bg-surface-muted px-3 pb-3 pt-4;
+    @apply flex min-h-0 flex-col gap-4 overflow-hidden border-r border-line bg-surface-muted px-3 pb-3 pt-4;
   }
 
   .brand {
@@ -54,7 +60,8 @@
   }
 
   .settings-main {
-    @apply overflow-auto px-6 pb-8 pt-6;
+    @apply min-h-0 overflow-x-hidden overflow-y-auto px-6 pb-8 pt-6;
+    scrollbar-gutter: stable;
   }
 
   .settings-header h1 {
