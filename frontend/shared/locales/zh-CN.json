@@ -220,9 +220,7 @@
         "ironarmor": "红金机甲",
         "titanguard": "重装铠甲",
         "starcaptain": "星盾队长",
-        "capesentinel": "披风守护者",
-        "catmouse": "猫鼠搭档",
-        "pighero": "小猪英雄"
+        "capesentinel": "披风守护者"
       },
       "skins": {
         "honey": "蜂蜜",
@@ -240,9 +238,7 @@
         "berry": "莓果",
         "cocoa": "可可",
         "snow": "雪花",
-        "sunny": "阳光",
-        "heroDefault": "标准",
-        "heroAlt": "暗影"
+        "sunny": "阳光"
       },
       "appIcon": "应用图标",
       "appIconHint": "选择桌面、托盘和窗口使用的图标",
@@ -269,7 +265,13 @@
       "iconCloud": "云朵",
       "iconBook": "书本",
       "iconFlower": "花朵",
-      "iconUploadHint": "PNG · 建议使用正方形图片，最大 5 MB"
+      "iconUploadHint": "PNG · 建议使用正方形图片，最大 5 MB",
+      "characters": {
+        "girl": "女孩",
+        "boy": "男孩",
+        "robot": "机器人",
+        "cat": "猫咪"
+      }
     },
     "shortcuts": {
       "title": "快捷键",

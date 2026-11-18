@@ -8,9 +8,7 @@ export type CharacterStyle =
   | 'ironarmor'
   | 'titanguard'
   | 'starcaptain'
-  | 'capesentinel'
-  | 'catmouse'
-  | 'pighero';
+  | 'capesentinel';
 export type AppIcon = string;
 
 export interface CustomIcon {
@@ -18,25 +16,7 @@ export interface CustomIcon {
   name: string;
 }
 
-export type PetSkin =
-  | 'honey'
-  | 'cream'
-  | 'mint'
-  | 'peach'
-  | 'night'
-  | 'rose'
-  | 'sky'
-  | 'lavender'
-  | 'jade'
-  | 'coral'
-  | 'silver'
-  | 'ocean'
-  | 'berry'
-  | 'cocoa'
-  | 'snow'
-  | 'sunny'
-  | 'default'
-  | 'alt';
+export type PetSkin = string;
 export type ReduceMotion = 'system' | 'on' | 'off';
 export type FocusBehavior = 'notify_only' | 'pause';
 export type ShortcutAction = 'focus' | 'click_through' | 'toggle_visible';

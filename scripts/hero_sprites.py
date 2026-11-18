@@ -87,7 +87,7 @@ def tint(frame, hue_shift=0.0, saturation=1.0, value=1.0, warm_gray=False):
     v = np.clip(v * value, 0, 1)
     if warm_gray:
         gray = s < 0.16
-        hue[gray] = 0.055
+        hue[gray] = (0.055 + hue_shift) % 1
         s[gray] = np.clip(s[gray] + 0.42, 0, 0.7)
     hsv = np.stack([hue, s, v], axis=-1)
     rgb = hsv_to_rgb(hsv)
@@ -155,18 +155,28 @@ def main():
         "break": "Jump", "celebrate": "Jump", "drag": "Jump", "react": "Hurt",
         "remind": "Jump", "droop": "Slide",
     }
-    write_style(
-        "ironarmor", robot, robot_map,
-        {"default": {"hue_shift": 0.0}, "alt": {"hue_shift": 0.52, "saturation": 0.9}},
-    )
-    write_style(
-        "titanguard", robot, robot_map,
-        {"default": {"hue_shift": 0.52, "saturation": 0.8}, "alt": {"hue_shift": 0.31, "saturation": 0.72}},
-    )
-    write_style(
-        "catmouse", cat, cat_map,
-        {"default": {}, "alt": {"warm_gray": True, "saturation": 1.1}},
-    )
+    robot_variants = {
+        "coral": {"hue_shift": 0.0},
+        "honey": {"hue_shift": 0.04, "saturation": 1.08},
+        "mint": {"hue_shift": 0.24, "saturation": 0.95},
+        "sky": {"hue_shift": 0.52, "saturation": 0.95},
+        "lavender": {"hue_shift": 0.72, "saturation": 0.9},
+        "rose": {"hue_shift": 0.93, "saturation": 0.95},
+        "night": {"hue_shift": 0.62, "saturation": 0.7, "value": 0.72},
+        "silver": {"hue_shift": 0.55, "saturation": 0.25, "value": 1.08},
+    }
+    cat_variants = {
+        "coral": {"hue_shift": 0.0, "warm_gray": True, "saturation": 1.0},
+        "honey": {"hue_shift": 0.06, "warm_gray": True, "saturation": 1.15},
+        "mint": {"hue_shift": 0.35, "warm_gray": True, "saturation": 0.95},
+        "sky": {"hue_shift": 0.55, "warm_gray": True, "saturation": 1.0},
+        "lavender": {"hue_shift": 0.75, "warm_gray": True, "saturation": 0.95},
+        "rose": {"hue_shift": 0.92, "warm_gray": True, "saturation": 1.0},
+        "night": {"hue_shift": 0.65, "warm_gray": True, "saturation": 0.7, "value": 0.75},
+        "silver": {"saturation": 0.8},
+    }
+    write_style("robot", robot, robot_map, robot_variants)
+    write_style("cat", cat, cat_map, cat_variants)
 
 
 if __name__ == "__main__":

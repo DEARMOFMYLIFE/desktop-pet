@@ -220,9 +220,7 @@
         "ironarmor": "Red-gold armor",
         "titanguard": "Heavy armor",
         "starcaptain": "Star captain",
-        "capesentinel": "Cape sentinel",
-        "catmouse": "Cat & mouse",
-        "pighero": "Pig hero"
+        "capesentinel": "Cape sentinel"
       },
       "skins": {
         "honey": "Honey",
@@ -240,9 +238,7 @@
         "berry": "Berry",
         "cocoa": "Cocoa",
         "snow": "Snow",
-        "sunny": "Sunny",
-        "heroDefault": "Standard",
-        "heroAlt": "Shadow"
+        "sunny": "Sunny"
       },
       "appIcon": "App icon",
       "appIconHint": "Choose the icon used on the desktop, tray and windows",
@@ -269,7 +265,13 @@
       "iconCloud": "Cloud",
       "iconBook": "Book",
       "iconFlower": "Flower",
-      "iconUploadHint": "PNG · square image recommended, up to 5 MB"
+      "iconUploadHint": "PNG · square image recommended, up to 5 MB",
+      "characters": {
+        "girl": "Girl",
+        "boy": "Boy",
+        "robot": "Robot",
+        "cat": "Cat"
+      }
     },
     "shortcuts": {
       "title": "Shortcuts",

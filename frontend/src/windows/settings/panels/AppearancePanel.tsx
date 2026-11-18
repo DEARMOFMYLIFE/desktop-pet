@@ -90,7 +90,11 @@ export function AppearancePanel({ settings, update }: SettingsPanelProps) {
                 loading="lazy"
                 decoding="async"
               />
-              <span>{t(skin.labelKey)}</span>
+              <span>
+                {skin.labelKey
+                  ? t(skin.labelKey)
+                  : `${t(skin.nameKey ?? '')} · ${t(skin.paletteKey ?? '')}`}
+              </span>
             </button>
           ))}
         </div>

@@ -7,22 +7,35 @@ export interface CharacterStyleOption {
   skins: ReadonlyArray<PetSkinOption>;
 }
 
-const HERO_SKINS: PetSkinOption[] = [
-  { id: 'default', labelKey: 'settings.appearance.skins.heroDefault' },
-  { id: 'alt', labelKey: 'settings.appearance.skins.heroAlt' },
-];
+const HERO_PALETTES = ['coral', 'honey', 'mint', 'sky', 'lavender', 'rose', 'night', 'silver'];
+const HERO_CHARACTERS: Partial<Record<CharacterStyle, ReadonlyArray<string>>> = {
+  lighthero: ['girl', 'boy'],
+  webguard: ['boy', 'cat'],
+  ironarmor: ['robot', 'boy'],
+  titanguard: ['robot', 'cat'],
+  starcaptain: ['girl', 'robot'],
+  capesentinel: ['girl', 'cat'],
+};
+
+function heroSkins(style: CharacterStyle): PetSkinOption[] {
+  return (HERO_CHARACTERS[style] ?? []).flatMap((character) =>
+    HERO_PALETTES.map((palette) => ({
+      id: `${character}-${palette}`,
+      nameKey: `settings.appearance.characters.${character}`,
+      paletteKey: `settings.appearance.skins.${palette}`,
+    })),
+  );
+}
 
 export const CHARACTER_STYLE_OPTIONS: CharacterStyleOption[] = [
   { value: 'cutegirl', labelKey: 'settings.appearance.styles.cutegirl', skins: PET_SKIN_OPTIONS },
   { value: 'cuteboy', labelKey: 'settings.appearance.styles.cuteboy', skins: PET_SKIN_OPTIONS },
-  { value: 'lighthero', labelKey: 'settings.appearance.styles.lighthero', skins: HERO_SKINS },
-  { value: 'webguard', labelKey: 'settings.appearance.styles.webguard', skins: HERO_SKINS },
-  { value: 'ironarmor', labelKey: 'settings.appearance.styles.ironarmor', skins: HERO_SKINS },
-  { value: 'titanguard', labelKey: 'settings.appearance.styles.titanguard', skins: HERO_SKINS },
-  { value: 'starcaptain', labelKey: 'settings.appearance.styles.starcaptain', skins: HERO_SKINS },
-  { value: 'capesentinel', labelKey: 'settings.appearance.styles.capesentinel', skins: HERO_SKINS },
-  { value: 'catmouse', labelKey: 'settings.appearance.styles.catmouse', skins: HERO_SKINS },
-  { value: 'pighero', labelKey: 'settings.appearance.styles.pighero', skins: HERO_SKINS },
+  { value: 'lighthero', labelKey: 'settings.appearance.styles.lighthero', skins: heroSkins('lighthero') },
+  { value: 'webguard', labelKey: 'settings.appearance.styles.webguard', skins: heroSkins('webguard') },
+  { value: 'ironarmor', labelKey: 'settings.appearance.styles.ironarmor', skins: heroSkins('ironarmor') },
+  { value: 'titanguard', labelKey: 'settings.appearance.styles.titanguard', skins: heroSkins('titanguard') },
+  { value: 'starcaptain', labelKey: 'settings.appearance.styles.starcaptain', skins: heroSkins('starcaptain') },
+  { value: 'capesentinel', labelKey: 'settings.appearance.styles.capesentinel', skins: heroSkins('capesentinel') },
 ];
 
 export function styleDefinition(style: CharacterStyle): CharacterStyleOption {

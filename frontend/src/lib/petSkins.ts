@@ -2,7 +2,9 @@ import type { PetSkin } from '../types';
 
 export interface PetSkinOption {
   id: PetSkin;
-  labelKey: string;
+  labelKey?: string;
+  nameKey?: string;
+  paletteKey?: string;
 }
 
 export const PET_SKIN_OPTIONS: PetSkinOption[] = [
