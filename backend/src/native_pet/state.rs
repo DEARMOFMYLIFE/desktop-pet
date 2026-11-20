@@ -77,11 +77,11 @@ impl NativePet {
         if self.input_click_through == Some(self.settings.click_through) {
             return;
         }
-        let (width, height) = self.window.size();
+        let width = size_for(&self.settings.pet_size);
         let region = if self.settings.click_through {
             cairo::Region::create()
         } else {
-            cairo::Region::create_rectangle(&cairo::RectangleInt::new(0, 0, width, height))
+            cairo::Region::create_rectangle(&cairo::RectangleInt::new(0, 0, width, width))
         };
         gdk_window.input_shape_combine_region(&region, 0, 0);
         gdk_window.set_pass_through(self.settings.click_through);

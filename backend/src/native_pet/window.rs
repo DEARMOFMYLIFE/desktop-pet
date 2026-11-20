@@ -60,7 +60,8 @@ pub(super) fn create(
         gtk::gdk::EventMask::BUTTON_PRESS_MASK
             | gtk::gdk::EventMask::BUTTON_RELEASE_MASK
             | gtk::gdk::EventMask::POINTER_MOTION_MASK
-            | gtk::gdk::EventMask::BUTTON_MOTION_MASK,
+            | gtk::gdk::EventMask::BUTTON_MOTION_MASK
+            | gtk::gdk::EventMask::from_bits_truncate(1 << 25),
     );
     overlay.add(&area);
 

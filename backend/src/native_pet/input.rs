@@ -6,13 +6,25 @@ use tauri::{AppHandle, Emitter, Manager};
 
 use crate::state::AppState;
 
-use super::ui::click_hint;
+use super::ui::{click_hint, size_for};
 use super::{position, state_key, with_pet, NativePet};
 
 pub(super) fn attach(app: &AppHandle, area: &gtk::DrawingArea, gtk_window: &gtk::Window) {
     let gtk_window = gtk_window.clone();
     let press_app = app.clone();
     area.connect_button_press_event(move |_area, event| {
+        let Some(root) = event.root_coords() else {
+            return glib::Propagation::Proceed;
+        };
+        let position = gtk_window.position();
+        let Some(size) = with_pet(|pet| size_for(&pet.settings.pet_size)) else {
+            return glib::Propagation::Proceed;
+        };
+        let local_x = root.0 - position.0 as f64;
+        let local_y = root.1 - position.1 as f64;
+        if !(0.0..size as f64).contains(&local_x) || !(0.0..size as f64).contains(&local_y) {
+            return glib::Propagation::Proceed;
+        }
         if event.button() == 3 {
             super::menu::show(&press_app);
             return glib::Propagation::Stop;
@@ -25,10 +37,6 @@ pub(super) fn attach(app: &AppHandle, area: &gtk::DrawingArea, gtk_window: &gtk:
             let _ = crate::windows::open_settings(&press_app);
             return glib::Propagation::Stop;
         }
-        let Some(root) = event.root_coords() else {
-            return glib::Propagation::Proceed;
-        };
-        let position = gtk_window.position();
         with_pet(|pet| {
             cancel_click_inner(pet);
             pet.press_root = Some(root);
@@ -57,6 +65,11 @@ pub(super) fn attach(app: &AppHandle, area: &gtk::DrawingArea, gtk_window: &gtk:
             let Some(start) = pet.press_root else {
                 return;
             };
+            if !event.state().contains(gtk::gdk::ModifierType::BUTTON1_MASK) {
+                cancel_click_inner(pet);
+                reset_drag_state(pet);
+                return;
+            }
             if !pet.dragging {
                 let distance = ((root.0 - start.0).powi(2) + (root.1 - start.1).powi(2)).sqrt();
                 if distance <= 4.0 {
@@ -86,22 +99,44 @@ pub(super) fn attach(app: &AppHandle, area: &gtk::DrawingArea, gtk_window: &gtk:
             return glib::Propagation::Proceed;
         }
         with_pet(|pet| {
-            if !pet.dragging {
-                return;
+            let was_dragging = pet.dragging;
+            reset_drag_state(pet);
+            if was_dragging {
+                position::snap_and_save(&pet.app, &pet.window);
+                let state = pet.app.state::<AppState>();
+                if let Ok(mut service) = state.pet.lock() {
+                    let snapshot = service.end_drag();
+                    let _ = pet.app.emit("pet:changed", &snapshot);
+                }
+                let _ = state.save_pet_if_dirty();
             }
-            pet.dragging = false;
-            pet.press_root = None;
-            pet.drag_offset = None;
-            position::snap_and_save(&pet.app, &pet.window);
-            let state = pet.app.state::<AppState>();
-            if let Ok(mut service) = state.pet.lock() {
-                let snapshot = service.end_drag();
-                let _ = pet.app.emit("pet:changed", &snapshot);
-            }
-            let _ = state.save_pet_if_dirty();
         });
         glib::Propagation::Proceed
     });
+
+    area.connect_grab_broken_event(move |_area, _event| {
+        with_pet(|pet| {
+            cancel_click_inner(pet);
+            let was_dragging = pet.dragging;
+            reset_drag_state(pet);
+            if was_dragging {
+                position::snap_and_save(&pet.app, &pet.window);
+                let state = pet.app.state::<AppState>();
+                if let Ok(mut service) = state.pet.lock() {
+                    let snapshot = service.end_drag();
+                    let _ = pet.app.emit("pet:changed", &snapshot);
+                }
+                let _ = state.save_pet_if_dirty();
+            }
+        });
+        glib::Propagation::Proceed
+    });
+}
+
+fn reset_drag_state(pet: &mut NativePet) {
+    pet.dragging = false;
+    pet.press_root = None;
+    pet.drag_offset = None;
 }
 
 fn click(app: &AppHandle) {
